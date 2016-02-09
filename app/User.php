@@ -12,7 +12,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'identity_number', 'username', 'first_name', 'last_name', 'email', 'password', 'status',
     ];
 
     /**
@@ -23,4 +23,48 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Roles relationship
+     */
+    
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Assign new role to user
+     */
+    
+    public function assignRole($role){
+        if( is_string( $role ) ){
+            $role = Role::where('name', $role)->first();
+        }
+
+        return $this->roles()->attach($role);
+    }
+
+    /**
+     * Revoke role from user
+     */
+    
+    public function revokeRole($role){
+        if( is_string( $role ) ){
+            $role = Role::where('name', $role)->first();
+        }
+
+        return $this->roles()->detach($role);
+    }
+
+    /**
+     * Check if user hasRole
+     */
+    
+    public function hasRole($name){
+        foreach ($this->roles as $role) {
+            if( $role->name === $name )
+                return true;
+        }
+        return false;
+    }
 }

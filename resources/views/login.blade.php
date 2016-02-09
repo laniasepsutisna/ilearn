@@ -64,7 +64,7 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-3">
-                                <button type="submit" class="btn btn-primary">                                
+                                <button id="loginButton" class="btn btn-primary">                                
                                     <span class="login-loader hide"><i class="fa fa-spin fa-circle-o-notch"></i></span>
                                     <span class="sign-in"><i class="fa fa-btn fa-sign-in"></i></span>
                                     Login

@@ -28,12 +28,38 @@ Route::group(['middleware' => ['web']], function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-	//
+Route::get('login/{name}', function($name)
+{
+    auth()->logout();
+
+    $name = ucfirst(strtolower($name));
+
+    $user = App\User::where('name', $name)->firstOrFail();
+
+    auth()->login($user);
+
+    return redirect('/home');
 });
 
+Route::get('/home', ['middleware' => 'role:staff', function(){
+	return 'Admin page';
+}
+]);
 
-Route::group(['prefix' => 'api'], function() {
-    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
-    Route::post('authenticate', 'AuthenticateController@authenticate');
-});
+/*
+Route::get('/home', [ 'middleware' => ['web'] ,function() {
+	Auth::loginUsingId(3);
+	//Auth::logout();
+
+	if( Auth::user()->hasRole('staff') ){
+		return 'I am a staff!';
+	} elseif( Auth::user()->hasRole('teacher') ){
+		return 'Hi, I am a teacher.';
+	} elseif( Auth::user()->hasRole('student') ){
+		return 'Me student.';
+	} else {
+		return 'No user role defined!';
+	}
+
+}]);
+*/
