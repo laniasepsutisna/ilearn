@@ -11,12 +11,6 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-	Route::get('/', function () {
-	    return view('login');
-	});
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -28,38 +22,17 @@ Route::group(['middleware' => ['web']], function () {
 |
 */
 
-Route::get('login/{name}', function($name)
-{
-    auth()->logout();
+Route::group(['middleware' => ['web']], function () {
 
-    $name = ucfirst(strtolower($name));
+	/**
+	 * Login and Logout Route
+	 */
+	Route::get('/', 'LoginController@index');
+	Route::get('auth/login', 'LoginController@index');
+	Route::post('auth/login', 'LoginController@auth');
+	Route::get('auth/logout', 'LoginController@logout');
 
-    $user = App\User::where('name', $name)->firstOrFail();
-
-    auth()->login($user);
-
-    return redirect('/home');
+	Route::get('/home', ['middleware' => 'auth', function () {
+		return view('home');
+	}]);
 });
-
-Route::get('/home', ['middleware' => 'role:staff', function(){
-	return 'Admin page';
-}
-]);
-
-/*
-Route::get('/home', [ 'middleware' => ['web'] ,function() {
-	Auth::loginUsingId(3);
-	//Auth::logout();
-
-	if( Auth::user()->hasRole('staff') ){
-		return 'I am a staff!';
-	} elseif( Auth::user()->hasRole('teacher') ){
-		return 'Hi, I am a teacher.';
-	} elseif( Auth::user()->hasRole('student') ){
-		return 'Me student.';
-	} else {
-		return 'No user role defined!';
-	}
-
-}]);
-*/

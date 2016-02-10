@@ -9,36 +9,38 @@
 	<link href="{{ asset( '/css/font-awesome.min.css' ) }}" rel="stylesheet">
 	<link href="{{ asset( '/css/bootstrap.min.css' ) }}" rel="stylesheet">
 	<link href="{{ asset( '/css/app.css' ) }}" rel="stylesheet">
-	<script type="text/javascript" src="{{ asset( '/js/vendor/jquery.min.js' ) }}"></script>
+	<script type="text/javascript" src="{{ asset( '/js/libs/jquery.min.js' ) }}"></script>
 </head>
 <body class="login-page">
 
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModal">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="loginModalLabel">Login ke E-Learning</h4>
 				</div>
+
 				<div class="modal-body">
-					<form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label class="col-md-3 control-label">Username</label>
 
                             <div class="col-md-8">
                                 <input type="text" class="form-control" name="username" value="{{ old('username') }}">
-
-                                @if ($errors->has('email'))
+                                
+                                @if ($errors->has('username'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('username') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group">
                             <label class="col-md-3 control-label">Password</label>
 
                             <div class="col-md-8">
@@ -49,6 +51,7 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+
                             </div>
                         </div>
 
@@ -109,7 +112,7 @@
 		<div class="copyright">&copy; SMK Wira Harapan 2016.</div>
 	</div>
 
-	<script type="text/javascript" src="{{ asset( '/js/vendor/bootstrap.min.js' ) }}"></script>
+	<script type="text/javascript" src="{{ asset( '/js/libs/bootstrap.min.js' ) }}"></script>
 	<script type="text/javascript">
 	var base_url = "{{{ url('/') }}}";
 	</script>
