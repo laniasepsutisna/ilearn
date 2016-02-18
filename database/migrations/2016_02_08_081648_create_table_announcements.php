@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableNotifications extends Migration
+class CreateTableAnnouncements extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,13 @@ class CreateTableNotifications extends Migration
      */
     public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->string('title', 100);
             $table->text('content');
             $table->enum('status', ['info', 'warning']);
+            $table->timestamps();
 
             $table->foreign('user_id')
                   ->references('id')->on('users')
@@ -32,6 +33,6 @@ class CreateTableNotifications extends Migration
      */
     public function down()
     {
-        Schema::drop('notifications');
+        Schema::drop('announcements');
     }
 }

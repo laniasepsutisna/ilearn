@@ -24,15 +24,9 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-	/**
-	 * Login and Logout Route
-	 */
-	Route::get('/', 'LoginController@index');
-	Route::get('auth/login', 'LoginController@index');
-	Route::post('auth/login', 'LoginController@auth');
-	Route::get('auth/logout', 'LoginController@logout');
+	Route::get('/', ['uses' => 'LoginController@index', 'as' => 'auth.index'] );
+	Route::post('auth/login', ['uses' => 'LoginController@login', 'as' => 'auth.login']);
+	Route::get('auth/logout', ['uses' => 'LoginController@logout', 'as' => 'auth.logout']);
 
-	Route::get('/home', ['middleware' => 'auth', function () {
-		return view('home');
-	}]);
+	Route::resource('/announcements', 'AnnouncementController');
 });

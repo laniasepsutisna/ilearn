@@ -18,29 +18,37 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="loginModalLabel">Login ke E-Learning</h4>
+					<h4 class="modal-title" id="loginModalLabel">Masuk ke E-Learning</h4>
 				</div>
+
+				@if (count($errors) > 0)
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+				@endif
 
 				<div class="modal-body">
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         {!! csrf_field() !!}
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                             <label class="col-md-3 control-label">Username</label>
 
                             <div class="col-md-8">
-                                <input type="text" class="form-control" name="username" value="{{ old('username') }}">
+                                <input type="text" class="form-control" name="username" value="{{ old('username') }}" autofocus="autofocus">
                                 
                                 @if ($errors->has('username'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
+                                        <small>{{ $errors->first('username') }}</small>
                                     </span>
                                 @endif
 
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label class="col-md-3 control-label">Password</label>
 
                             <div class="col-md-8">
@@ -48,7 +56,7 @@
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <small>{{ $errors->first('password') }}</small>
                                     </span>
                                 @endif
 
@@ -115,6 +123,9 @@
 	<script type="text/javascript" src="{{ asset( '/js/libs/bootstrap.min.js' ) }}"></script>
 	<script type="text/javascript">
 	var base_url = "{{{ url('/') }}}";
+	jQuery('.modal').on('shown.bs.modal', function() {
+		jQuery(this).find('[autofocus]').focus();
+	});
 	</script>
 </body>
 </html>

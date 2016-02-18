@@ -1,17 +1,16 @@
 define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/projects/list',
-  'views/users/list'
+    'jquery',
+    'underscore',
+    'backbone',
 ], function($, _, Backbone){
-  var AppRouter = Backbone.Router.extend({
-    
-    }
-  });
+    var AppRouter = Backbone.Router.extend({
+        routes: function() {
+            '' : 
+        }
+    });
 
   var initialize = function(){
-    
+
     Backbone.history.start();
   };
   return {

@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
-use App\Role;
+use App\Models\User;
+use App\Models\Role;
 
 class UserTableSeeder extends Seeder
 {
@@ -19,8 +19,8 @@ class UserTableSeeder extends Seeder
 
         $user = User::create([
             'username'  => 'staff',
-            'first_name' => 'Staff',
-            'last_name' => 'SMK Wira',
+            'firstname' => 'Staff',
+            'lastname' => 'SMK Wira',
             'email' => str_random(10).'@gmail.com',
             'password' => bcrypt('secret')
         ]);
@@ -29,8 +29,8 @@ class UserTableSeeder extends Seeder
 
         $user = User::create([
             'username'  => 'teacher',
-            'first_name' => 'Teacher',
-            'last_name' => 'SMK Wira',
+            'firstname' => 'Teacher',
+            'lastname' => 'SMK Wira',
             'email' => str_random(10).'@gmail.com',
             'password' => bcrypt('secret')
         ]);
@@ -39,8 +39,8 @@ class UserTableSeeder extends Seeder
 
         $user = User::create([
             'username'  => 'student',
-            'first_name' => 'Students',
-            'last_name' => 'SMK Wira',
+            'firstname' => 'Students',
+            'lastname' => 'SMK Wira',
             'email' => str_random(10).'@gmail.com',
             'password' => bcrypt('secret')
         ]);

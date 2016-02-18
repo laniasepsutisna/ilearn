@@ -15,10 +15,14 @@ class CreateTableUserMeta extends Migration
         Schema::create('user_meta', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('tgl_lahir');
-            $table->string('alamat');
-            $table->string('telp');
-            $table->string('telp_org_tua');
+            $table->string('picture');
+            $table->string('cover');
+            $table->string('date_ofbirth');
+            $table->string('month_ofbirth');
+            $table->string('year_ofbirth');
+            $table->string('address');
+            $table->string('telp_no');
+            $table->string('parent_telp_no');
             $table->string('facebook_url');
             $table->string('twitter_url');
 
