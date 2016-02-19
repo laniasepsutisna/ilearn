@@ -15,7 +15,7 @@ class AnnouncementController extends Controller
 	 */
 	public function __construct(){
 		$this->middleware('auth');
-		$this->middleware('role:staff', ['only' => ['create', 'store', 'edit', 'update', 'destroy']]);
+		$this->middleware('role:staff');
 	}
     /**
      * Display a listing of the resource.
@@ -23,8 +23,9 @@ class AnnouncementController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return Announcement::all();
+    {   
+        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(10);
+        return view('announcements.index', compact('announcements'));
     }
 
     /**
@@ -33,7 +34,8 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-    	return view('announcements.create');
+        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(10);
+    	return view('announcements.create', compact( 'announcements' ));
     }
 
     /**

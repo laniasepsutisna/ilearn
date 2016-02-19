@@ -11,13 +11,14 @@
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{ $page_title or "Home | LMS SMK Wira Harapan" }}</title>
+	<title>@yield('page_title')</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
+	@yield('header_scripts')
 
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -38,7 +39,7 @@
 
 		<div class="content-wrapper">
 			<section class="content-header">
-				<h1>{{ $page_title or "Page Title" }} <small>{{ $page_description or null }}</small></h1>
+				<h1> @yield('page_title') <small> @yield('page_description') </small></h1>
 
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -59,5 +60,6 @@
 	<script src="{{ asset ('/js/libs/jquery.min.js') }}"></script>
 	<script src="{{ asset ('/js/libs/bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset ('/js/libs/adminlte.app.min.js') }}" type="text/javascript"></script>
+	@yield('footer_scripts')
 </body>
 </html>
