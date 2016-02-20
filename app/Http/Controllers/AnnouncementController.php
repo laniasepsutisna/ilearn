@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
+use App\Http\Requests\AnnouncementRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Announcement;
+use Auth;
 
 class AnnouncementController extends Controller
 {
@@ -22,10 +23,16 @@ class AnnouncementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
-        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(10);
-        return view('announcements.index', compact('announcements'));
+    public function index(Request $request)
+    {
+        $announcements = Announcement::where('user_id', Auth::user()->id)
+                                    ->where(function($query) use ($request){
+                                        $query->where('title', 'LIKE', '%' . $request->get('q') . '%');
+                                        $query->orWhere('content', 'LIKE', '%' . $request->get('q') . '%');
+                                    })
+                                    ->orderBy('created_at', 'DESC')
+                                    ->paginate(7);
+        return view('announcements.index', compact('q', 'announcements'));
     }
 
     /**
@@ -34,7 +41,7 @@ class AnnouncementController extends Controller
      */
     public function create()
     {
-        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(10);
+        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(7);
     	return view('announcements.create', compact( 'announcements' ));
     }
 
@@ -44,19 +51,12 @@ class AnnouncementController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AnnouncementRequest $request)
     {
-    	
-    	$this->validate($request, [
-            'title' => 'required|string|max:255|unique:announcements',
-            'content' => 'required|string',
-            'user_id' => 'exists:users,id',
-        ]);
-
     	Announcement::create($request->all());
     	\Flash::success('Pengumuman tersimpan.');
 
-        return redirect()->route('announcements.index');
+        return redirect()->route('announcements.create');
     }
 
     /**
@@ -78,7 +78,12 @@ class AnnouncementController extends Controller
      */
     public function edit($id)
     {
-        //
+        /* List of 7 latest announcements */
+        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(7);
+
+        /* Selected Announcement */
+        $announcement = Announcement::findOrFail($id);
+        return view('announcements.edit', compact('announcements', 'announcement'));
     }
 
     /**
@@ -101,6 +106,9 @@ class AnnouncementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Announcement::find($id)->delete();
+        \Flash::success('Pengumuman terhapus.');
+
+        return redirect()->route('announcements.index');
     }
 }

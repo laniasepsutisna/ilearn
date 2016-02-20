@@ -21,12 +21,12 @@
 
 		<ul class="sidebar-menu">
 			<li class="header">MENU UTAMA</li>
-			<li class="active"><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>
-			<li class="treeview">
+			<li class="{{ set_active('/') }}"><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>
+			<li class="treeview {{ set_active(['announcements.index', 'announcements.create', 'announcements.edit']) }}">
 				<a href="#"><i class="fa fa-volume-up"></i> <span>Pengumuman</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="#">Lihat Semua Pengumuman</a></li>
-					<li><a href="#">Tambah Pengumuman</a></li>
+					<li class="{{ set_active('announcements.index') }}"><a href="{{ route('announcements.index') }}">Lihat Semua Pengumuman</a></li>
+					<li class="{{ set_active('announcements.create') }}"><a href="{{ route('announcements.create') }}">Tambah Pengumuman</a></li>
 				</ul>
 			</li>
 

@@ -8,10 +8,23 @@
 @endsection
 
 @section('page_description')
-    <a href="{{ url('/announcements/create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah baru</a>
+    <a href="{{ route('announcements.create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>
 @endsection
 
 @section('content')
+
+<div class="row">
+	<div class="pull-right col-xs-6 col-sm-4 col-md-3">
+		{!! Form::open(['method' => 'get']) !!}
+			<div class="form-group {!! $errors->has('title') ? 'has-error' : '' !!}">
+				<div class="input-group">
+					<span class="input-group-addon"><i class="fa fa-search"></i></span>
+					{!! Form::text( 'q', null, ['class' => 'form-control', 'placeholder' => 'Search for...']) !!}
+				</div>
+			</div>
+		{!! Form::close() !!}
+	</div>
+</div>
 <div class="row">
 	<div class="col-xs-12">
 		<div class="box">
@@ -24,20 +37,27 @@
 						<tr>
 							<th><input type="checkbox"></input></th>
 							<th>Judul</th>
+							<th>Konten</th>
 							<th>Urgensi</th>
-							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($announcements as $announcement)
+						@foreach ($announcements as $a)
 						<tr>
 							<td><input type="checkbox"></input></td>
-	                        <td>{{ $announcement->title }}</td>
-	                        <td>{{ $announcement->status }}</td>
 	                        <td>
-	                        	<a href="" class="btn btn-flat btn-info btn-xs">Ubah</a>
-	                        	<a href="" class="btn btn-flat btn-danger btn-xs">Hapus</a>
-                        	</td>
+	                        	<div>
+	                        		<a href="{{ route('announcements.edit', $a->id) }}">{{ $a->title }}</a>
+	                        	</div>
+	                        	<div>
+		                        	<a href="{{ route('announcements.edit', $a->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
+		                        	{!! Form::open(['route' => ['announcements.destroy', $a->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+		                        		{!! Form::submit('Hapus', ['class'=>'btn btn-link-danger btn-flat btn-xs js-submit-confirm']) !!}
+	                        		{!! Form::close() !!}
+	                        	</div>
+	                        </td>
+	                        <td>{!! substr( $a->content, 0, 100 ) !!}</td>
+	                        <td>{{ $a->status }}</td>
 	                    </tr>
 	                    @endforeach
 	                </tbody>
@@ -45,11 +65,14 @@
 						<tr>
 							<th><input type="checkbox"></input></th>
 							<th>Judul</th>
+							<th>Konten</th>
 							<th>Urgensi</th>
-							<th>Action</th>
 						</tr>
 					</tfoot>
 				</table>
+				<div class="pull-right"> 
+					{!! $announcements->links() !!}
+				</div>
 			</div>
 		</div>
 	</div>

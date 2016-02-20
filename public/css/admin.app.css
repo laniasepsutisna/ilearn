@@ -1,0 +1,14 @@
+/* Admin Page */
+
+.products-list .product-info {
+	margin-left: 0;
+}
+
+.form-delete-inline {
+	display: inline-block;
+}
+
+.btn-link-danger {
+	background: none;
+	color: #9C1313;
+}

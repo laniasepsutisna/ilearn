@@ -11,12 +11,13 @@
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@yield('page_title')</title>
+	<title>@yield('page_title') | LMS SMK WIRA HARAPAN</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('css/admin.app.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
 	@yield('header_scripts')
 
@@ -39,7 +40,7 @@
 
 		<div class="content-wrapper">
 			<section class="content-header">
-				<h1> @yield('page_title') <small> @yield('page_description') </small></h1>
+				<h1>@yield('page_title') <small> @yield('page_description')</small></h1>
 
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
@@ -48,6 +49,13 @@
 			</section>
 
 			<section class="content">
+				@if (Session::has('flash_notification.message'))
+		            <div class="alert alert-{{ Session::get('flash_notification.level') }}">
+		                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+		                {{ Session::get('flash_notification.message') }}
+		            </div>
+			    @endif
+			    
 				@yield('content')
 			</section>
 		</div>
