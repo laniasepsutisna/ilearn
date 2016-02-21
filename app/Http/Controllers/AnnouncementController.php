@@ -25,10 +25,12 @@ class AnnouncementController extends Controller
      */
     public function index(Request $request)
     {
+        $q = $request->get('q');
+
         $announcements = Announcement::where('user_id', Auth::user()->id)
-                                    ->where(function($query) use ($request){
-                                        $query->where('title', 'LIKE', '%' . $request->get('q') . '%');
-                                        $query->orWhere('content', 'LIKE', '%' . $request->get('q') . '%');
+                                    ->where(function($query) use ($q){
+                                        $query->where('title', 'LIKE', '%' . $q . '%');
+                                        $query->orWhere('content', 'LIKE', '%' . $q . '%');
                                     })
                                     ->orderBy('created_at', 'DESC')
                                     ->paginate(7);
@@ -53,10 +55,10 @@ class AnnouncementController extends Controller
      */
     public function store(AnnouncementRequest $request)
     {
-    	Announcement::create($request->all());
+    	$a = Announcement::create($request->all());
     	\Flash::success('Pengumuman tersimpan.');
 
-        return redirect()->route('announcements.create');
+        return redirect()->route('announcements.edit', [$a->id]);
     }
 
     /**
@@ -95,7 +97,12 @@ class AnnouncementController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $announcement = Announcement::findOrFail($id);
+        $data = $request->all();
+        $announcement->update($data);
+
+        \Flash::success('Pengumuman diperbaharui.');
+        return redirect()->route('announcements.edit', [$id]);
     }
 
     /**

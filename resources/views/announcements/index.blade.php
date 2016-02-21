@@ -19,7 +19,7 @@
 			<div class="form-group {!! $errors->has('title') ? 'has-error' : '' !!}">
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-search"></i></span>
-					{!! Form::text( 'q', null, ['class' => 'form-control', 'placeholder' => 'Search for...']) !!}
+					{!! Form::text( 'q', isset($q) ? $q : null, ['class' => 'form-control', 'placeholder' => 'Cari pengumuman...']) !!}
 				</div>
 			</div>
 		{!! Form::close() !!}
@@ -51,9 +51,26 @@
 	                        	</div>
 	                        	<div>
 		                        	<a href="{{ route('announcements.edit', $a->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
-		                        	{!! Form::open(['route' => ['announcements.destroy', $a->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-		                        		{!! Form::submit('Hapus', ['class'=>'btn btn-link-danger btn-flat btn-xs js-submit-confirm']) !!}
-	                        		{!! Form::close() !!}
+		                        	<button type="button" class="btn btn-flat btn-link-danger btn-xs" data-toggle="modal" data-target="#deleteannouncement-{{ $a->id }}-modal">Hapus</button>
+	                        		<div class="modal" id="deleteannouncement-{{ $a->id }}-modal">
+	                        			<div class="modal-dialog">
+	                        				<div class="modal-content">
+	                        					<div class="modal-header">
+	                        						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+	                        						<h4 class="modal-title">Hapus {{ $a->title }}</h4>
+                        						</div>
+                        						<div class="modal-body">
+                        							<p>Anda yakin akan menghapus {{ $a->title }}?</p>
+                        						</div>
+                        						<div class="modal-footer">
+                        							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
+                        							{!! Form::open(['route' => ['announcements.destroy', $a->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+                        								{!! Form::submit('Hapus', ['class'=>'btn btn-danger btn-flat']) !!}
+                        							{!! Form::close() !!}
+                    							</div>
+                							</div>
+            							</div>
+        							</div>
 	                        	</div>
 	                        </td>
 	                        <td>{!! substr( $a->content, 0, 100 ) !!}</td>

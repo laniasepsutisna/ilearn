@@ -12,3 +12,11 @@
 	background: none;
 	color: #9C1313;
 }
+
+/* Custom modal dialog position */
+
+@media(min-width: 768px){
+	.modal-dialog {
+		margin: 15% auto;
+	}
+}

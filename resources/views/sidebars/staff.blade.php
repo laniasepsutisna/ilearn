@@ -21,7 +21,7 @@
 
 		<ul class="sidebar-menu">
 			<li class="header">MENU UTAMA</li>
-			<li class="{{ set_active('/') }}"><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>
+			<li class="{{ set_active('auth.index') }}"><a href="{{ route('auth.index') }}"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>
 			<li class="treeview {{ set_active(['announcements.index', 'announcements.create', 'announcements.edit']) }}">
 				<a href="#"><i class="fa fa-volume-up"></i> <span>Pengumuman</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
