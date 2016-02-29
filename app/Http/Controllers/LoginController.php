@@ -3,19 +3,23 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use Validator;
 use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
 class LoginController extends Controller
 {
+	use AuthenticatesAndRegistersUsers,ThrottlesLogins;
+
+	protected $username = 'username';
+
 	/**
 	 * Show login page as index
 	 * Change view if user is authenticated
 	 * 
 	 * @return a view of home page
-	 */
-	
+	 */	
 	public function index()
 	{
 		if( Auth::check() ) {
@@ -29,19 +33,47 @@ class LoginController extends Controller
 	 * Login process
 	 * 
 	 * @return redirect to index         
-	 */
-	
+	 */	
 	public function login(LoginRequest $request)
 	{
+        if ($lockedOut = $this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
 		$username = $request->get('username');
 		$password = $request->get('password');
-		$remember = $request->get('remember');
+		$remember = $request->has('remember');
 
-		if (Auth::attempt(['username' => $username, 'password' => $password, 'status' => 'active'], $remember)) {
+		if (Auth::attempt([
+			$this->loginUsername() => $username,
+			'password' => $password,
+			'status' => 'active'
+		], $remember)) {
+			$this->clearLoginAttempts($request);
+
             return redirect()->intended('/');
         }
 
-        return redirect('/')->withInput($request->only('username', 'remember'));
+        if (! $lockedOut) {
+            $this->incrementLoginAttempts($request);
+        }
+
+        return $this->sendFailedLoginResponse();
+	}
+
+	/**
+	 * Get failed response
+	 * @return string
+	 */
+	public function sendFailedLoginResponse()
+	{		
+        return redirect()->back()
+        	->withInput($request->only($this->loginUsername(), 'remember'))
+        	->withErrors([
+        		'username' => 'Username dan password tidak cocok atau akun sedang di banned.'
+			]);
 	}
 
 	/**

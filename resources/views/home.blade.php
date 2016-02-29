@@ -68,6 +68,7 @@
 	<script src="{{ asset ('/js/libs/jquery.min.js') }}"></script>
 	<script src="{{ asset ('/js/libs/bootstrap.min.js') }}" type="text/javascript"></script>
 	<script src="{{ asset ('/js/libs/adminlte.app.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset ('/js/libs/sweetalert.min.js') }}" type="text/javascript"></script>
 	@yield('footer_scripts')
 </body>
 </html>

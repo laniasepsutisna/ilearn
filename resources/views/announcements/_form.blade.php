@@ -11,7 +11,7 @@
     <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
         {!! Form::label('urgensi', 'Urgensi', array('class' => 'col-md-3 control-label')) !!}
         <div class="col-md-6">
-            {!! Form::select('status', [''=>'-- Status Urgensi --']+['info' => 'Hanya Info', 'warning' => 'Sangat Penting'], null, ['class' => 'form-control', 'id' => 'urgensi']) !!}                            
+            {!! Form::select('status', ['info' => 'Hanya Info', 'warning' => 'Sangat Penting'], null, ['class' => 'form-control selectize', 'id' => 'urgensi', 'placeholder' => 'Pilih tipe urgensi...']) !!}                            
             {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
         </div>
     </div>

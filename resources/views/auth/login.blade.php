@@ -20,15 +20,6 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title" id="loginModalLabel">Masuk ke E-Learning</h4>
 				</div>
-
-				@if (count($errors) > 0)
-				<ul>
-					@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-				</ul>
-				@endif
-
 				<div class="modal-body">
 					<form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/login') }}">
                         {!! csrf_field() !!}

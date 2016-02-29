@@ -29,4 +29,5 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('auth/logout', ['uses' => 'LoginController@logout', 'as' => 'auth.logout']);
 
 	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
+	Route::resource('/users', 'UserController', ['except' => 'show']);
 });

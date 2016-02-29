@@ -16,7 +16,8 @@ class Announcement extends Model
 	 * Relationship to user table
 	 * @return json of user
 	 */
-    public function user(){
+    public function user()
+    {
     	return $this->belongsTo(User::class);
     }
 }

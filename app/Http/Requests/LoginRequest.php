@@ -24,8 +24,8 @@ class LoginRequest extends Request
     public function rules()
     {
         return [
-            'username' => 'required',
-            'password' => 'required',
+            'username' => 'required|max:22',
+            'password' => 'required|min:6',
         ];
     }
 
@@ -33,6 +33,7 @@ class LoginRequest extends Request
         return [
             'username.required' => 'Username diperlukan!',
             'password.required' => 'Password diperlukan!',
+            'username.max' => 'Username terlalu panjang!'
         ];
     }
 }

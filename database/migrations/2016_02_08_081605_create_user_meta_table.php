@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableUserMeta extends Migration
+class CreateUserMetaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,21 +14,18 @@ class CreateTableUserMeta extends Migration
     {
         Schema::create('user_meta', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('user_id');
             $table->string('picture');
             $table->string('cover');
-            $table->string('date_ofbirth');
-            $table->string('month_ofbirth');
-            $table->string('year_ofbirth');
+            $table->string('dayofbirth');
+            $table->string('monthofbirth');
+            $table->string('yearofbirth');
             $table->string('address');
             $table->string('telp_no');
             $table->string('parent_telp_no');
-            $table->string('facebook_url');
-            $table->string('twitter_url');
+            $table->string('social_url');
 
-            $table->foreign('user_id')
-                  ->references('id')->on('users')
-                  ->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

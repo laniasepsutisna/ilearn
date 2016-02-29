@@ -24,7 +24,7 @@ class AnnouncementRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|string|max:255|unique:announcements',
+            'title' => 'required|string|max:100|unique:announcements',
             'status' => 'required',
             'user_id' => 'exists:users,id',
             'content' => 'required|string'

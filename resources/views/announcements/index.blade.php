@@ -1,6 +1,7 @@
 @extends('home')
 
 @section('header_scripts')
+<link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet">
 @endsection
 
 @section('page_title')
@@ -15,6 +16,7 @@
 
 <div class="row">
 	<div class="pull-right col-xs-6 col-sm-4 col-md-3">
+
 		{!! Form::open(['method' => 'get']) !!}
 			<div class="form-group {!! $errors->has('title') ? 'has-error' : '' !!}">
 				<div class="input-group">
@@ -23,6 +25,7 @@
 				</div>
 			</div>
 		{!! Form::close() !!}
+		
 	</div>
 </div>
 <div class="row">
@@ -51,26 +54,9 @@
 	                        	</div>
 	                        	<div>
 		                        	<a href="{{ route('announcements.edit', $a->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
-		                        	<button type="button" class="btn btn-flat btn-link-danger btn-xs" data-toggle="modal" data-target="#deleteannouncement-{{ $a->id }}-modal">Hapus</button>
-	                        		<div class="modal" id="deleteannouncement-{{ $a->id }}-modal">
-	                        			<div class="modal-dialog">
-	                        				<div class="modal-content">
-	                        					<div class="modal-header">
-	                        						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-	                        						<h4 class="modal-title">Hapus {{ $a->title }}</h4>
-                        						</div>
-                        						<div class="modal-body">
-                        							<p>Anda yakin akan menghapus {{ $a->title }}?</p>
-                        						</div>
-                        						<div class="modal-footer">
-                        							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-                        							{!! Form::open(['route' => ['announcements.destroy', $a->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-                        								{!! Form::submit('Hapus', ['class'=>'btn btn-danger btn-flat']) !!}
-                        							{!! Form::close() !!}
-                    							</div>
-                							</div>
-            							</div>
-        							</div>
+        							{!! Form::open(['route' => ['announcements.destroy', $a->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+        								{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $a->title]) !!}
+        							{!! Form::close() !!}
 	                        	</div>
 	                        </td>
 	                        <td>{!! substr( $a->content, 0, 100 ) !!}</td>
@@ -97,4 +83,5 @@
 @endsection
 
 @section('footer_scripts')
+<script src="{{ asset ('/js/admin.js') }}" type="text/javascript"></script>
 @endsection

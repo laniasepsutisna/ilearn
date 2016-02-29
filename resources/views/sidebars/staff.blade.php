@@ -48,25 +48,39 @@
 			</li>
 
 			<li class="header">MANAJEMEN USER</li>
-			<li class="treeview">
+			@if(Request::get('type') == 'staff')
+				<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
+			@else
+				<li class="treeview">
+			@endif
 				<a href="#"><i class="fa fa-user"></i> <span>Staff</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="#">Lihat Semua Staff</a></li>
-					<li><a href="#">Tambah Staff</a></li>
+					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index', ['type' => 'staff']) }}">Lihat Semua Staff</a></li>
+					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create', ['type' => 'staff']) }}">Tambah Staff</a></li>
 				</ul>
 			</li>
-			<li class="treeview">
+
+			@if(Request::get('type') == 'teacher')
+				<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
+			@else
+				<li class="treeview">
+			@endif
 				<a href="#"><i class="fa fa-user"></i> <span>Guru</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="#">Lihat Semua Guru</a></li>
-					<li><a href="#">Tambah Guru</a></li>
+					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index', ['type' => 'teacher']) }}">Lihat Semua Guru</a></li>
+					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create', ['type' => 'teacher']) }}">Tambah Guru</a></li>
 				</ul>
 			</li>
-			<li class="treeview">
+
+			@if(Request::get('type') == 'student')
+				<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
+			@else
+				<li class="treeview">
+			@endif
 				<a href="#"><i class="fa fa-user"></i> <span>Siswa</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="#">Lihat Semua Siswa</a></li>
-					<li><a href="#">Tambah Siswa</a></li>
+					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index', ['type' => 'student']) }}">Lihat Semua Siswa</a></li>
+					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create', ['type' => 'student']) }}">Tambah Siswa</a></li>
 				</ul>
 			</li>
 		</ul>

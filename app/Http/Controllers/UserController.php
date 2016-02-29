@@ -6,21 +6,40 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Role;
 
 class UserController extends Controller
 {
 
 	public function __construct(){
         $this->middleware('auth');
+        $this->middleware('role:staff');
 	}
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-    	$this->middleware('role:staff');
+        $querystring = ['type' => $request->get('type')];
+
+        if( $request->has('q') ){
+            $querystring['q'] = $request->get('q');
+        }
+
+        $users = Role::where('name', $request->get('type'))
+                    ->first()
+                    ->users()
+                    ->where(function($query) use ($request){
+                        $query->where('firstname', 'LIKE', '%' . $request->get('q') . '%')                        
+                                ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')                      
+                                ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
+                    })
+                    ->paginate(7);
+
+        return view('users.index', compact('users', 'querystring'));
     }
 
     /**
@@ -28,9 +47,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $users = Role::where('name', $request->get('type'))
+                    ->first()
+                    ->users()
+                    ->paginate(7);
+        return view('users.create', compact('users'));
     }
 
     /**
@@ -61,9 +84,17 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        /* List of 7 latest users */
+        $users = Role::where('name', 'staff')
+                    ->first()
+                    ->users()
+                    ->paginate(7);
+
+        /* Selected User */
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('users', 'user'));
     }
 
     /**

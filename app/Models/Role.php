@@ -10,7 +10,8 @@ class Role extends Model
 	 * Relationship to User
 	 * @return json of user data
 	 */
-    public function users(){
+    public function users()
+    {
     	return $this->belongsToMany(User::class);
     }
 }
