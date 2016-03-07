@@ -11,15 +11,15 @@
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>@yield('page_title') | LMS SMK WIRA HARAPAN</title>
+	<title>{{ $page_title or 'Home' }} | LMS SMK WIRA HARAPAN</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset('/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-	<link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('css/admin.app.css') }}" rel="stylesheet" type="text/css" />
-	<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
 	@yield('header_scripts')
+	<link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('/css/skins/skin-blue.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset('css/admin.app.css') }}" rel="stylesheet" type="text/css" />
 
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -30,7 +30,7 @@
   	<div class="wrapper">
 		@include('header')
 
-		@if(Auth::user()->hasRole('staff'))
+		@if(Auth::user()->hasRole('maddog', 'staff'))
 	  		@include('sidebars.staff')
 	  	@elseif(Auth::user()->hasRole('teacher'))
 	  		@include('sidebars.teacher')
@@ -40,7 +40,7 @@
 
 		<div class="content-wrapper">
 			<section class="content-header">
-				<h1>@yield('page_title') <small> @yield('page_description')</small></h1>
+				<h1>{{ $page_title or 'Home' }} <small> @yield('page_description')</small></h1>
 
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>

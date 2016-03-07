@@ -3,19 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Announcement extends Model
 {
-	/**
-	 * Fillable field
-	 * @var array
-	 */
+    use SoftDeletes;
+    
 	protected $fillable = ['user_id', 'title', 'content', 'status'];
 
-	/**
-	 * Relationship to user table
-	 * @return json of user
-	 */
     public function user()
     {
     	return $this->belongsTo(User::class);

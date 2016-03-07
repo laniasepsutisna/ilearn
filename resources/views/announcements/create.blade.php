@@ -1,15 +1,12 @@
 @extends('home')
 
-@section('page_title')
-    Tambah Pengumuman
-@endsection
-
 @section('page_description')
     Menambahkan pengumuman baru
 @endsection
 
 @section('header_scripts')
-<link rel="stylesheet" href="{{ asset( '/css/bootstrap3-wysihtml5.min.css') }}">
+<link href="{{ asset( '/css/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('content')
@@ -17,7 +14,7 @@
     <div class="col-md-8">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Tambahkan Pengumuman</h3>
+                <h3 class="box-title">&nbsp;</h3>
             </div>
             {!! Form::open(['role' => 'form', 'class' => 'form-horizontal', 'route' => 'announcements.index']) !!}
                 @include('announcements._form')
@@ -33,9 +30,11 @@
 
 @section('footer_scripts')
 <script src="{{ asset('/js/libs/bootstrap3-wysihtml5.all.min.js') }}"></script>
+<script src="{{ asset ('/js/libs/select2.js') }}" type="text/javascript"></script>
 <script>
-    jQuery(function () {
-        jQuery(".textarea").wysihtml5();
+    jQuery(function ($) {
+        $(".textarea").wysihtml5();
+        $('.select2').select2();
     });
 </script>
 @endsection

@@ -1,23 +1,31 @@
 @extends('home')
 
 @section('header_scripts')
-@endsection
-
-@section('page_title')
-	Users
+<link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
+<link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('page_description')
-    <a href="{{ route('users.create', ['type' => Request::get('type')]) }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>
+    <a href="{{ route('users.create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>
 @endsection
 
 @section('content')
 <div class="row">
+	<div class="pull-left col-xs-6 col-sm-8 col-md-3">
+		<div class="btn-group" role="group">
+			<a class="btn btn-default" href="{{ route('users.index') }}">All</a>
+			<a class="btn btn-default" href="{{ route('users.index', ['type' => 'staff']) }}">Staff</a>
+			<a class="btn btn-default" href="{{ route('users.index', ['type' => 'teacher']) }}">Guru</a>
+			<a class="btn btn-default" href="{{ route('users.index', ['type' => 'student']) }}">Siswa</a>
+		</div>
+		<div class="btn-group" role="group">
+			<a class="btn btn-default" href="{{ route('users.trash') }}"><i class="fa fa-trash"></i></a>
+		</div>
+	</div>
 	<div class="pull-right col-xs-6 col-sm-4 col-md-3">
 
 		{!! Form::open(['method' => 'get']) !!}
 			<div class="form-group {!! $errors->has('title') ? 'has-error' : '' !!}">
-				{!! Form::hidden('type', Request::get('type') ? Request::get('type') : 'staff') !!}
 				<div class="input-group">
 					<span class="input-group-addon"><i class="fa fa-search"></i></span>
 					{!! Form::text( 'q', Request::has('q') ? Request::get('q') : null, ['class' => 'form-control', 'placeholder' => 'Cari user...']) !!}
@@ -41,42 +49,36 @@
 							<th>Nama</th>
 							<th>Email</th>
 							<th>Status</th>
+							<th>Role</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($users as $u)
+						@foreach ($users as $user)
 							<tr>
-								<td><input type="checkbox" name="id[]" value="{{ $u->id }}"></input></td>
+								<td><input type="checkbox" name="id[]" value="{{ $user->id }}"></input></td>
 		                        <td>
+		                        	<div>{{ $user->fullname }}</div>
 		                        	<div>
-		                        		<a href="{{ route('users.edit', $u->id) }}">{{ $u->fullName }}</a>
-		                        	</div>
-		                        	<div>
-			                        	<a href="{{ route('users.edit', $u->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
-			                        	<button type="button" class="btn btn-flat btn-link-danger btn-xs" data-toggle="modal" data-target="#deleteuser-{{ $u->id }}-modal">Hapus</button>
-		                        		<div class="modal" id="deleteuser-{{ $u->id }}-modal">
-		                        			<div class="modal-dialog">
-		                        				<div class="modal-content">
-		                        					<div class="modal-header">
-		                        						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-		                        						<h4 class="modal-title">Hapus {{ $u->fullName }}</h4>
-	                        						</div>
-	                        						<div class="modal-body">
-	                        							<p>Anda yakin akan menghapus {{ $u->fullName }}?</p>
-	                        						</div>
-	                        						<div class="modal-footer">
-	                        							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Batal</button>
-	                        							{!! Form::open(['route' => ['users.destroy', $u->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-	                        								{!! Form::submit('Hapus', ['class'=>'btn btn-danger btn-flat']) !!}
-	                        							{!! Form::close() !!}
-	                    							</div>
-	                							</div>
-	            							</div>
-	        							</div>
+		                        		@if(Route::currentRouteNamed('users.trash'))
+			                        		{!! Form::open(['route' => ['users.restore', $user->id], 'method' => 'patch', 'class' => 'form-delete-inline']) !!}
+	        									{!! Form::submit('Batal Hapus', ['class'=>'btn btn-flat btn-link btn-xs']) !!}
+	        								{!! Form::close() !!}
+			                        		{!! Form::open(['route' => ['users.forcedelete', $user->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+	        									{!! Form::submit('Hapus Selamanya', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $user->fullname]) !!}
+	        								{!! Form::close() !!}
+        								@else
+			                        		<a href="{{ route('users.edit', $user->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+			                        		@if($user->rolename !== 'maddog')
+	        									{!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+		        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs']) !!}
+		        								{!! Form::close() !!}
+		        							@endif
+        								@endif
 		                        	</div>
 		                        </td>
-		                        <td>{{ $u->email }}</td>
-		                        <td>{{ $u->status }}</td>
+		                        <td>{{ $user->email }}</td>
+		                        <td>{{ $user->status }}</td>
+		                        <td>{{ $user->rolename }}</td>
 		                    </tr>
 	                    @endforeach
 	                </tbody>
@@ -86,11 +88,16 @@
 							<th>Nama</th>
 							<th>Email</th>
 							<th>Status</th>
+							<th>Role</th>
 						</tr>
 					</tfoot>
 				</table>
 				<div class="pull-right">
+				@if( $querystring !== null )
 					{!! $users->appends($querystring)->links() !!}
+				@else
+					{!! $users->links() !!}
+				@endif
 				</div>
 			</div>
 		</div>
@@ -99,4 +106,6 @@
 @endsection
 
 @section('footer_scripts')
+<script src="{{ asset ('/js/libs/select2.js') }}" type="text/javascript"></script>
+<script src="{{ asset ('/js/admin.js') }}" type="text/javascript"></script>
 @endsection

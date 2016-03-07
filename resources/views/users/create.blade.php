@@ -9,7 +9,7 @@
 @endsection
 
 @section('header_scripts')
-<link rel="stylesheet" href="{{ asset( '/css/bootstrap3-wysihtml5.min.css') }}">
+<link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('content')
@@ -32,10 +32,10 @@
 
 
 @section('footer_scripts')
-<script src="{{ asset('/js/libs/bootstrap3-wysihtml5.all.min.js') }}"></script>
-<script>
-    jQuery(function () {
-        jQuery(".textarea").wysihtml5();
+<script src="{{ asset ('/js/libs/select2.js') }}" type="text/javascript"></script>
+<script type="text/javascript">
+    jQuery(function($){
+        $('.select2').select2();
     });
 </script>
 @endsection

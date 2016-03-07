@@ -1,11 +1,7 @@
 @extends('home')
 
 @section('header_scripts')
-<link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet">
-@endsection
-
-@section('page_title')
-	Pengumuman
+<link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet" media="all">
 @endsection
 
 @section('page_description')
@@ -45,22 +41,27 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach ($announcements as $a)
+						@foreach ($announcements as $announcement)
 						<tr>
 							<td><input type="checkbox"></input></td>
 	                        <td>
 	                        	<div>
-	                        		<a href="{{ route('announcements.edit', $a->id) }}">{{ $a->title }}</a>
+	                        		<a href="{{ route('announcements.edit', $announcement->id) }}">{{ $announcement->title }}</a>
 	                        	</div>
 	                        	<div>
-		                        	<a href="{{ route('announcements.edit', $a->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
-        							{!! Form::open(['route' => ['announcements.destroy', $a->id],'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-        								{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $a->title]) !!}
+		                        	<a href="{{ route('announcements.edit', $announcement->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
+        							{!! Form::open(['route' => ['announcements.destroy', $announcement->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+        								{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $announcement->title]) !!}
         							{!! Form::close() !!}
 	                        	</div>
 	                        </td>
-	                        <td>{!! substr( $a->content, 0, 100 ) !!}</td>
-	                        <td>{{ $a->status }}</td>
+	                        <td>
+	                        	{!! substr($announcement->content, 0, 120) !!} 
+	                       		@if( strlen($announcement->content) > 120 ) 
+	                       			{{ '...' }}
+                       			@endif
+                   			</td>
+	                        <td>{{ $announcement->status }}</td>
 	                    </tr>
 	                    @endforeach
 	                </tbody>

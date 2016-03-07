@@ -47,6 +47,38 @@
         </div>
     </div>
 
+    <div class="form-group {{ $errors->has('dayofbirth') ? 'has-error' : '' }}">
+        {!! Form::label('dob', 'Tanggal Lahir', ['class' => 'col-md-3 control-label']) !!}
+        <div class="col-md-6">
+            {!! Form::text('dob', null, ['class'=> 'form-control datepicker', 'id' => 'dob', 'placeholder' => 'tanggal/bulan/tahun']) !!}
+            {!! $errors->first('dob', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group {{ $errors->has('no_telp') ? 'has-error' : '' }}">
+        {!! Form::label('no_telp', 'No Telp/ HP', ['class' => 'col-md-3 control-label']) !!}
+        <div class="col-md-6">
+            {!! Form::text('no_telp', null, ['class'=> 'form-control', 'id' => 'no_telp', 'placeholder' => 'No telp user...']) !!}
+            {!! $errors->first('no_telp', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group {{ $errors->has('parent_telp_no') ? 'has-error' : '' }}">
+        {!! Form::label('parent_telp_no', 'Telp/HP Orang Tua/Wali', ['class' => 'col-md-3 control-label']) !!}
+        <div class="col-md-6">
+            {!! Form::text('parent_telp_no', null, ['class'=> 'form-control', 'id' => 'parent_telp_no', 'placeholder' => 'No telp orang tua/ wali user. (hanya untuk siswa)']) !!}
+            {!! $errors->first('parent_telp_no', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
+        {!! Form::label('address', 'Alamat', array('class' => 'col-md-3 control-label')) !!}
+        <div class="col-md-9">
+            {!! Form::textarea('address', null, ['class' => 'form-control textarea', 'placeholder' => 'Alamat user...', 'id' => 'address']) !!}
+            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
     <div class="box-footer">
         <div class="col-md-offset-3">
             {!! Form::submit(isset($model) ? 'Update' : 'Save', ['class'=>'btn btn-flat btn-success']) !!}

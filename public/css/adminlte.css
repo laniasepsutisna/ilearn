@@ -57,10 +57,10 @@ body {
 .content-wrapper,
 .right-side,
 .main-footer {
-  -webkit-transition: -webkit-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-  -moz-transition: -moz-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-  -o-transition: -o-transform 0.3s ease-in-out, margin 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out, margin 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.15s ease-in-out, margin 0.15s ease-in-out;
+  -moz-transition: -moz-transform 0.15s ease-in-out, margin 0.15s ease-in-out;
+  -o-transition: -o-transform 0.15s ease-in-out, margin 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, margin 0.15s ease-in-out;
   margin-left: 230px;
   z-index: 820;
 }
@@ -196,9 +196,9 @@ a:focus {
   z-index: 1030;
 }
 .main-header > .navbar {
-  -webkit-transition: margin-left 0.3s ease-in-out;
-  -o-transition: margin-left 0.3s ease-in-out;
-  transition: margin-left 0.3s ease-in-out;
+  -webkit-transition: margin-left 0.15s ease-in-out;
+  -o-transition: margin-left 0.15s ease-in-out;
+  transition: margin-left 0.15s ease-in-out;
   margin-bottom: 0;
   margin-left: 230px;
   border: none;
@@ -285,9 +285,9 @@ a:focus {
   line-height: .9;
 }
 .main-header .logo {
-  -webkit-transition: width 0.3s ease-in-out;
-  -o-transition: width 0.3s ease-in-out;
-  transition: width 0.3s ease-in-out;
+  -webkit-transition: width 0.15s ease-in-out;
+  -o-transition: width 0.15s ease-in-out;
+  transition: width 0.15s ease-in-out;
   display: block;
   float: left;
   height: 50px;
@@ -422,10 +422,10 @@ a:focus {
   min-height: 100%;
   width: 230px;
   z-index: 810;
-  -webkit-transition: -webkit-transform 0.3s ease-in-out, width 0.3s ease-in-out;
-  -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
-  -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.15s ease-in-out, width 0.15s ease-in-out;
+  -moz-transition: -moz-transform 0.15s ease-in-out, width 0.15s ease-in-out;
+  -o-transition: -o-transform 0.15s ease-in-out, width 0.15s ease-in-out;
+  transition: transform 0.15s ease-in-out, width 0.15s ease-in-out;
 }
 @media (max-width: 767px) {
   .main-sidebar,
@@ -690,9 +690,9 @@ a:focus {
   top: 0;
   right: -230px;
   width: 230px;
-  -webkit-transition: right 0.3s ease-in-out;
-  -o-transition: right 0.3s ease-in-out;
-  transition: right 0.3s ease-in-out;
+  -webkit-transition: right 0.15s ease-in-out;
+  -o-transition: right 0.15s ease-in-out;
+  transition: right 0.15s ease-in-out;
 }
 .control-sidebar {
   position: absolute;
@@ -1484,9 +1484,9 @@ a:focus {
   z-index: 5px;
 }
 .small-box .icon {
-  -webkit-transition: all 0.3s linear;
-  -o-transition: all 0.3s linear;
-  transition: all 0.3s linear;
+  -webkit-transition: all 0.15s linear;
+  -o-transition: all 0.15s linear;
+  transition: all 0.15s linear;
   position: absolute;
   top: -10px;
   right: 10px;
@@ -3966,10 +3966,10 @@ table.text-center th {
   line-height: 30px;
 }
 .fc-color-picker > li .fa {
-  -webkit-transition: -webkit-transform linear 0.3s;
-  -moz-transition: -moz-transform linear 0.3s;
-  -o-transition: -o-transform linear 0.3s;
-  transition: transform linear 0.3s;
+  -webkit-transition: -webkit-transform linear 0.15s;
+  -moz-transition: -moz-transform linear 0.15s;
+  -o-transition: -o-transform linear 0.15s;
+  transition: transform linear 0.15s;
 }
 .fc-color-picker > li .fa:hover {
   -webkit-transform: rotate(30deg);
@@ -3978,9 +3978,9 @@ table.text-center th {
   transform: rotate(30deg);
 }
 #add-new-event {
-  -webkit-transition: all linear 0.3s;
-  -o-transition: all linear 0.3s;
-  transition: all linear 0.3s;
+  -webkit-transition: all linear 0.15s;
+  -o-transition: all linear 0.15s;
+  transition: all linear 0.15s;
 }
 .external-event {
   padding: 5px 10px;

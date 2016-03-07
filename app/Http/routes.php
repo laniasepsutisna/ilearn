@@ -29,5 +29,12 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('auth/logout', ['uses' => 'LoginController@logout', 'as' => 'auth.logout']);
 
 	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
+	Route::get('announcements/trash', ['uses' => 'AnnouncementController@trash', 'as' => 'announcements.trash']);
+	Route::match(['put', 'patch'],'announcements/restore/{announcements}', ['uses' => 'AnnouncementController@restore', 'as' => 'announcements.restore']);
+	Route::delete('announcements/forcedelete/{announcements}', ['uses' => 'AnnouncementController@forceDelete', 'as' => 'announcements.forcedelete']);
+
 	Route::resource('/users', 'UserController', ['except' => 'show']);
+	Route::get('users/trash', ['uses' => 'UserController@trash', 'as' => 'users.trash']);
+	Route::match(['put', 'patch'], 'users/restore/{users}', ['uses' => 'UserController@restore', 'as' => 'users.restore']);
+	Route::delete('users/forcedelete/{users}', ['uses' => 'UserController@forceDelete', 'as' => 'users.forcedelete']);
 });

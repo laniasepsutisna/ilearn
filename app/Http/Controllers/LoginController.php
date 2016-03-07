@@ -14,12 +14,6 @@ class LoginController extends Controller
 
 	protected $username = 'username';
 
-	/**
-	 * Show login page as index
-	 * Change view if user is authenticated
-	 * 
-	 * @return a view of home page
-	 */	
 	public function index()
 	{
 		if( Auth::check() ) {
@@ -29,11 +23,6 @@ class LoginController extends Controller
 		return view('auth.login');
 	}
 
-	/**
-	 * Login process
-	 * 
-	 * @return redirect to index         
-	 */	
 	public function login(LoginRequest $request)
 	{
         if ($lockedOut = $this->hasTooManyLoginAttempts($request)) {
@@ -63,10 +52,6 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse();
 	}
 
-	/**
-	 * Get failed response
-	 * @return string
-	 */
 	public function sendFailedLoginResponse()
 	{		
         return redirect()->back()
@@ -76,11 +61,6 @@ class LoginController extends Controller
 			]);
 	}
 
-	/**
-	 * Logout process
-	 * 
-	 * @return url redirect to index
-	 */
 	public function logout()
 	{
 		Auth::logout();

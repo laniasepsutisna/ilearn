@@ -4,75 +4,45 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\UuidModel;
 
 class User extends Authenticatable
 {
-    /**
-     * Use SoftDelete trait
-     */
-    use SoftDeletes;
+    use UuidModel, SoftDeletes;
 
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
     protected $dates = ['deleted_at'];
 
-    /**
-     * Add fullname using Accessor
-     * @var array
-     */
-    protected $appends = ['fullname'];
+    protected $appends = ['fullname', 'rolename'];
 
-    /**
-     * Prevent incrementing in ID
-     * We are using UUID
-     * @var string
-     */
     public $incrementing = false;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'identity_number', 'username', 'firstname', 'lastname', 'email', 'password', 'status',
+        'identitynumber', 'username', 'firstname', 'lastname', 'email', 'password', 'status',
     ];
 
-    /**
-     * The attributes excluded from the model's JSON form.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'id', 'password', 'remember_token',
     ];
-    
-    /**
-     * Fullname Accessor
-     * @return string combined 2 string
-     */
+
+    public static function boot(){
+        parent::boot();
+
+        static::deleting(function($model) {
+            $model->roles()->detach();
+        });
+    }
+
     public function getFullnameAttribute()
     {
         return $this->firstname . ' ' . $this->lastname;
     }
 
-    /**
-     * Roles relationship
-     * @return array
-     */
     public function roles()
     {
         return $this->belongsToMany(Role::class);
     }
 
-    /**
-     * Get roles lists
-     * @return array
-     */
-    public function getRoleListsAttribute()
+    public function getRoleAttribute()
     {
         if ($this->roles()->count() < 1) {
             return null;
@@ -80,11 +50,12 @@ class User extends Authenticatable
         return $this->roles->lists('id')->all();
     }
 
-    /**
-     * Assign new role to user
-     * @param  string, int
-     * @return
-     */
+    public function getRoleNameAttribute(){
+        foreach ($this->roles as $role) {
+            return $role->name;
+        }
+    }
+
     public function assignRole($role)
     {
         if( is_string( $role ) ){
@@ -94,11 +65,6 @@ class User extends Authenticatable
         return $this->roles()->attach($role);
     }
 
-    /**
-     * Remove role from user
-     * @param  string or int
-     * @return
-     */
     public function revokeRole($role)
     {
         if( is_string( $role ) ){
@@ -108,35 +74,32 @@ class User extends Authenticatable
         return $this->roles()->detach($role);
     }
 
-    /**
-     * Check current user role
-     * @param  string
-     * @return boolean
-     */
     public function hasRole($name)
     {
         foreach ($this->roles as $role) {
-            if( $role->name === $name )
+            if($role->name === $name)
                 return true;
         }
         return false;
     }
 
-    /**
-     * Announcements Relationship
-     * @return array
-     */
     public function announcements()
     {
         return $this->hasMany(Announcement::class);
     }
 
-    /**
-     * User identity
-     * @return array
-     */
-    public function usermeta()
+    public function usermetas()
     {
-        return $this->hasOne(Announcement::class);
+        return $this->hasOne(UserMeta::class);
+    }
+
+    public function setDateOfBirth($date)
+    {
+        return $this->attributes['dateofbirth'] = \Carbon\Carbon::createFromFormat('d-m-Y', $date)->toDateString();
+    }
+
+    public function getDateOfBirthAttribute($date)
+    {
+        return \Carbon\Carbon::createFormatFrom('Y-m-d', $date)->format('d-m-Y');
     }
 }

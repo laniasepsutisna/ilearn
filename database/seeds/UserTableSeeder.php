@@ -18,6 +18,7 @@ class UserTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
+        $maddog = Role::create(['name' => 'maddog']);
         $staff = Role::create(['name' => 'staff']);
         $teacher = Role::create(['name' => 'teacher']);
         $student = Role::create(['name' => 'student']);
@@ -51,7 +52,7 @@ class UserTableSeeder extends Seeder
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
-        $user->assignRole($staff);
+        $user->assignRole($maddog);
 
         $this->command->info('Finished!');
     }

@@ -2,7 +2,7 @@
 	<section class="sidebar">
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="{{ $picture or "https://placeimg.com/160/160/people" }}" class="img-circle" alt="User Image" />
+				<img src="{{ $picture or "" }}" class="img-circle" alt="User Image" />
 			</div>
 			<div class="pull-left info">
 				<p>{{ Auth::user()->fullname }}</p>
@@ -48,39 +48,11 @@
 			</li>
 
 			<li class="header">MANAJEMEN USER</li>
-			@if(Request::get('type') == 'staff')
-				<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
-			@else
-				<li class="treeview">
-			@endif
-				<a href="#"><i class="fa fa-user"></i> <span>Staff</span> <i class="fa fa-angle-left pull-right"></i></a>
+			<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
+				<a href="#"><i class="fa fa-user"></i> <span>User</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index', ['type' => 'staff']) }}">Lihat Semua Staff</a></li>
-					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create', ['type' => 'staff']) }}">Tambah Staff</a></li>
-				</ul>
-			</li>
-
-			@if(Request::get('type') == 'teacher')
-				<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
-			@else
-				<li class="treeview">
-			@endif
-				<a href="#"><i class="fa fa-user"></i> <span>Guru</span> <i class="fa fa-angle-left pull-right"></i></a>
-				<ul class="treeview-menu">
-					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index', ['type' => 'teacher']) }}">Lihat Semua Guru</a></li>
-					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create', ['type' => 'teacher']) }}">Tambah Guru</a></li>
-				</ul>
-			</li>
-
-			@if(Request::get('type') == 'student')
-				<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
-			@else
-				<li class="treeview">
-			@endif
-				<a href="#"><i class="fa fa-user"></i> <span>Siswa</span> <i class="fa fa-angle-left pull-right"></i></a>
-				<ul class="treeview-menu">
-					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index', ['type' => 'student']) }}">Lihat Semua Siswa</a></li>
-					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create', ['type' => 'student']) }}">Tambah Siswa</a></li>
+					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index') }}">Lihat Semua User</a></li>
+					<li class="{{ set_active('users.create') }}"><a href="{{ route('users.create') }}">Tambah User</a></li>
 				</ul>
 			</li>
 		</ul>

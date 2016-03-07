@@ -12,14 +12,12 @@ class CreateUserMetaTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_meta', function (Blueprint $table) {
+        Schema::create('user_metas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('user_id');
             $table->string('picture');
             $table->string('cover');
-            $table->string('dayofbirth');
-            $table->string('monthofbirth');
-            $table->string('yearofbirth');
+            $table->string('dateofbirth');
             $table->string('address');
             $table->string('telp_no');
             $table->string('parent_telp_no');
@@ -36,6 +34,6 @@ class CreateUserMetaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('user_meta');
+        Schema::drop('user_metas');
     }
 }

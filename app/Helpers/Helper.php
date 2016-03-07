@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Set any link as active by adding active class.
- * @param [uri] $uri    Current URI.
- * @param string $output CSS class name.
- */
 function set_active($uri, $output = 'active')
 {
 	if( is_array($uri) ) {
@@ -20,11 +15,6 @@ function set_active($uri, $output = 'active')
     }
 }
 
-/**
- * Convert integer to romantic number
- * @param  [int]  $integer Integer Number
- * @return [roman_number] $return Return roman number    
- */
 function romanic_number(int $integer) 
 {
 	$table = [

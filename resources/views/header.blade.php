@@ -23,7 +23,7 @@
 								<li>
 									<a href="#">
 										<div class="pull-left">
-											<img src="{{ $picture or "https://placeimg.com/160/160/people" }}" class="img-circle" alt="User Image"/>
+											<img src="{{ $picture or "" }}" class="img-circle" alt="User Image"/>
 										</div>
 										<h4>Support Team <small><i class="fa fa-clock-o"></i> 5 mins</small></h4>
 										<p>Why not buy a new awesome theme?</p>
@@ -84,12 +84,12 @@
 
 				<li class="dropdown user user-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ $picture or "https://placeimg.com/160/160/people" }}" class="user-image" alt="User Image"/>
+						<img src="{{ $picture or "" }}" class="user-image" alt="User Image"/>
 						<span class="hidden-xs">{{ auth()->user()->firstname }}</span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="user-header">
-							<img src="{{ $picture or "https://placeimg.com/160/160/people" }}" class="img-circle" alt="User Image" />
+							<img src="{{ $picture or "" }}" class="img-circle" alt="User Image" />
 							<p>
 								{{ Auth::user()->fullname }}
 								<small>{{ Auth::user()->created_at }}</small>
