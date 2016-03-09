@@ -79,11 +79,36 @@ class AnnouncementController extends Controller
         return redirect()->route('announcements.edit', [$id]);
     }
 
+    
     public function destroy($id)
     {
         Announcement::find($id)->delete();
 
-        \Flash::success('Pengumuman terhapus.');
+        \Flash::success('Pengumuman dipindahkan ke Tong Sampah.');
         return redirect()->route('announcements.index');
+    }
+
+    public function trash(Request $request)
+    {
+        $announcements = Announcement::onlyTrashed()->paginate(7);
+        $page_title = 'Tong Sampah';
+        
+        return view('announcements.index', compact('announcements', 'page_title'));
+    }
+
+    public function restore($id)
+    {
+        Announcement::where('id', $id)->restore();
+
+        \Flash::success('Data dikembalikan.');
+        return redirect()->route('announcements.trash');
+    }
+
+    public function forceDelete($id)
+    {
+        Announcement::where('id', $id)->forceDelete();
+
+        \Flash::success('Pengumuman terhapus.');
+        return redirect()->route('announcements.trash');
     }
 }

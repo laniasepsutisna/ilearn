@@ -11,11 +11,18 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     public function __construct(){
-    	$this->middleware('auth', ['only' => 'index']);
+    	$this->middleware('auth');
     }
 
     public function index(){
-    	$users = Auth::user();
-		return view('home', compact('users'));
+		return view('home');
     }
+
+    public function profile()
+    {
+        $user = User::where('id', '=', Auth::user()->id)->get();
+        $page_title = $user->fullname;
+        return view('auth.profile', compact('user', 'page_title'));
+    }
+
 }

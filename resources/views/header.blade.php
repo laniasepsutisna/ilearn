@@ -1,5 +1,5 @@
 <header class="main-header">
-	<a href="{{ url('/') }}" class="logo">
+	<a href="{{ route('auth.index') }}" class="logo">
 		<span class="logo-mini"><b>W</b>H</span>
 		<span class="logo-lg"><b>Wira</b> Harapan</span>
 	</a>
@@ -84,12 +84,12 @@
 
 				<li class="dropdown user user-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ $picture or "" }}" class="user-image" alt="User Image"/>
-						<span class="hidden-xs">{{ auth()->user()->firstname }}</span>
+						<img src="{{ Auth::user()->picture }}" class="user-image" alt="User Image"/>
+						<span class="hidden-xs">{{ Auth::user()->firstname }}</span>
 					</a>
 					<ul class="dropdown-menu">
 						<li class="user-header">
-							<img src="{{ $picture or "" }}" class="img-circle" alt="User Image" />
+							<img src="{{ Auth::user()->picture }}" class="img-circle" alt="User Image" />
 							<p>
 								{{ Auth::user()->fullname }}
 								<small>{{ Auth::user()->created_at }}</small>
@@ -109,10 +109,10 @@
 
 						<li class="user-footer">
 							<div class="pull-left">
-								<a href="{{ url('/profile/' . Auth::user()->username) }}" class="btn btn-default btn-flat">Profil</a>
+								<a href="{{ route('users.profile') }}" class="btn btn-default btn-flat">Profil</a>
 							</div>
 							<div class="pull-right">
-								<a href="{{ url('/auth/logout') }}" class="btn btn-default btn-flat">Keluar</a>
+								<a href="{{ route('auth.logout') }}" class="btn btn-default btn-flat">Keluar</a>
 							</div>
 						</li>
 					</ul>

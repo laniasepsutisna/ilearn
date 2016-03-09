@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -33,7 +34,7 @@ class LoginController extends Controller
 
 		$username = $request->get('username');
 		$password = $request->get('password');
-		$remember = $request->has('remember');
+		$remember = $request->get('remember');
 
 		if (Auth::attempt([
 			$this->loginUsername() => $username,
@@ -41,6 +42,7 @@ class LoginController extends Controller
 			'status' => 'active'
 		], $remember)) {
 			$this->clearLoginAttempts($request);
+        	User::where('id', Auth::user()->id)->update(['login' => 1]);
 
             return redirect()->intended('/');
         }
@@ -49,10 +51,10 @@ class LoginController extends Controller
             $this->incrementLoginAttempts($request);
         }
 
-        return $this->sendFailedLoginResponse();
+        return $this->sendFailedLoginResponse($request);
 	}
 
-	public function sendFailedLoginResponse()
+	public function sendFailedLoginResponse($request)
 	{		
         return redirect()->back()
         	->withInput($request->only($this->loginUsername(), 'remember'))
@@ -62,7 +64,8 @@ class LoginController extends Controller
 	}
 
 	public function logout()
-	{
+	{		
+        User::where('id', Auth::user()->id)->update(['login' => 0]);
 		Auth::logout();
 		return redirect('/');
 	}

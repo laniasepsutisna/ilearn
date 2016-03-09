@@ -22,6 +22,7 @@ class CreateUserMetaTable extends Migration
             $table->string('telp_no');
             $table->string('parent_telp_no');
             $table->string('social_url');
+            $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

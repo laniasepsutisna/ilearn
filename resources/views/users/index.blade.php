@@ -68,7 +68,7 @@
 	        								{!! Form::close() !!}
         								@else
 			                        		<a href="{{ route('users.edit', $user->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
-			                        		@if($user->rolename !== 'maddog')
+			                        		@if($user->rolename !== 'Administrator')
 	        									{!! Form::open(['route' => ['users.destroy', $user->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
 		        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs']) !!}
 		        								{!! Form::close() !!}

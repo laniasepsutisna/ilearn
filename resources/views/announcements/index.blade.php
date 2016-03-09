@@ -11,6 +11,13 @@
 @section('content')
 
 <div class="row">
+
+	<div class="pull-left col-xs-6 col-sm-8 col-md-3">
+		<div class="btn-group" role="group">
+			<a class="btn btn-default" href="{{ route('announcements.trash') }}"><i class="fa fa-trash"></i></a>
+		</div>
+	</div>
+
 	<div class="pull-right col-xs-6 col-sm-4 col-md-3">
 
 		{!! Form::open(['method' => 'get']) !!}
@@ -49,10 +56,19 @@
 	                        		<a href="{{ route('announcements.edit', $announcement->id) }}">{{ $announcement->title }}</a>
 	                        	</div>
 	                        	<div>
-		                        	<a href="{{ route('announcements.edit', $announcement->id) }}" class="btn btn-flat btn-link btn-xs">Ubah</a>
-        							{!! Form::open(['route' => ['announcements.destroy', $announcement->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-        								{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $announcement->title]) !!}
-        							{!! Form::close() !!}
+	                        		@if(Route::currentRouteNamed('announcements.trash'))
+		                        		{!! Form::open(['route' => ['announcements.restore', $announcement->id], 'method' => 'patch', 'class' => 'form-delete-inline']) !!}
+        									{!! Form::submit('Batal Hapus', ['class'=>'btn btn-flat btn-link btn-xs']) !!}
+        								{!! Form::close() !!}
+		                        		{!! Form::open(['route' => ['announcements.forcedelete', $announcement->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+        									{!! Form::submit('Hapus Selamanya', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $announcement->title]) !!}
+        								{!! Form::close() !!}
+    								@else
+		                        		<a href="{{ route('announcements.edit', $announcement->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+    									{!! Form::open(['route' => ['announcements.destroy', $announcement->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs']) !!}
+        								{!! Form::close() !!}
+    								@endif
 	                        	</div>
 	                        </td>
 	                        <td>

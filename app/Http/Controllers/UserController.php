@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Http\Requests;
 use App\Models\Role;
-use Ramsey\Uuid\Uuid;
-use DB;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {	
@@ -44,7 +42,6 @@ class UserController extends Controller
     public function buildIndexQuery($request)
     {
         if( $request->has('type') ) {
-
             $users = Role::where('name', $request->get('type'))->first()->users()
                     ->where(function($query) use ($request){
                         $query->where('identitynumber', 'LIKE', '%' . $request->get('q') . '%')   
@@ -52,7 +49,6 @@ class UserController extends Controller
                                 ->orWhere('lastname', 'LIKE', '%' . $request->get('q') . '%')                      
                                 ->orWhere('email', 'LIKE', '%' . $request->get('q') . '%');
                     })->orderBy('created_at', 'desc')->paginate(7);
-
         } elseif( $request->has('q') ){
             $users = User::where(function($query) use ($request){
                         $query->where('identitynumber', 'LIKE', '%' . $request->get('q') . '%')   
@@ -91,6 +87,11 @@ class UserController extends Controller
         $role_id = (int) $request->role;
         $user->assignRole( $role_id );
 
+        $user->usermetas()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
         \Flash::success('User tersimpan.');
         return redirect()->route('users.edit', [$user->id]);
     }
@@ -115,15 +116,20 @@ class UserController extends Controller
         ]);
         
         $user = User::findOrFail($id);
-        $data = $request->all();
 
-        $user->update($data);
-        $user->usermetas->update($data);
+        $user->update($request->all());
+        $user->roles()->sync([$request->role]);
+        $user->usermetas()->update([
+            'dateofbirth' => $request->dateofbirth,
+            'address' => $request->address,
+            'telp_no' => $request->telp_no,
+            'parent_telp_no' => $request->parent_telp_no
+        ]);
 
         \Flash::success('User diperbaharui.');
         return redirect()->route('users.edit', [$id]);
     }
-
+    
     public function destroy($id)
     {
         User::find($id)->delete();

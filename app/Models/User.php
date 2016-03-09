@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Traits\UuidModel;
 
 class User extends Authenticatable
 {
-    use UuidModel, SoftDeletes;
+    use SoftDeletes, UuidModel, CanResetPassword;
 
     protected $dates = ['deleted_at'];
 
@@ -21,16 +22,8 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
-        'id', 'password', 'remember_token',
+        'id', 'password', 'remember_token', 'deleted_at'
     ];
-
-    public static function boot(){
-        parent::boot();
-
-        static::deleting(function($model) {
-            $model->roles()->detach();
-        });
-    }
 
     public function getFullnameAttribute()
     {
@@ -52,7 +45,27 @@ class User extends Authenticatable
 
     public function getRoleNameAttribute(){
         foreach ($this->roles as $role) {
-            return $role->name;
+            switch ($role->name) {
+                case 'maddog':
+                    return 'Administrator';
+                    break;
+
+                case 'staff':
+                    return 'Tata Usaha';
+                    break;
+                
+                case 'teacher':
+                    return 'Guru';
+                    break;
+
+                case 'student':
+                    return 'Siswa';
+                    break;
+
+                default:
+                    return 'Siswa';
+                    break;
+            }
         }
     }
 
@@ -93,13 +106,32 @@ class User extends Authenticatable
         return $this->hasOne(UserMeta::class);
     }
 
-    public function setDateOfBirth($date)
+    public function getDateOfBirthAttribute()
     {
-        return $this->attributes['dateofbirth'] = \Carbon\Carbon::createFromFormat('d-m-Y', $date)->toDateString();
+        return $this->usermetas->dateofbirth;
     }
 
-    public function getDateOfBirthAttribute($date)
+    public function getTelpNoAttribute()
     {
-        return \Carbon\Carbon::createFormatFrom('Y-m-d', $date)->format('d-m-Y');
+        return $this->usermetas->telp_no;
+    }
+
+    public function getParentTelpNoAttribute()
+    {
+        return $this->usermetas->parent_telp_no;
+    }
+
+    public function getAddressAttribute()
+    {
+        return $this->usermetas->address;
+    }
+
+    public function getPictureAttribute()
+    {
+        if ($this->usermetas->picture !== '') {
+            return url('/uploads/' . $this->usermetas->picture);
+        } else {
+            return 'http://placehold.it/160x160';
+        }
     }
 }

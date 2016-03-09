@@ -24,17 +24,29 @@
 
 Route::group(['middleware' => ['web']], function () {
 
+	// Home & Login
 	Route::get('/', ['uses' => 'LoginController@index', 'as' => 'auth.index'] );
+	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'users.profile']);
 	Route::post('auth/login', ['uses' => 'LoginController@login', 'as' => 'auth.login']);
 	Route::get('auth/logout', ['uses' => 'LoginController@logout', 'as' => 'auth.logout']);
 
-	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
-	Route::get('announcements/trash', ['uses' => 'AnnouncementController@trash', 'as' => 'announcements.trash']);
-	Route::match(['put', 'patch'],'announcements/restore/{announcements}', ['uses' => 'AnnouncementController@restore', 'as' => 'announcements.restore']);
-	Route::delete('announcements/forcedelete/{announcements}', ['uses' => 'AnnouncementController@forceDelete', 'as' => 'announcements.forcedelete']);
+	// Password reset link request routes...
+	Route::get('password/email', ['uses' => 'Auth\PasswordController@getEmail', 'as' => 'email.request']);
+	Route::post('password/email', ['uses' => 'Auth\PasswordController@postEmail', 'as' => 'email.store']);
 
+	// Password reset routes...
+	Route::get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset', 'as' => 'reset.request']);
+	Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset', 'as' => 'reset.store']);
+
+	// Announcements
+	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
+	Route::get('/announcements/trash', ['uses' => 'AnnouncementController@trash', 'as' => 'announcements.trash']);
+	Route::match(['put', 'patch'],'/announcements/restore/{announcements}', ['uses' => 'AnnouncementController@restore', 'as' => 'announcements.restore']);
+	Route::delete('/announcements/forcedelete/{announcements}', ['uses' => 'AnnouncementController@forceDelete', 'as' => 'announcements.forcedelete']);
+
+	// Users
 	Route::resource('/users', 'UserController', ['except' => 'show']);
-	Route::get('users/trash', ['uses' => 'UserController@trash', 'as' => 'users.trash']);
-	Route::match(['put', 'patch'], 'users/restore/{users}', ['uses' => 'UserController@restore', 'as' => 'users.restore']);
-	Route::delete('users/forcedelete/{users}', ['uses' => 'UserController@forceDelete', 'as' => 'users.forcedelete']);
+	Route::get('/users/trash', ['uses' => 'UserController@trash', 'as' => 'users.trash']);
+	Route::match(['put', 'patch'], '/users/restore/{users}', ['uses' => 'UserController@restore', 'as' => 'users.restore']);
+	Route::delete('/users/forcedelete/{users}', ['uses' => 'UserController@forceDelete', 'as' => 'users.forcedelete']);
 });

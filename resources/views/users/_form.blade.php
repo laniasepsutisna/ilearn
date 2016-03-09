@@ -34,7 +34,8 @@
     <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">
         {!! Form::label('role', 'Peran', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::select('role', App\Models\Role::lists('name','id')->all(), null, ['class'=>'form-control select2', 'id' => 'role', 'placeholder' => 'Pilih peran...'] ) !!}
+            {{-- Belum perlu App\Models\Role::pluck('name', id) --}}
+            {!! Form::select('role', ['2' => 'Tata Usaha', '3' => 'Guru', '4' => 'Siswa'], null, ['class'=>'form-control select2', 'id' => 'role', 'placeholder' => 'Pilih peran...'] ) !!}
             {!! $errors->first('role', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
@@ -49,7 +50,7 @@
 
     <div class="box-footer">
         <div class="col-md-offset-3">
-            {!! Form::submit(isset($model) ? 'Update' : 'Save', ['class'=>'btn btn-flat btn-success']) !!}
+            {!! Form::submit('Save', ['class'=>'btn btn-flat btn-success']) !!}
         </div>
     </div>
 </div>

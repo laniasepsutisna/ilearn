@@ -2,7 +2,7 @@
 	<section class="sidebar">
 		<div class="user-panel">
 			<div class="pull-left image">
-				<img src="{{ $picture or "" }}" class="img-circle" alt="User Image" />
+				<img src="{{ Auth::user()->picture }}" class="img-circle" alt="User Image" />
 			</div>
 			<div class="pull-left info">
 				<p>{{ Auth::user()->fullname }}</p>
@@ -22,7 +22,7 @@
 		<ul class="sidebar-menu">
 			<li class="header">MENU UTAMA</li>
 			<li class="{{ set_active('auth.index') }}"><a href="{{ route('auth.index') }}"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>
-			<li class="treeview {{ set_active(['announcements.index', 'announcements.create', 'announcements.edit']) }}">
+			<li class="treeview {{ set_active(['announcements.index', 'announcements.create', 'announcements.edit', 'announcements.trash']) }}">
 				<a href="#"><i class="fa fa-volume-up"></i> <span>Pengumuman</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li class="{{ set_active('announcements.index') }}"><a href="{{ route('announcements.index') }}">Lihat Semua Pengumuman</a></li>
@@ -48,7 +48,7 @@
 			</li>
 
 			<li class="header">MANAJEMEN USER</li>
-			<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit']) }}">
+			<li class="treeview {{ set_active(['users.index', 'users.create', 'users.edit', 'users.trash']) }}">
 				<a href="#"><i class="fa fa-user"></i> <span>User</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
 					<li class="{{ set_active('users.index') }}"><a href="{{ route('users.index') }}">Lihat Semua User</a></li>

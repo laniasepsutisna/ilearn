@@ -179,3 +179,27 @@ body.login-page {
 }
 
 /* end login page */
+
+.overlay {
+	background: rgba(0,0,0,0.5);
+	position: fixed;
+	top: 0; right: 0; left: 0; bottom: 0;
+	z-index:1;
+}
+
+.panel,
+.panel-heading {
+	border-radius: 0;
+}
+
+.password-reset {
+	position: relative;
+	margin-top: 200px;
+	z-index: 2;
+}
+
+@media(max-width: 767px){
+	.password-reset {
+		margin-top: 150px;
+	}
+}

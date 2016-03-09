@@ -39,6 +39,11 @@ class UserTableSeeder extends Seeder
 
             $user->assignRole($role[rand(0, 2)]);
 
+            $user->usermetas()->create([
+                'picture' => 'icon-user-default.png',
+                'cover' => 'cover-default.jpg'
+            ]);
+
             $this->command->info('User ke-' . $i);
         }
 
@@ -46,13 +51,18 @@ class UserTableSeeder extends Seeder
             'id' => Uuid::uuid4(),
             'identitynumber' => $faker->unique()->randomNumber,
             'username'  => 'admin',
-            'firstname' => 'Administrator',
-            'lastname' => 'SMK Wira Harapan',
+            'firstname' => 'Admin',
+            'lastname' => 'LMS',
             'email' => 'admin@domain.com',
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
         $user->assignRole($maddog);
+        
+        $user->usermetas()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
 
         $this->command->info('Finished!');
     }
