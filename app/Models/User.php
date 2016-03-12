@@ -106,6 +106,16 @@ class User extends Authenticatable
         return $this->hasOne(UserMeta::class);
     }
 
+    public function getAngkatanAttribute()
+    {
+        return $this->usermetas->angkatan;
+    }
+
+    public function getMajorAttribute()
+    {
+        return $this->usermetas->major;
+    }
+
     public function getDateOfBirthAttribute()
     {
         return $this->usermetas->dateofbirth;
@@ -130,8 +140,13 @@ class User extends Authenticatable
     {
         if ($this->usermetas->picture !== '') {
             return url('/uploads/' . $this->usermetas->picture);
-        } else {
-            return 'http://placehold.it/160x160';
+        }
+    }
+
+    public function getCoverAttribute()
+    {
+        if ($this->usermetas->cover !== '') {
+            return url('/uploads/' . $this->usermetas->cover);
         }
     }
 }

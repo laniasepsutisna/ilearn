@@ -32,18 +32,25 @@
 
 
 			<li class="header">MANAJEMEN KELAS</li>
-			<li class="treeview">
-				<a href="#"><i class="fa fa-book"></i> <span>Mata Pelajaran</span> <i class="fa fa-angle-left pull-right"></i></a>
+			<li class="treeview {{ set_active(['majors.index', 'majors.create', 'majors.edit']) }}">
+				<a href="#"><i class="fa fa-mortar-board"></i> <span>Jurusan</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="#">Lihat Semua Mapel</a></li>
-					<li><a href="#">Tambah Mapel</a></li>
+					<li><a class="{{ set_active('majors.index') }}" href="{{ route('majors.index') }}">Lihat Semua Jurusan</a></li>
+					<li><a class="{{ set_active('majors.create') }}" href="{{ route('majors.create') }}">Tambah Jurusan</a></li>
 				</ul>
 			</li>
-			<li class="treeview">
+			<li class="treeview {{ set_active(['subjects.index', 'subjects.create', 'subjects.edit']) }}">
+				<a href="#"><i class="fa fa-book"></i> <span>Mata Pelajaran</span> <i class="fa fa-angle-left pull-right"></i></a>
+				<ul class="treeview-menu">
+					<li><a class="{{ set_active('subjects.index') }}" href="{{ route('subjects.index') }}">Lihat Semua Mapel</a></li>
+					<li><a class="{{ set_active('subjects.create') }}" href="{{ route('subjects.create') }}">Tambah Mapel</a></li>
+				</ul>
+			</li>
+			<li class="treeview {{ set_active(['classrooms.index', 'classrooms.create', 'classrooms.edit']) }}">
 				<a href="#"><i class="fa fa-users"></i> <span>Kelas</span> <i class="fa fa-angle-left pull-right"></i></a>
 				<ul class="treeview-menu">
-					<li><a href="#">Lihat Semua Kelas</a></li>
-					<li><a href="#">Tambah Kelas</a></li>
+					<li><a class="{{ set_active('classrooms.index') }}" href="{{ route('classrooms.index') }}">Lihat Semua Kelas</a></li>
+					<li><a class="{{ set_active('classrooms.create') }}" href="{{ route('classrooms.create') }}">Tambah Kelas</a></li>
 				</ul>
 			</li>
 

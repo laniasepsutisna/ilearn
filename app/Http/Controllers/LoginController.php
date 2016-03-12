@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use Auth;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -69,4 +70,55 @@ class LoginController extends Controller
 		Auth::logout();
 		return redirect('/');
 	}
+
+    public function profile()
+    {
+        $user = User::where('username', Auth::user()->username)->first();
+        $page_title = 'Profile';
+
+        return view('users.profile', compact('user', 'page_title'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'identitynumber' => 'required|unique:users',
+            'username' => 'required|unique:users',
+            'firstname' => 'required',
+            'lastname' => 'required',
+            'email' => 'required|email|unique:users',
+            'telp_no' => 'integer|beetween:9,12',
+            'parent_telp_no' => 'integer|beetween:9,12'
+        ]);
+        
+        $user = User::findOrFail($id);
+
+        $user->update($request->all());
+
+        $user->usermetas()->update([
+            'dateofbirth' => $request->dateofbirth,
+            'address' => $request->address,
+            'telp_no' => $request->telp_no,
+            'parent_telp_no' => $request->parent_telp_no
+        ]);
+
+        \Flash::success('Profil berhasil diperbaharui.');
+        return redirect()->back();
+    }
+
+    public function passwordupdate(Request $request, $id)
+    {
+    	$this->validate($request, [
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required'
+        ]);
+
+        $user = User::findOrFail($id);
+        if( $request->has('password') ) {
+        	$user->update(['password' => bcrypt($request->password)]);
+        }
+
+        \Flash::success('Password berhasil diperbaharui.');
+        return redirect()->back();
+    }
 }

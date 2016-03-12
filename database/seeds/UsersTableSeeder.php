@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Role;
-use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use App\Models\User;
 use Faker\Factory as Faker;
+use Illuminate\Database\Seeder;
+use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
+use Ramsey\Uuid\Uuid;
 
-class UserTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,9 +23,36 @@ class UserTableSeeder extends Seeder
         $teacher = Role::create(['name' => 'teacher']);
         $student = Role::create(['name' => 'student']);
 
+        $admin = User::create([
+            'id' => Uuid::uuid4(),
+            'identitynumber' => $faker->unique()->randomNumber,
+            'username'  => 'admin',
+            'firstname' => 'Admin',
+            'lastname' => 'LMS',
+            'email' => 'admin@domain.com',
+            'status' => 'active',
+            'password' => bcrypt('secret')
+        ]);
+        $admin->assignRole($maddog);
+        
+        $admin->usermetas()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
+        for ($i=0; $i < 21; $i++) {            
+            $status = ['info', 'warning'];
+            $admin->announcements()->create([
+                'title' => $faker->unique()->sentence(),
+                'user_id' => $admin->id,
+                'status' => $status[rand(0, 1)],
+                'content' => $faker->text(),
+            ]);
+        }
+
         $role = [$staff, $teacher, $student];
 
-        for ($i=0; $i < 100 ; $i++) {
+        for ($i=0; $i < 50 ; $i++) {
             $user = User::create([
                 'id' => Uuid::uuid4(),
                 'identitynumber' => $faker->unique()->randomNumber,
@@ -43,26 +70,7 @@ class UserTableSeeder extends Seeder
                 'picture' => 'icon-user-default.png',
                 'cover' => 'cover-default.jpg'
             ]);
-
-            $this->command->info('User ke-' . $i);
         }
-
-        $user = User::create([
-            'id' => Uuid::uuid4(),
-            'identitynumber' => $faker->unique()->randomNumber,
-            'username'  => 'admin',
-            'firstname' => 'Admin',
-            'lastname' => 'LMS',
-            'email' => 'admin@domain.com',
-            'status' => 'active',
-            'password' => bcrypt('secret')
-        ]);
-        $user->assignRole($maddog);
-        
-        $user->usermetas()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg'
-        ]);
 
         $this->command->info('Finished!');
     }

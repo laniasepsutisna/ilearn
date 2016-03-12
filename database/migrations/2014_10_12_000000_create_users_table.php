@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary('id');
+            $table->primary(['id']);
         });
     }
 

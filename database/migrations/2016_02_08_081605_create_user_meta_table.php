@@ -17,6 +17,8 @@ class CreateUserMetaTable extends Migration
             $table->string('user_id');
             $table->string('picture');
             $table->string('cover');
+            $table->string('angkatan');
+            $table->string('major');
             $table->string('dateofbirth');
             $table->string('address');
             $table->string('telp_no');

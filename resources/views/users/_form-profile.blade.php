@@ -30,39 +30,12 @@
             {!! $errors->first('lastname', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    
-    @if($user->rolename !== 'Administrator')
-    <div class="form-group {{ $errors->has('role') ? 'has-error' : '' }}">
-        {!! Form::label('role', 'Peran', ['class' => 'col-md-3 control-label']) !!}
-        <div class="col-md-6">        
-            {{-- Belum perlu App\Models\Role::pluck('name', id) --}}
-            {!! Form::select('role', ['2' => 'Tata Usaha', '3' => 'Guru', '4' => 'Siswa'], null, ['class'=>'form-control select2', 'id' => 'role', 'placeholder' => 'Pilih peran...'] ) !!}
-            {!! $errors->first('role', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-    @endif
 
     <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
         {!! Form::label('email', 'Email', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
             {!! Form::text('email', null, ['class'=> 'form-control', 'id' => 'email', 'autocomplete' => 'off']) !!}
             {!! $errors->first('email', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
-    <div class="form-group {{ $errors->has('angkatan') ? 'has-error' : '' }}">
-        {!! Form::label('angkatan', 'Angkatan', ['class' => 'col-md-3 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('angkatan', null, ['class'=> 'form-control', 'id' => 'angkatan', 'autocomplete' => 'off']) !!}
-            {!! $errors->first('angkatan', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
-    <div class="form-group {{ $errors->has('major') ? 'has-error' : '' }}">
-        {!! Form::label('major', 'Jurusan', ['class' => 'col-md-3 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('major', null, ['class'=> 'form-control', 'id' => 'major', 'autocomplete' => 'off']) !!}
-            {!! $errors->first('major', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -97,16 +70,6 @@
             {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-
-    @if($user->rolename !== 'maddog')
-    <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-        {!! Form::label('status', 'Status', ['class' => 'col-md-3 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::select('status', ['active' => 'Active', 'banned' => 'Banned'], null, ['class'=>'form-control select2', 'id' => 'status', 'placeholder' => 'Status Akun...'] ) !!}
-            {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-    @endif
 
     <div class="box-footer">
         <div class="col-md-offset-3">

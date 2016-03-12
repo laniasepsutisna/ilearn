@@ -41,10 +41,10 @@ class AnnouncementController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|string|max:100|unique:announcements',
+            'title' => 'required|string|max:150|unique:announcements',
             'status' => 'required',
             'user_id' => 'exists:users,id',
-            'content' => 'required|string'
+            'content' => 'required'
         ]);
 
         $a = Announcement::create($request->all());

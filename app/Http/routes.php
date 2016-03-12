@@ -24,9 +24,11 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-	// Home & Login
 	Route::get('/', ['uses' => 'LoginController@index', 'as' => 'auth.index'] );
-	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'users.profile']);
+	Route::get('/profile',['uses' => 'LoginController@profile', 'as' => 'auth.profile']);
+	Route::match(['put', 'patch'],'/profile/{users}', ['uses' => 'LoginController@update', 'as' => 'auth.update']);
+	Route::match(['put', 'patch'],'/profile/password/{users}', ['uses' => 'LoginController@passwordupdate', 'as' => 'auth.passwordupdate']);
+
 	Route::post('auth/login', ['uses' => 'LoginController@login', 'as' => 'auth.login']);
 	Route::get('auth/logout', ['uses' => 'LoginController@logout', 'as' => 'auth.logout']);
 
@@ -49,4 +51,8 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('/users/trash', ['uses' => 'UserController@trash', 'as' => 'users.trash']);
 	Route::match(['put', 'patch'], '/users/restore/{users}', ['uses' => 'UserController@restore', 'as' => 'users.restore']);
 	Route::delete('/users/forcedelete/{users}', ['uses' => 'UserController@forceDelete', 'as' => 'users.forcedelete']);
+
+	Route::resource('/subjects', 'SubjectController', ['except' => 'show']);
+	Route::resource('/majors', 'MajorController', ['except' => 'show']);
+	Route::resource('/classrooms', 'ClassroomController', ['except' => 'show']);
 });

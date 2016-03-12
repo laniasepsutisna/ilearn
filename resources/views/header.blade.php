@@ -88,28 +88,16 @@
 						<span class="hidden-xs">{{ Auth::user()->firstname }}</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li class="user-header">
+						<li class="user-header" style="background: url({{ Auth::user()->cover }});">
 							<img src="{{ Auth::user()->picture }}" class="img-circle" alt="User Image" />
 							<p>
 								{{ Auth::user()->fullname }}
 								<small>{{ Auth::user()->created_at }}</small>
 							</p>
 						</li>
-						<li class="user-body">
-							<div class="col-xs-4 text-center">
-								<a href="#">Followers</a>
-							</div>
-							<div class="col-xs-4 text-center">
-								<a href="#">Sales</a>
-							</div>
-							<div class="col-xs-4 text-center">
-								<a href="#">Friends</a>
-							</div>
-						</li>
-
 						<li class="user-footer">
 							<div class="pull-left">
-								<a href="{{ route('users.profile') }}" class="btn btn-default btn-flat">Profil</a>
+								<a href="{{ route('auth.profile', Auth::user()->username) }}" class="btn btn-default btn-flat">Profil</a>
 							</div>
 							<div class="pull-right">
 								<a href="{{ route('auth.logout') }}" class="btn btn-default btn-flat">Keluar</a>

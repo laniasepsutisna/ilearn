@@ -18,11 +18,4 @@ class HomeController extends Controller
 		return view('home');
     }
 
-    public function profile()
-    {
-        $user = User::where('id', '=', Auth::user()->id)->get();
-        $page_title = $user->fullname;
-        return view('auth.profile', compact('user', 'page_title'));
-    }
-
 }

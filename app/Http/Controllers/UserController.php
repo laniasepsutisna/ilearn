@@ -108,17 +108,25 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'identitynumber' => 'required',
-            'username' => 'required',
+            'identitynumber' => 'required|unique:users',
+            'username' => 'required|unique:users',
             'firstname' => 'required',
             'lastname' => 'required',
-            'email' => 'required',
+            'email' => 'required|email|unique:users',
+            'angkatan' => 'min:4',
+            'major' => 'max:60',
+            'telp_no' => 'integer|beetween:9,12',
+            'parent_telp_no' => 'integer|beetween:9,12',
         ]);
         
         $user = User::findOrFail($id);
 
         $user->update($request->all());
-        $user->roles()->sync([$request->role]);
+
+        if( $request->has('role') ) {
+            $user->roles()->sync([$request->role]);
+        }
+
         $user->usermetas()->update([
             'dateofbirth' => $request->dateofbirth,
             'address' => $request->address,

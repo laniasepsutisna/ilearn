@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+<div class="overlay"></div>
 <div class="container" style="margin-top: 150px;">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
