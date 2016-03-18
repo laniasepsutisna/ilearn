@@ -14,9 +14,9 @@ class CreateAnnouncementsTable extends Migration
     {
         Schema::create('announcements', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');
+            $table->string('user_id', 36);
             $table->string('title', 150);
-            $table->text('content');
+            $table->text('content', 300);
             $table->enum('status', ['info', 'warning']);
             $table->timestamps();
             $table->softDeletes();

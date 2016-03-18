@@ -18,29 +18,24 @@ class UsersTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $maddog = Role::create(['name' => 'maddog']);
-        $staff = Role::create(['name' => 'staff']);
-        $teacher = Role::create(['name' => 'teacher']);
-        $student = Role::create(['name' => 'student']);
-
         $admin = User::create([
             'id' => Uuid::uuid4(),
-            'identitynumber' => $faker->unique()->randomNumber,
+            'no_induk' => $faker->unique()->randomNumber,
             'username'  => 'admin',
             'firstname' => 'Admin',
             'lastname' => 'LMS',
             'email' => 'admin@domain.com',
+            'role' => 'staff',
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
-        $admin->assignRole($maddog);
-        
-        $admin->usermetas()->create([
+
+        $admin->usermeta()->create([
             'picture' => 'icon-user-default.png',
             'cover' => 'cover-default.jpg'
         ]);
 
-        for ($i=0; $i < 21; $i++) {            
+        for ($i=0; $i < 10; $i++) {            
             $status = ['info', 'warning'];
             $admin->announcements()->create([
                 'title' => $faker->unique()->sentence(),
@@ -48,28 +43,29 @@ class UsersTableSeeder extends Seeder
                 'status' => $status[rand(0, 1)],
                 'content' => $faker->text(),
             ]);
+            $this->command->info('Pengumuman ke-' . $i);
         }
 
-        $role = [$staff, $teacher, $student];
+        $role = ['staff', 'teacher', 'student'];
 
         for ($i=0; $i < 50 ; $i++) {
             $user = User::create([
                 'id' => Uuid::uuid4(),
-                'identitynumber' => $faker->unique()->randomNumber,
+                'no_induk' => $faker->unique()->randomNumber,
                 'username'  => strtolower($faker->unique()->userName),
                 'firstname' => $faker->firstName,
                 'lastname' => $faker->lastName,
                 'email' => strtolower($faker->unique()->freeEmail),
+                'role' => $role[rand(0,2)],
                 'status' => 'banned',
                 'password' => bcrypt('secret')
             ]);
 
-            $user->assignRole($role[rand(0, 2)]);
-
-            $user->usermetas()->create([
+            $user->usermeta()->create([
                 'picture' => 'icon-user-default.png',
                 'cover' => 'cover-default.jpg'
             ]);
+            $this->command->info('User ke-' . $i);
         }
 
         $this->command->info('Finished!');

@@ -24,35 +24,36 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-	Route::get('/', ['uses' => 'LoginController@index', 'as' => 'auth.index'] );
-	Route::get('/profile',['uses' => 'LoginController@profile', 'as' => 'auth.profile']);
-	Route::match(['put', 'patch'],'/profile/{users}', ['uses' => 'LoginController@update', 'as' => 'auth.update']);
-	Route::match(['put', 'patch'],'/profile/password/{users}', ['uses' => 'LoginController@passwordupdate', 'as' => 'auth.passwordupdate']);
+	Route::get('/', ['uses' => 'LoginController@index', 'as' => 'login']);
+	Route::post('/login', ['uses' => 'LoginController@login', 'as' => 'post.login']);
+	Route::get('/logout', ['uses' => 'LoginController@logout', 'as' => 'get.logout']);
 
-	Route::post('auth/login', ['uses' => 'LoginController@login', 'as' => 'auth.login']);
-	Route::get('auth/logout', ['uses' => 'LoginController@logout', 'as' => 'auth.logout']);
-
-	// Password reset link request routes...
 	Route::get('password/email', ['uses' => 'Auth\PasswordController@getEmail', 'as' => 'email.request']);
 	Route::post('password/email', ['uses' => 'Auth\PasswordController@postEmail', 'as' => 'email.store']);
-
-	// Password reset routes...
 	Route::get('password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset', 'as' => 'reset.request']);
 	Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset', 'as' => 'reset.store']);
+	
+	Route::group(['namespace' => 'User'], function () {
+		Route::resource('/home', 'HomeController', ['except' => 'show']);
+	});
 
-	// Announcements
-	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
-	Route::get('/announcements/trash', ['uses' => 'AnnouncementController@trash', 'as' => 'announcements.trash']);
-	Route::match(['put', 'patch'],'/announcements/restore/{announcements}', ['uses' => 'AnnouncementController@restore', 'as' => 'announcements.restore']);
-	Route::delete('/announcements/forcedelete/{announcements}', ['uses' => 'AnnouncementController@forceDelete', 'as' => 'announcements.forcedelete']);
+	Route::group(['prefix' => '/lms-admin/', 'namespace' => 'Admin'], function () {
+		Route::get('/', ['uses' => 'HomeController@index', 'as' => 'lms-admin.index'] );		
+		Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'lms-admin.profile']);
+		Route::match(['put', 'patch'],'/profile/{users}', ['uses' => 'HomeController@update', 'as' => 'lms-admin.update']);
+		Route::match(['put', 'patch'],'/profile/password/{users}', ['uses' => 'HomeController@passwordupdate', 'as' => 'lms-admin.passwordupdate']);
+		Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
+		Route::resource('/users', 'UserController', ['except' => 'show']);
+		Route::resource('/subjects', 'SubjectController', ['except' => 'show']);
+		Route::resource('/majors', 'MajorController', ['except' => 'show']);
+		Route::resource('/classrooms', 'ClassroomController', ['except' => 'show']);
+		Route::post('/classrooms/addmembers', ['uses' => 'ClassroomController@addMembers', 'as' => 'lms-admin.classrooms.addmembers']);
+		Route::delete('/classrooms/removemember/{users}', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
 
-	// Users
-	Route::resource('/users', 'UserController', ['except' => 'show']);
-	Route::get('/users/trash', ['uses' => 'UserController@trash', 'as' => 'users.trash']);
-	Route::match(['put', 'patch'], '/users/restore/{users}', ['uses' => 'UserController@restore', 'as' => 'users.restore']);
-	Route::delete('/users/forcedelete/{users}', ['uses' => 'UserController@forceDelete', 'as' => 'users.forcedelete']);
+	});
 
-	Route::resource('/subjects', 'SubjectController', ['except' => 'show']);
-	Route::resource('/majors', 'MajorController', ['except' => 'show']);
-	Route::resource('/classrooms', 'ClassroomController', ['except' => 'show']);
+	Route::group(['prefix' => '/api/v1/', 'namespace' => 'API'], function () {
+		Route::resource('/users', 'UserController', ['except' => 'destroy']);
+		Route::get('/search/teacher', 'UserController@teacher');
+	});
 });

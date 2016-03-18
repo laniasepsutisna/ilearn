@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>@yield('page_title') | E-learning SMK Wira Harapan</title>
+	<title>{{ $page_title }} | E-learning SMK Wira Harapan</title>
 	{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700, 900" rel="stylesheet" type="text/css"> --}}
 	<link href="{{ asset( '/css/font-awesome.min.css' ) }}" rel="stylesheet">
 	<link href="{{ asset( '/css/bootstrap.min.css' ) }}" rel="stylesheet">
@@ -18,17 +18,15 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="logo">
-							<a href="{{ url('/') }}"><img src="{{ asset( '/uploads/smkwiratransparentlogo.png' ) }}"></a>
+							<a href="{{ route('login') }}"><img src="{{ asset( '/uploads/smkwiratransparentlogo.png' ) }}"></a>
 						</div>
-						@if( Route::currentRouteNamed('auth.index') )
-							<nav class="login-menu">
-								<ul>
-									<li class="visible-xs-inline-block"><a href="{{ url( '/pengumuman' ) }}" title="Pengumuman"><i class="fa fa-bell"></i></a></li>
-									<li class="hidden-xs"><a href="{{ url( '/pengumuman' ) }}" title="Pengumuman">Pengumuman</a></li>
-									<li><button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button></li>
-								</ul>
-							</nav>
-						@endif
+						<nav class="login-menu">
+							<ul>
+								<li class="visible-xs-inline-block"><a href="{{ url( '/pengumuman' ) }}" title="Pengumuman"><i class="fa fa-bell"></i></a></li>
+								<li class="hidden-xs"><a href="{{ url( '/pengumuman' ) }}" title="Pengumuman">Pengumuman</a></li>
+								<li><button class="btn btn-success" data-toggle="modal" data-target="#loginModal">Login</button></li>
+							</ul>
+						</nav>
 					</div>
 				</div>
 			</div>

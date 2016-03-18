@@ -29,3 +29,26 @@
 input.datepicker {
 	padding: 6px 12px;
 }
+
+.select2-result-user > .user-picture {
+	max-width: 64px;
+	margin-right: 15px;
+	float: left;
+}
+
+.select2-result-user > .user-picture > img {
+	width: 100%;
+	height: auto;
+}
+
+.select2-result-user > .user-meta {
+	float: left;
+}
+
+.select2-result-user > .user-meta > p {
+	margin-bottom: 2px;
+}
+
+.select2-result-user > .user-meta > .meta {
+	font-size: 12px;
+}

@@ -14,16 +14,13 @@ class CreateUserMetaTable extends Migration
     {
         Schema::create('user_metas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');
-            $table->string('picture');
-            $table->string('cover');
-            $table->string('angkatan');
-            $table->string('major');
-            $table->string('dateofbirth');
-            $table->string('address');
-            $table->string('telp_no');
-            $table->string('parent_telp_no');
-            $table->string('social_url');
+            $table->string('user_id', 36);
+            $table->string('picture', 150);
+            $table->string('cover', 150);
+            $table->string('dateofbirth', 15);
+            $table->string('address', 150);
+            $table->string('telp_no', 13);
+            $table->string('parent_telp_no', 13);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
