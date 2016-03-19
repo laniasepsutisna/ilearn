@@ -52,8 +52,8 @@ Route::group(['middleware' => ['web']], function () {
 
 	});
 
-	Route::group(['prefix' => '/api/v1/', 'namespace' => 'API'], function () {
-		Route::resource('/users', 'UserController', ['except' => 'destroy']);
-		Route::get('/search/teacher', 'UserController@teacher');
+	Route::group(['prefix' => '/api/v1/', 'namespace' => 'API', 'middleware' => 'throttle:2,1'], function () {
+		Route::resource('/users', 'UserController', ['only' => ['index', 'show']]);
+		Route::resource('/announcements', 'AnnouncementController', ['only' => ['index', 'show']]);
 	});
 });

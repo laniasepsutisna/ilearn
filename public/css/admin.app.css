@@ -52,3 +52,14 @@ input.datepicker {
 .select2-result-user > .user-meta > .meta {
 	font-size: 12px;
 }
+
+.no-padding-left-right {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+@media(max-width:767px){
+	.wysihtml5-sandbox {
+		max-width: 100% !important;
+	}
+}

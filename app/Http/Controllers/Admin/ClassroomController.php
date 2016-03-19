@@ -17,7 +17,7 @@ class ClassroomController extends Controller
 
     public function index(Request $request)
     {
-        $classrooms = Classroom::paginate(7);
+        $classrooms = Classroom::orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Semua Kelas';
         return view('admin.classrooms.index', compact('classrooms', 'page_title'));
     }
@@ -49,7 +49,8 @@ class ClassroomController extends Controller
     public function edit($id)
     {
         $classroom = Classroom::findOrFail($id);
-        $users = $classroom->users()->paginate(7);
+        $teachers = $classroom->users()->where('users.role', 'teacher')->paginate(5, ['*'], 't_page');
+        $students = $classroom->users()->where('users.role', 'student')->paginate(5, ['*'], 's_page');
         $page_title = 'Manage Kelas';
 
         $ids = [];
@@ -57,7 +58,7 @@ class ClassroomController extends Controller
             $ids[] = $user->id;
         }
 
-        return view('admin.classrooms.edit', compact('classroom', 'page_title', 'users', 'ids'));
+        return view('admin.classrooms.edit', compact('classroom', 'page_title', 'teachers', 'students', 'ids'));
     }
 
     public function update(Request $request, $id)

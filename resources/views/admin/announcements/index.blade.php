@@ -1,4 +1,4 @@
-@extends('admin.home')
+@extends('admin.app')
 
 @section('header_scripts')
 <link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet" media="all">

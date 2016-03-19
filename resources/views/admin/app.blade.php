@@ -61,8 +61,6 @@
 		</div>
 
 		@include('admin.footer')
-
-		@include('admin.sidebars.controls.staff')
 	</div><!-- ./wrapper -->
 
 	<script src="{{ asset ('/js/libs/jquery.min.js') }}"></script>

@@ -48,7 +48,17 @@ class Classroom extends Model
 
     public function getClassNameAttribute()
     {
-        return $this->grade . ' ' . $this->major->name . ' ' . $this->subject->name;
+        return $this->grade . ' ' . $this->major->description . ' ' . $this->subject->name;
+    }
+
+    public function getTeachersAttribute()
+    {
+        $names = [];
+        $teachers = $this->users()->where('classroom_user.role', 'teacher')->get();
+        foreach ($teachers as $teacher) {
+            $names[] = $teacher->fullname;
+        }
+        return implode(', ', $names);
     }
 
     public function addMembers($users)

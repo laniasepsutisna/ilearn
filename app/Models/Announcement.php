@@ -6,7 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Announcement extends Model
 {
-	protected $fillable = ['user_id', 'title', 'content', 'status'];
+	protected $fillable = [
+		'user_id', 'title', 'content', 'status'
+	];
+
+	protected $hidden = [
+		'user_id', 'created_at', 'updated_at'
+	];
 
     public function users()
     {

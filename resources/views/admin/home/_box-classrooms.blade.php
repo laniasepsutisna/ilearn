@@ -1,6 +1,6 @@
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">User Terbaru</h3>
+        <h3 class="box-title">Kelas Terbaru</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -10,14 +10,14 @@
 
     <div class="box-body">
         <ul class="products-list product-list-in-box">
-            @forelse ($users as $u)
+            @forelse ($classrooms as $c)
                 <li class="item">
                     <div class="product-info">
-                        <a href="{{ route('lms-admin.users.edit', $u) }}" class="product-title">
-                            {{ $u->fullname }}
+                        <a href="{{ route('lms-admin.classrooms.edit', $c) }}" class="product-title">
+                            {{ $c->classname }}
                         </a>
                         <span class="product-description">
-                            {!! $u->email !!}
+                            Jumlah Anggota : {{ $c->users()->count() }} orang.
                         </span>
                     </div>
                 </li>
@@ -32,6 +32,6 @@
     </div>
 
     <div class="box-footer text-center">
-        <a href="{{ route('lms-admin.users.index') }}" class="uppercase">Lihat Semua User</a>
+        <a href="{{ route('lms-admin.classrooms.index') }}" class="uppercase">Lihat Semua Kelas</a>
     </div>
 </div>

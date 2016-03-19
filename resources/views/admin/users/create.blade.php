@@ -1,4 +1,4 @@
-@extends('admin.home')
+@extends('admin.app')
 
 @section('page_title')
     Tambah User

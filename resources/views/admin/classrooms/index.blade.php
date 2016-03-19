@@ -1,4 +1,4 @@
-@extends('admin.home')
+@extends('admin.app')
 
 @section('header_scripts')
 <link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
@@ -36,8 +36,8 @@
 						<tr>
 							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
-							<th>Jurusan</th>
-							<th>Mata Pelajaran</th>
+							<th>Guru</th>
+							<th>Jumlah Anggota</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -53,8 +53,8 @@
         								{!! Form::close() !!}
 		                        	</div>
 		                        </td>
-		                        <td>{{ $classroom->majorname }}</td>
-		                        <td>{{ $classroom->subjectname }}</td>
+		                        <td>{{ $classroom->teachers }}</td>
+		                        <td>{{ $classroom->users()->count() }} orang.</td>
 		                    </tr>
 	                    @endforeach
 	                </tbody>
@@ -62,8 +62,8 @@
 						<tr>
 							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
-							<th>Jurusan</th>
-							<th>Mata Pelajaran</th>
+							<th>Guru</th>
+							<th>Jumlah Anggota</th>
 						</tr>
 					</tfoot>
 				</table>

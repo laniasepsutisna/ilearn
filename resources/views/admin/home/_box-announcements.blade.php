@@ -1,6 +1,6 @@
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">User Terbaru</h3>
+        <h3 class="box-title">Pengumuman Terbaru</h3>
         <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse">
                 <i class="fa fa-minus"></i>
@@ -10,21 +10,22 @@
 
     <div class="box-body">
         <ul class="products-list product-list-in-box">
-            @forelse ($users as $u)
+            @forelse ($announcements as $a)
                 <li class="item">
                     <div class="product-info">
-                        <a href="{{ route('lms-admin.users.edit', $u) }}" class="product-title">
-                            {{ $u->fullname }}
+                        <a href="{{ route('lms-admin.announcements.edit', $a) }}" class="product-title">
+                            {{ $a->title }}
+                            <span class="label label-{{ $a->status == 'info' ? 'info' : 'warning' }} pull-right">{{ $a->status }}</span>
                         </a>
                         <span class="product-description">
-                            {!! $u->email !!}
+                            {!! $a->content !!}
                         </span>
                     </div>
                 </li>
             @empty
                 <li class="item">                            
                     <div class="product-info">
-                        Tidak ada ditemukan user baru.
+                        Tidak ada ditemukan pengumuman baru.
                     </div>
                 </li>
             @endforelse
@@ -32,6 +33,6 @@
     </div>
 
     <div class="box-footer text-center">
-        <a href="{{ route('lms-admin.users.index') }}" class="uppercase">Lihat Semua User</a>
+        <a href="{{ route('lms-admin.announcements.index') }}" class="uppercase">Lihat Semua Pengumuman</a>
     </div>
 </div>

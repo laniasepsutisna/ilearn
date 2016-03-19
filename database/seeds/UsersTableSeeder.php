@@ -1,11 +1,10 @@
 <?php
 
-use App\Models\Role;
-use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use Ramsey\Uuid\Uuid;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
@@ -26,6 +25,40 @@ class UsersTableSeeder extends Seeder
             'lastname' => 'LMS',
             'email' => 'admin@domain.com',
             'role' => 'staff',
+            'status' => 'active',
+            'password' => bcrypt('secret')
+        ]);
+
+        $admin->usermeta()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
+        $admin = User::create([
+            'id' => Uuid::uuid4(),
+            'no_induk' => $faker->unique()->randomNumber,
+            'username'  => 'timoti',
+            'firstname' => 'Timothy',
+            'lastname' => 'Adri, S.Kom',
+            'email' => 'chimotfunky@yahoo.com',
+            'role' => 'teacher',
+            'status' => 'active',
+            'password' => bcrypt('secret')
+        ]);
+
+        $admin->usermeta()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
+        $admin = User::create([
+            'id' => Uuid::uuid4(),
+            'no_induk' => $faker->unique()->randomNumber,
+            'username'  => 'reynold',
+            'firstname' => 'Putu Reynold',
+            'lastname' => 'Andika',
+            'email' => 'reynold@andika.com',
+            'role' => 'student',
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);

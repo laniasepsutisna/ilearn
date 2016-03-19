@@ -1,4 +1,4 @@
-@extends('admin.home')
+@extends('admin.app')
 
 @section('page_description')
     <a href="{{ route('lms-admin.majors.create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>

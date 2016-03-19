@@ -10,15 +10,6 @@
 			</div>
 		</div>
 
-		<form action="#" method="get" class="sidebar-form">
-			<div class="input-group">
-				<input type="text" name="q" class="form-control" placeholder="Cari..."/>
-				<span class="input-group-btn">
-					<button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
-				</span>
-			</div>
-		</form>
-
 		<ul class="sidebar-menu">
 			<li class="header">MENU UTAMA</li>
 			<li class="{{ set_active('lms-admin.index') }}"><a href="{{ route('lms-admin.index') }}"><i class="fa fa-dashboard"></i> <span>Beranda</span></a></li>

@@ -12,16 +12,13 @@
             {!! Form::hidden('role', 'teacher') !!}
             {!! Form::hidden('classroom_id', $classroom->id) !!}
             <div class="form-group {{ $errors->has('teachers') ? 'has-error' : '' }}">
-                {!! Form::label('teachers', 'Guru', array('class' => 'col-md-3 control-label')) !!}
-                <div class="col-md-9">
+                <div class="col-md-12">
                     {!! Form::select('teachers[]', App\Models\User::where('role', 'teacher')->whereNotIn('id', $ids)->get()->pluck('fullname', 'id'), null, ['class' => 'form-control select2', 'id' => 'teachers', 'multiple']) !!}                            
                     {!! $errors->first('teachers', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>                    
-            <div class="box-footer">
-                <div class="col-md-offset-3">
-                    {!! Form::submit('Tambahkan', ['name' => 'teachers-submit', 'class'=>'btn btn-flat btn-success']) !!}
-                </div>
+            <div class="box-footer no-padding-left-right">
+                {!! Form::submit('Tambahkan', ['name' => 'teachers-submit', 'class'=>'btn btn-flat btn-success']) !!}
             </div>
         {!! Form::close() !!}
     </div>
@@ -40,34 +37,30 @@
         <table class="table">
             <thead>                        
                 <tr>
-                    <th>Nama Guru</th>
-                    <th>Aksi</th>
+                    <th colspan="2">Nama Guru</th>
                 </tr>
             </thead>
             <tbody>
-            @foreach($users as $user)
-                @if($user->hasRole('teacher'))                               
-                    <tr>
-                        <td>{{ $user->fullname }}</td>
-                        <td>
-                            {!! Form::open(['route' => ['lms-admin.classrooms.removemember', $user], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-                                {!! Form::hidden('classroom_id', $classroom->id) !!}
-                                {!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger']) !!}
-                            {!! Form::close() !!}
-                        </td>
-                    </tr>
-                @endif
+            @foreach($teachers as $user)                             
+                <tr>
+                    <td>{{ $user->fullname }}</td>
+                    <td>
+                        {!! Form::open(['route' => ['lms-admin.classrooms.removemember', $user], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+                            {!! Form::hidden('classroom_id', $classroom->id) !!}
+                            {!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs']) !!}
+                        {!! Form::close() !!}
+                    </td>
+                </tr>
             @endforeach
             </tbody>
             <tfoot>                     
                 <tr>
-                    <th>Nama Guru</th>
-                    <th>Aksi</th>
+                    <th colspan="2">Nama Guru</th>
                 </tr>
             </tfoot>
         </table>
     </div>
     <div class="pull-right">
-        {{ $users->links() }}
+        {!! $teachers->links() !!}
     </div>
 </div>

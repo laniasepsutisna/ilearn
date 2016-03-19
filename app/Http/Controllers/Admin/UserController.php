@@ -41,16 +41,16 @@ class UserController extends Controller
     public function buildIndexQuery($request)
     {
         if( $request->has('type') ) {            
-            $users = User::where('role', $request->type)->orderBy('created_at', 'desc')->paginate(7);
+            $users = User::where('role', $request->type)->orderBy('created_at', 'DESC')->paginate(7);
         } elseif( $request->has('q') ){
             $users = User::where(function($query) use ($request){
                         $query->where('no_induk', 'LIKE', '%' . $request->q . '%')   
                                 ->orWhere('firstname', 'LIKE', '%' . $request->q . '%')                        
                                 ->orWhere('lastname', 'LIKE', '%' . $request->q . '%')                      
                                 ->orWhere('email', 'LIKE', '%' . $request->q . '%');
-                    })->orderBy('created_at', 'desc')->paginate(7);
+                    })->orderBy('created_at', 'DESC')->paginate(7);
         } else {
-            $users = User::orderBy('created_at', 'desc')->paginate(7);
+            $users = User::orderBy('created_at', 'DESC')->paginate(7);
         }
 
         return $users;
@@ -58,7 +58,7 @@ class UserController extends Controller
 
     public function create(Request $request)
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(7);
+        $users = User::orderBy('created_at', 'DESC')->paginate(7);
 
         $page_title = $request->has('type') ? ucfirst($request->type) : 'User';
         return view('admin.users.create', compact('users', 'page_title'));
@@ -95,7 +95,7 @@ class UserController extends Controller
 
     public function edit(Request $request, $id)
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(7);
+        $users = User::orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Edit User';
         $user = User::findOrFail($id);
 

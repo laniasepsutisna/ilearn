@@ -16,7 +16,7 @@ class MajorController extends Controller
 
     public function index(Request $request)
     {
-        $majors = Major::where('name', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%')->paginate(7);
+        $majors = Major::where('name', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%')->orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Jurusan';
 
         return view('admin.majors.index', compact('majors', 'page_title'));
@@ -24,7 +24,7 @@ class MajorController extends Controller
 
     public function create()
     {
-        $majors = Major::paginate(7);
+        $majors = Major::orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Tambah Jurusan';
 
         return view('admin.majors.create', compact('majors', 'page_title'));
@@ -48,7 +48,7 @@ class MajorController extends Controller
     public function edit($id)
     {
         $major = Major::findOrFail($id);
-        $majors = Major::paginate(7);
+        $majors = Major::orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Edit Jurusan';
 
         return view('admin.majors.edit', compact('majors', 'major', 'page_title'));

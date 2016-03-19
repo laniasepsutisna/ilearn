@@ -19,7 +19,6 @@ class CreateAnnouncementsTable extends Migration
             $table->text('content', 300);
             $table->enum('status', ['info', 'warning']);
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

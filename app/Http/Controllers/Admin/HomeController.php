@@ -6,6 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\Announcement;
+use App\Models\Classroom;
+use App\Models\Major;
+use App\Models\Subject;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -19,7 +24,12 @@ class HomeController extends Controller
     public function index()
     {
         if(Auth::check()) {
-            return view('admin.home');
+            $users = User::orderBy('created_at', 'DESC')->paginate(5);
+            $majors = Major::orderBy('created_at', 'DESC')->paginate(5);
+            $subjects = Subject::orderBy('created_at', 'DESC')->paginate(5);
+            $classrooms = Classroom::orderBy('created_at', 'DESC')->paginate(5);
+            $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(5);
+            return view('admin.home.home', compact('users', 'majors', 'subjects', 'classrooms', 'announcements'));
         }
 
         return view('auth.login');

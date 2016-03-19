@@ -16,7 +16,7 @@ class SubjectController extends Controller
 
     public function index(Request $request)
     {
-        $subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%')->paginate(7);
+        $subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%')->orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Mata Pelajaran';
 
         return view('admin.subjects.index', compact('subjects', 'page_title'));
@@ -24,7 +24,7 @@ class SubjectController extends Controller
 
     public function create()
     {
-        $subjects = Subject::paginate(7);
+        $subjects = Subject::orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Tambah Mata Pelajaran';
 
         return view('admin.subjects.create', compact('subjects', 'page_title'));
@@ -48,7 +48,7 @@ class SubjectController extends Controller
     public function edit($id)
     {
         $subject = Subject::findOrFail($id);
-        $subjects = Subject::paginate(7);
+        $subjects = Subject::orderBy('created_at', 'DESC')->paginate(7);
         $page_title = 'Edit Mata Pelajaran';
 
         return view('admin.subjects.edit', compact('subjects', 'subject', 'page_title'));

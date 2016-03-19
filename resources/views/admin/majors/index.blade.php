@@ -1,4 +1,4 @@
-@extends('admin.home')
+@extends('admin.app')
 
 @section('header_scripts')
 <link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
