@@ -36,8 +36,8 @@ class LoginController extends Controller
             'username' => 'required|max:22',
             'password' => 'required|min:6',
         ], [
-            'required' => ':attribute diperlukan!',
-            'min' => ':attribute minimal 6 karakter.'
+            'required' => 'Kolom :attribute diperlukan!',
+            'min' => 'Oops! :attribute minimal 6 karakter.'
         ]);
 
         if ($lockedOut = $this->hasTooManyLoginAttempts($request)) {
@@ -56,7 +56,7 @@ class LoginController extends Controller
             if( Auth::user()->role === 'staff' ) {
                 return redirect()->intended('/lms-admin');
             } else {
-                return redirect()->intended('/');
+                return redirect()->intended('/home');
             }
         }
 
@@ -77,7 +77,7 @@ class LoginController extends Controller
 	}
 
 	public function logout()
-	{		
+	{
         User::where('id', Auth::user()->id)->update(['login' => 0]);
 		Auth::logout();
 		return redirect()->route('login');

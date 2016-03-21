@@ -88,7 +88,6 @@ class AnnouncementController extends Controller
         \Flash::success('Pengumuman diperbaharui.');
         return redirect()->back();
     }
-
     
     public function destroy($id)
     {

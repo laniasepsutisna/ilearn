@@ -5,5 +5,25 @@
   },
   "dependencies": {
     "laravel-elixir": "*"
-  }
+  },
+  "name": "ilearn",
+  "description": "### License",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alfredcrosby/ilearn.git"
+  },
+  "author": "Alfred Crosby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alfredcrosby/ilearn/issues"
+  },
+  "homepage": "https://github.com/alfredcrosby/ilearn#readme"
 }

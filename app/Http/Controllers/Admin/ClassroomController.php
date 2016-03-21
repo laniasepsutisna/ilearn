@@ -49,8 +49,8 @@ class ClassroomController extends Controller
     public function edit($id)
     {
         $classroom = Classroom::findOrFail($id);
-        $teachers = $classroom->users()->where('users.role', 'teacher')->paginate(5, ['*'], 't_page');
-        $students = $classroom->users()->where('users.role', 'student')->paginate(5, ['*'], 's_page');
+        $teachers = $classroom->users()->where('classroom_user.role', 'teacher')->paginate(5, ['*'], 't_page');
+        $students = $classroom->users()->where('classroom_user.role', 'student')->paginate(5, ['*'], 's_page');
         $page_title = 'Manage Kelas';
 
         $ids = [];

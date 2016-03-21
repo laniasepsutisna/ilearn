@@ -8,7 +8,7 @@
 	{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700, 900" rel="stylesheet" type="text/css"> --}}
 	<link href="{{ asset( '/css/font-awesome.min.css' ) }}" rel="stylesheet">
 	<link href="{{ asset( '/css/bootstrap.min.css' ) }}" rel="stylesheet">
-	<link href="{{ asset( '/css/app.css' ) }}" rel="stylesheet">
+	<link href="{{ asset( '/css/login.css' ) }}" rel="stylesheet">
 	<script type="text/javascript" src="{{ asset( '/js/libs/jquery.min.js' ) }}"></script>
 </head>
 <body class="login-page">
