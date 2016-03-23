@@ -107,10 +107,10 @@ class ClassroomController extends Controller
         $users = [];
 
         if($request->has('teachers-submit')) {
-            $validation = ['teachers' => 'required|unique:classroom_user,user_id|exists:users,id'];
+            $validation = ['teachers' => 'required|exists:users,id'];
             $users = $request->teachers;
         } elseif($request->has('students-submit')) {
-            $validation = ['students' => 'required|unique:classroom_user,user_id|exists:users,id'];
+            $validation = ['students' => 'required|exists:users,id'];
             $users = $request->students;
         }
         

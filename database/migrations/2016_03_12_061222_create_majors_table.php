@@ -18,6 +18,10 @@ class CreateMajorsTable extends Migration
             $table->string('description', 150);
             $table->timestamps();
         });
+
+        Schema::table('user_metas', function($table) {
+            $table->foreign('major_id')->references('id')->on('user_metas');
+        });
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Traits\UuidModel;
+use App\Traits\UserMetaAccessor;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use UuidModel, CanResetPassword;
+    use UuidModel, CanResetPassword, UserMetaAccessor;
     
     public $incrementing = false;
 
@@ -66,50 +67,6 @@ class User extends Authenticatable
     public function usermeta()
     {
         return $this->hasOne(UserMeta::class);
-    }
-
-    public function getAngkatanAttribute()
-    {
-        return $this->usermeta->angkatan;
-    }
-
-    public function getMajorAttribute()
-    {
-        return $this->usermeta->major;
-    }
-
-    public function getDateOfBirthAttribute()
-    {
-        return $this->usermeta->dateofbirth;
-    }
-
-    public function getTelpNoAttribute()
-    {
-        return $this->usermeta->telp_no;
-    }
-
-    public function getParentTelpNoAttribute()
-    {
-        return $this->usermeta->parent_telp_no;
-    }
-
-    public function getAddressAttribute()
-    {
-        return $this->usermeta->address;
-    }
-
-    public function getPictureAttribute()
-    {
-        if ($this->usermeta->picture !== '') {
-            return url('/uploads/' . $this->usermeta->picture);
-        }
-    }
-
-    public function getCoverAttribute()
-    {
-        if ($this->usermeta->cover !== '') {
-            return url('/uploads/' . $this->usermeta->cover);
-        }
     }
 
     public function classrooms()

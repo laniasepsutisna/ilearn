@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class UserMeta extends Model
 {
 	protected  $fillable = [
-		'user_id', 'picture', 'cover', 'dateofbirth', 'address', 'telp_no', 'parent_telp_no'
+		'user_id', 'major_id', 'nis', 'nisn', 'agama', 'tempatlahir', 'tanggallahir', 'orangtua', 'wali', 'alamat', 'telp', 'telp_orangtua', 'picture', 'cover'
 	];
 
 	protected $hidden = [
-		'id', 'user_id', 'created_at', 'updated_at'
+		'id', 'user_id', 'major_id', 'created_at', 'updated_at'
 	];
 
     public function user()

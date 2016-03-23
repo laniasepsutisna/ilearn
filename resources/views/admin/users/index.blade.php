@@ -57,9 +57,11 @@
 		                        	<div>{{ $user->fullname }}</div>
 		                        	<div>
 		                        		<a href="{{ route('lms-admin.users.edit', $user->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+		                        		@if($user->username !== 'admin' || $user->username !== Auth::user()->username)
     									{!! Form::open(['route' => ['lms-admin.users.destroy', $user->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
         									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete']) !!}
         								{!! Form::close() !!}
+        								@endif
 		                        	</div>
 		                        </td>
 		                        <td>{{ $user->email }}</td>

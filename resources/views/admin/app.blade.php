@@ -30,24 +30,9 @@
   	<div class="wrapper">
 		@include('admin.header')
 
-		@if(Auth::user()->hasRole('staff'))
-	  		@include('admin.sidebars.staff')
-	  	@elseif(Auth::user()->hasRole('teacher'))
-	  		@include('admin.sidebars.teacher')
-	  	@elseif(Auth::user()->hasRole('student'))
-	  		@include('admin.sidebars.student')
-  		@endif
+  		@include('admin.sidebars.staff')
 
 		<div class="content-wrapper">
-			<section class="content-header">
-				<h1>{{ $page_title or 'Home' }} <small> @yield('page_description')</small></h1>
-
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-					<li class="active">Here</li>
-				</ol>
-			</section>
-
 			<section class="content">
 				@if (Session::has('flash_notification.message'))
 		            <div class="alert alert-{{ Session::get('flash_notification.level') }}">

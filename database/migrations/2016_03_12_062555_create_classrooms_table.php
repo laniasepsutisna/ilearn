@@ -13,7 +13,7 @@ class CreateClassroomsTable extends Migration
     public function up()
     {
         Schema::create('classrooms', function (Blueprint $table) {
-            $table->string('id', 36);
+            $table->uuid('id')->unique();
             $table->integer('subject_id')->unsigned();
             $table->integer('major_id')->unsigned();
             $table->string('grade', 5);

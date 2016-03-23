@@ -19,7 +19,6 @@ class UsersTableSeeder extends Seeder
 
         $admin = User::create([
             'id' => Uuid::uuid4(),
-            'no_induk' => $faker->unique()->randomNumber,
             'username'  => 'admin',
             'firstname' => 'Admin',
             'lastname' => 'LMS',
@@ -34,9 +33,8 @@ class UsersTableSeeder extends Seeder
             'cover' => 'cover-default.jpg'
         ]);
 
-        $admin = User::create([
+        $guru = User::create([
             'id' => Uuid::uuid4(),
-            'no_induk' => $faker->unique()->randomNumber,
             'username'  => 'timoti',
             'firstname' => 'Timothy',
             'lastname' => 'Adri, S.Kom',
@@ -46,14 +44,13 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret')
         ]);
 
-        $admin->usermeta()->create([
+        $guru->usermeta()->create([
             'picture' => 'icon-user-default.png',
             'cover' => 'cover-default.jpg'
         ]);
 
-        $admin = User::create([
+        $siswa = User::create([
             'id' => Uuid::uuid4(),
-            'no_induk' => $faker->unique()->randomNumber,
             'username'  => 'reynold',
             'firstname' => 'Putu Reynold',
             'lastname' => 'Andika',
@@ -63,7 +60,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('secret')
         ]);
 
-        $admin->usermeta()->create([
+        $siswa->usermeta()->create([
             'picture' => 'icon-user-default.png',
             'cover' => 'cover-default.jpg'
         ]);
@@ -84,7 +81,6 @@ class UsersTableSeeder extends Seeder
         for ($i=0; $i < 50 ; $i++) {
             $user = User::create([
                 'id' => Uuid::uuid4(),
-                'no_induk' => $faker->unique()->randomNumber,
                 'username'  => strtolower($faker->unique()->userName),
                 'firstname' => $faker->firstName,
                 'lastname' => $faker->lastName,

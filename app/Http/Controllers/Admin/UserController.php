@@ -44,8 +44,7 @@ class UserController extends Controller
             $users = User::where('role', $request->type)->orderBy('created_at', 'DESC')->paginate(7);
         } elseif( $request->has('q') ){
             $users = User::where(function($query) use ($request){
-                        $query->where('no_induk', 'LIKE', '%' . $request->q . '%')   
-                                ->orWhere('firstname', 'LIKE', '%' . $request->q . '%')                        
+                        $query->where('firstname', 'LIKE', '%' . $request->q . '%')                        
                                 ->orWhere('lastname', 'LIKE', '%' . $request->q . '%')                      
                                 ->orWhere('email', 'LIKE', '%' . $request->q . '%');
                     })->orderBy('created_at', 'DESC')->paginate(7);
@@ -65,9 +64,8 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-    {        
+    {
         $this->validate($request, [
-            'no_induk' => 'required|unique:users,no_induk',
             'username' => 'required|unique:users,username',
             'firstname' => 'required',
             'lastname' => 'required',
@@ -79,15 +77,6 @@ class UserController extends Controller
         ]);
 
         $user = User::create($request->all());
-
-        $user->usermeta()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg',
-            'dateofbirth' => $request->dateofbirth,
-            'address' => $request->address,
-            'telp_no' => $request->telp_no,
-            'parent_telp_no' => $request->parent_telp_no
-        ]);
 
         \Flash::success('User tersimpan.');
         return redirect()->route('lms-admin.users.edit', [$user->id]);
@@ -107,11 +96,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
 
         $this->validate($request, [
-            'no_induk' => 'required|unique:users,no_induk,' . $user->id,
             'username' => 'required|unique:users,username,' . $user->id,
             'firstname' => 'required',
             'lastname' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'nis' => 'unique:user_metas,nis,' . $user->usermeta->id,
+            'nisn' => 'unique:user_metas,nisn,' . $user->usermeta->id,
+            'telp' => 'unique:user_metas,telp,' . $user->usermeta->id,
+            'telp_orangtua' => 'unique:user_metas,telp_orangtua,' . $user->usermeta->id,
         ], [
             'required' => 'Kolom :attribute diperlukan!',
             'exists' => 'Kolom :attribute tidak ditemukan!',
@@ -120,11 +112,18 @@ class UserController extends Controller
         
         $user->update($request->all());
 
-        $user->usermeta()->update([
-            'dateofbirth' => $request->dateofbirth,
-            'address' => $request->address,
-            'telp_no' => $request->telp_no,
-            'parent_telp_no' => $request->parent_telp_no
+        $user->usermeta()->update([            
+            'nis' => $request->nis,
+            'nisn' => $request->nisn,
+            'major_id' => $request->jurusan,
+            'agama' => $request->agama,
+            'tempatlahir' => $request->tempatlahir,
+            'tanggallahir' => $request->tanggallahir,
+            'alamat' => $request->alamat,
+            'telp' => $request->telp,
+            'orangtua' => $request->orangtua,
+            'wali' => $request->wali,
+            'telp_orangtua' => $request->telp_orangtua,
         ]);
 
         \Flash::success('User diperbaharui.');
