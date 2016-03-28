@@ -43,12 +43,11 @@ class HomeController extends Controller
         return view('admin.home.profile', compact('user', 'page_title'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(Auth::user()->id);
 
         $this->validate($request, [
-            'no_induk' => 'required|unique:users,no_induk,' . $user->id,
             'username' => 'required|unique:users,username,' . $user->id,
             'firstname' => 'required',
             'lastname' => 'required',
@@ -62,10 +61,10 @@ class HomeController extends Controller
         $user->update($request->all());
 
         $user->usermeta()->update([
-            'dateofbirth' => $request->dateofbirth,
-            'address' => $request->address,
-            'telp_no' => $request->telp_no,
-            'parent_telp_no' => $request->parent_telp_no
+            'tempatlahir' => $request->tempatlahir,
+            'tanggallahir' => $request->tanggallahir,
+            'alamat' => $request->alamat,
+            'telp' => $request->telp
         ]);
 
         \Flash::success('Profil berhasil diperbaharui.');

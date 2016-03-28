@@ -20,6 +20,18 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Profile</h3>
             </div>
+
+            <div class="cover">
+                <img src="{{ $user->cover }}">
+                <span id="chg-cover"><a href="#">Ganti Cover</a></span>
+                <figure class="picture">
+                    <a href="#" id="chg-pict-button">
+                        <img src="{{ $user->picture }}">
+                        <span class="chg-picture">Ganti Foto</span>
+                    </a>
+                </figure>
+            </div> 
+
             {!!Form::model($user, ['route' => ['lms-admin.update', $user], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
                 @include('admin.home._form-profile', ['model' => $user])
             {!! Form::close() !!}

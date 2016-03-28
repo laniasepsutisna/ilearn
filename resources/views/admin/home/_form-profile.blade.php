@@ -1,12 +1,4 @@
 <div class="box-body">
-    <div class="form-group {{ $errors->has('no_induk') ? 'has-error' : '' }}">
-        {!! Form::label('no_induk', 'No Induk', ['class' => 'col-md-3 control-label']) !!}
-        <div class="col-md-6">
-            {!! Form::text('no_induk', null, ['class'=> 'form-control', 'autofocus' => 'autofocus', 'id' => 'no_induk', 'autocomplete' => 'off']) !!}
-            {!! $errors->first('no_induk', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-
     <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
         {!! Form::label('username', 'Username', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
@@ -39,35 +31,35 @@
         </div>
     </div>
 
-    <div class="form-group {{ $errors->has('dateofbirth') ? 'has-error' : '' }}">
-        {!! Form::label('dateofbirth', 'Tanggal Lahir', ['class' => 'col-md-3 control-label']) !!}
+    <div class="form-group {{ $errors->has('tempatlahir') ? 'has-error' : '' }}">
+        {!! Form::label('tempatlahir', 'Tempat Lahir', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::text('dateofbirth', null, ['class'=> 'form-control datepicker', 'id' => 'dateofbirth', 'placeholder' => 'tanggal/bulan/tahun']) !!}
-            {!! $errors->first('dateofbirth', '<p class="help-block">:message</p>') !!}
+            {!! Form::text('tempatlahir', null, ['class'=> 'form-control', 'id' => 'tempatlahir', 'autocomplete' => 'off', 'placeholder' => 'Tempat Lahir']) !!}
+            {!! $errors->first('tempatlahir', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
-    <div class="form-group {{ $errors->has('telp_no') ? 'has-error' : '' }}">
-        {!! Form::label('telp_no', 'No Telp/ HP', ['class' => 'col-md-3 control-label']) !!}
+    <div class="form-group {{ $errors->has('tanggallahir') ? 'has-error' : '' }}">
+        {!! Form::label('tanggallahir', 'Tanggal Lahir', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::text('telp_no', null, ['class'=> 'form-control', 'id' => 'telp_no', 'placeholder' => 'No telp user...', 'autocomplete' => 'off']) !!}
-            {!! $errors->first('telp_no', '<p class="help-block">:message</p>') !!}
+            {!! Form::text('tanggallahir', null, ['class'=> 'form-control datepicker', 'id' => 'tanggallahir', 'placeholder' => 'tanggal/bulan/tahun']) !!}
+            {!! $errors->first('tanggallahir', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
-    <div class="form-group {{ $errors->has('parent_telp_no') ? 'has-error' : '' }}">
-        {!! Form::label('parent_telp_no', 'Telp/HP Orang Tua/Wali', ['class' => 'col-md-3 control-label']) !!}
+    <div class="form-group {{ $errors->has('telp') ? 'has-error' : '' }}">
+        {!! Form::label('telp', 'No Telp/ HP', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::text('parent_telp_no', null, ['class'=> 'form-control', 'id' => 'parent_telp_no', 'autocomplete' => 'off', 'placeholder' => 'No telp orang tua/ wali user. (hanya untuk siswa)']) !!}
-            {!! $errors->first('parent_telp_no', '<p class="help-block">:message</p>') !!}
+            {!! Form::text('telp', null, ['class'=> 'form-control', 'id' => 'telp', 'placeholder' => 'No telp user...', 'autocomplete' => 'off']) !!}
+            {!! $errors->first('telp', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
-    <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
-        {!! Form::label('address', 'Alamat', array('class' => 'col-md-3 control-label')) !!}
+    <div class="form-group {{ $errors->has('alamat') ? 'has-error' : '' }}">
+        {!! Form::label('alamat', 'Alamat', array('class' => 'col-md-3 control-label')) !!}
         <div class="col-md-9">
-            {!! Form::textarea('address', null, ['class' => 'form-control textarea', 'placeholder' => 'Alamat user...', 'id' => 'address']) !!}
-            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
+            {!! Form::textarea('alamat', null, ['class' => 'form-control textarea', 'placeholder' => 'Alamat user...', 'id' => 'alamat']) !!}
+            {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 

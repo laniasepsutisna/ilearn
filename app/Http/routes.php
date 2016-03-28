@@ -51,8 +51,12 @@ Route::group(['middleware' => ['web']], function () {
 		Route::delete('/classrooms/removemember/{users}', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
 	});
 
-	Route::group(['prefix' => '/api/v1/', 'namespace' => 'API', 'middleware' => 'throttle:2,1'], function () {
+	Route::group(['prefix' => '/api/v1/', 'namespace' => 'API', 'middleware' => 'throttle:10,1'], function () {
 		Route::resource('/users', 'UserController', ['only' => ['index', 'show']]);
 		Route::resource('/announcements', 'AnnouncementController', ['only' => ['index', 'show']]);
+		Route::resource('/quizes', 'QuizController');
+		Route::resource('/tasks', 'TaskController');
+		Route::resource('/files', 'FileController');
+		Route::resource('/feeds', 'FeedController', ['except' => ['edit', 'update']]);
 	});
 });

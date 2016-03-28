@@ -63,3 +63,56 @@ input.datepicker {
 		max-width: 100% !important;
 	}
 }
+
+.cover {
+	position: relative;
+	margin-bottom: 2rem;
+	height: 350px;
+	overflow-y: hidden;
+}
+
+.cover a {
+	color: #FFF;
+}
+
+.cover > img {
+	max-width: 100%;
+	height: autor;
+}
+
+#chg-cover {
+	position: absolute;
+	padding: 2px 5px;
+	bottom: 0; right: 0;
+	background: rgba(0,0,0,0.5);
+}
+
+.picture {
+	position: absolute;
+	bottom: 50%; left: 0; right: 0;
+	transform: translateY(50%);
+	max-width: 120px;
+	max-height: 120px;
+	margin: auto;
+	border: 4px solid #FFF;
+	border-radius: 50%;
+	overflow: hidden;
+	text-align: center;
+}
+
+.picture a > img {
+	max-width: 100%;
+}
+
+.chg-picture {
+    background: rgba(0,0,0,0.5);
+    color: #FFF;
+    position: relative;
+    display: block;
+    padding: 5px 0;
+    transition: all 0.1s linear 0s;
+}
+
+.picture:hover .chg-picture {
+    transform: translate3d(0,-30px,0);
+}
