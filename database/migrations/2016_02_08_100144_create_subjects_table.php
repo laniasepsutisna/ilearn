@@ -13,10 +13,12 @@ class CreateSubjectsTable extends Migration
     public function up()
     {
         Schema::create('subjects', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->unique();
             $table->string('name', 30);
             $table->string('description', 150);
             $table->timestamps();
+            
+            $table->primary(['id']);
         });
     }
 

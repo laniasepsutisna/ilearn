@@ -23,21 +23,19 @@ class HomeController extends Controller
 
     public function index()
     {
-        if(Auth::check()) {
-            $users = User::orderBy('created_at', 'DESC')->paginate(5);
-            $majors = Major::orderBy('created_at', 'DESC')->paginate(5);
-            $subjects = Subject::orderBy('created_at', 'DESC')->paginate(5);
-            $classrooms = Classroom::orderBy('created_at', 'DESC')->paginate(5);
-            $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(5);
-            return view('admin.home.home', compact('users', 'majors', 'subjects', 'classrooms', 'announcements'));
-        }
+        $users = User::orderBy('created_at', 'DESC')->paginate(5);
+        $majors = Major::orderBy('created_at', 'DESC')->paginate(5);
+        $subjects = Subject::orderBy('created_at', 'DESC')->paginate(5);
+        $classrooms = Classroom::orderBy('created_at', 'DESC')->paginate(5);
+        $announcements = Announcement::orderBy('created_at', 'DESC')->paginate(5);
+        return view('admin.home.home', compact('users', 'majors', 'subjects', 'classrooms', 'announcements'));
 
         return view('auth.login');
     }
 
     public function profile()
     {
-        $user = User::where('username', Auth::user()->username)->first();
+        $user = User::findOrFail(Auth::user()->id);
         $page_title = 'Profile';
 
         return view('admin.home.profile', compact('user', 'page_title'));
@@ -88,5 +86,34 @@ class HomeController extends Controller
 
         \Flash::success('Password berhasil diperbaharui.');
         return redirect()->back();
+    }
+
+    public function changeimage(Request $request)
+    {
+        $this->validate($request,[
+            'field' => 'required',
+            'image' => 'required|mimes:jpeg,bmp,png'
+        ], [
+            'required' => 'Kolom :attribute diperlukan!',
+            'mimes' => 'Format file harus *.jpg, *.png *.bmp'
+        ]);
+
+        $data = [];
+
+        if($request->hasFile('image')){
+            $data[$request->field] = $this->upload($request->image);
+            $user->usermeta()->update($data);
+        }
+        
+    }
+
+    public function upload(UploadedFile $image)
+    {
+        $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
+        $fileName = $timestamp . '-' . $file->getClientOriginalName();
+        $destination = public_path() . DIRECTORY_SEPARATOR . 'img';
+        $image->move($destination, $fileName);
+
+        return $fileName;
     }
 }

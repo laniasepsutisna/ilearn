@@ -1,10 +1,5 @@
 @extends('admin.app')
 
-@section('header_scripts')
-<link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet" type="text/css">
-@endsection
-
 @section('page_description')
     <a href="{{ route('lms-admin.classrooms.create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>
 @endsection
@@ -78,9 +73,4 @@
 		</div>
 	</div>
 </div><!-- /.row -->
-@endsection
-
-@section('footer_scripts')
-<script src="{{ asset ('/js/libs/select2.js') }}" type="text/javascript"></script>
-<script src="{{ asset ('/js/admin.js') }}" type="text/javascript"></script>
 @endsection

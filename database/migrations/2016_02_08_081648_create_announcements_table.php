@@ -13,13 +13,14 @@ class CreateAnnouncementsTable extends Migration
     public function up()
     {
         Schema::create('announcements', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('user_id', 36);
+            $table->uuid('id')->unique();
+            $table->uuid('user_id');
             $table->string('title', 150);
             $table->text('content', 300);
             $table->enum('status', ['info', 'warning']);
             $table->timestamps();
 
+            $table->primary(['id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

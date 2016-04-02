@@ -13,10 +13,12 @@ class CreateMajorsTable extends Migration
     public function up()
     {
         Schema::create('majors', function (Blueprint $table) {
-            $table->increments('id');
+            $table->uuid('id')->unique();
             $table->string('name', 30);
             $table->string('description', 150);
             $table->timestamps();
+
+            $table->primary(['id']);
         });
 
         Schema::table('user_metas', function($table) {

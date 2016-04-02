@@ -8,12 +8,30 @@
     {{ Auth::user()->fullname }}
 @endsection
 
-@section('header_scripts')
-<link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ asset( '/css/datepicker3.css') }}" rel="stylesheet" type="text/css">
-@endsection
-
 @section('content')
+<div class="modal fade" tabindex="-1" role="dialog" id="changeImage">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Upload Image</h4>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['url' => route('lms-admin.changeimage'), 'files' => true, 'method' => 'patch']) !!}
+                    {!! Form::hidden('field', 'picture', ['class' => 'field_type']) !!}
+                    <div class="form-group">
+                        {!! Form::label('image', 'Image', ['class' => 'sr-only']) !!}
+                        {!! Form::file('image') !!}
+                        
+                    </div>
+            </div>
+            <div class="modal-footer">
+                {!! Form::submit('Update Image', ['class'=>'btn btn-flat btn-success']) !!}
+            </div>
+                {!! Form::close() !!}
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-8">
         <div class="box box-primary">
@@ -23,16 +41,16 @@
 
             <div class="cover">
                 <img src="{{ $user->cover }}">
-                <span id="chg-cover"><a href="#">Ganti Cover</a></span>
+                <span id="chg-cover"><a href="#" data-toggle="modal" data-target="#changeImage">Ganti Cover</a></span>
                 <figure class="picture">
-                    <a href="#" id="chg-pict-button">
+                    <a href="#" id="chg-pict-button" data-toggle="modal" data-target="#changeImage">
                         <img src="{{ $user->picture }}">
                         <span class="chg-picture">Ganti Foto</span>
                     </a>
                 </figure>
             </div> 
 
-            {!!Form::model($user, ['route' => ['lms-admin.update', $user], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+            {!! Form::model($user, ['route' => ['lms-admin.update', $user], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
                 @include('admin.home._form-profile', ['model' => $user])
             {!! Form::close() !!}
         </div>
@@ -68,19 +86,4 @@
         </div>
     </div>
 </div>
-@endsection
-
-
-@section('footer_scripts')
-<script src="{{ asset ('/js/libs/select2.js') }}" type="text/javascript"></script>
-<script src="{{ asset ('/js/libs/bootstrap-datepicker.js') }}" type="text/javascript"></script>
-<script type="text/javascript">
-    jQuery(function($){
-        $('.select2').select2();
-        $('.datepicker').datepicker({
-            format: 'dd/mm/yyyy',
-            startDate: '01/01/1940'
-        });
-    });
-</script>
 @endsection

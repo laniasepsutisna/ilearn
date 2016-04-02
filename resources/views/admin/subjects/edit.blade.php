@@ -4,11 +4,6 @@
     <a href="{{ route('lms-admin.subjects.create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>
 @endsection
 
-@section('header_scripts')
-<link href="{{ asset( '/css/bootstrap3-wysihtml5.min.css') }}" rel="stylesheet" type="text/css">
-<link href="{{ asset( '/css/select2.css') }}" rel="stylesheet" type="text/css">
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col-md-8">
@@ -25,16 +20,4 @@
         @include('admin.subjects._box', ['model' => $subjects])
     </div>
 </div>
-@endsection
-
-
-@section('footer_scripts')
-<script src="{{ asset('/js/libs/bootstrap3-wysihtml5.all.min.js') }}"></script>
-<script src="{{ asset ('/js/libs/select2.js') }}" type="text/javascript"></script>
-<script>
-    jQuery(function ($) {
-        $(".textarea").wysihtml5();
-        $('.select2').select2();
-    });
-</script>
 @endsection

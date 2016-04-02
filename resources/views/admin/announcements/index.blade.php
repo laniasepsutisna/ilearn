@@ -1,9 +1,5 @@
 @extends('admin.app')
 
-@section('header_scripts')
-<link href="{{ asset('/css/sweetalert.css') }}" rel="stylesheet" media="all">
-@endsection
-
 @section('page_description')
     <a href="{{ route('lms-admin.announcements.create') }}" class="btn btn-flat btn-info btn-xs"><i class="fa fa-plus"></i> Tambah Baru</a>
 @endsection
@@ -79,8 +75,4 @@
 		</div>
 	</div>
 </div><!-- /.row -->
-@endsection
-
-@section('footer_scripts')
-<script src="{{ asset ('/js/admin.js') }}" type="text/javascript"></script>
 @endsection

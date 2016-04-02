@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UuidModel;
 
 class Major extends Model
 {
+	use UuidModel;
+
+    public $incrementing = false;
+    
 	protected $fillable = ['name', 'description'];
 
 	protected $hidden = [

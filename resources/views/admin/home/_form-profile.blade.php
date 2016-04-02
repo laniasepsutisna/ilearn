@@ -65,7 +65,7 @@
 
     <div class="box-footer">
         <div class="col-md-offset-3">
-            {!! Form::submit('Update', ['class'=>'btn btn-flat btn-success']) !!}
+            {!! Form::submit('Update Profile', ['class'=>'btn btn-flat btn-success']) !!}
         </div>
     </div>
 </div>

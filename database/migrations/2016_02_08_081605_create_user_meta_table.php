@@ -13,9 +13,9 @@ class CreateUserMetaTable extends Migration
     public function up()
     {
         Schema::create('user_metas', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('user_id', 36)->unique();
-            $table->integer('major_id')->unsigned()->nullable();
+            $table->uuid('id')->unique();
+            $table->uuid('user_id')->unique();
+            $table->uuid('major_id')->nullable();
             $table->string('nis', 60)->unique()->nullable();
             $table->string('nisn', 60)->unique()->nullable();
             $table->string('agama', 15);
@@ -30,6 +30,7 @@ class CreateUserMetaTable extends Migration
             $table->string('cover', 150);
             $table->timestamps();
 
+            $table->primary(['id']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

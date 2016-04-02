@@ -3,9 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UuidModel;
 
 class Announcement extends Model
 {
+	use UuidModel;
+
+    public $incrementing = false;
+    
 	protected $fillable = [
 		'user_id', 'title', 'content', 'status'
 	];

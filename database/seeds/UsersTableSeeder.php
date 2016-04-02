@@ -18,7 +18,6 @@ class UsersTableSeeder extends Seeder
         $faker = Faker::create();
 
         $admin = User::create([
-            'id' => Uuid::uuid4(),
             'username'  => 'admin',
             'firstname' => 'Admin',
             'lastname' => 'LMS',
@@ -34,7 +33,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $guru = User::create([
-            'id' => Uuid::uuid4(),
             'username'  => 'timoti',
             'firstname' => 'Timothy',
             'lastname' => 'Adri, S.Kom',
@@ -50,7 +48,6 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $siswa = User::create([
-            'id' => Uuid::uuid4(),
             'username'  => 'reynold',
             'firstname' => 'Putu Reynold',
             'lastname' => 'Andika',
@@ -80,7 +77,6 @@ class UsersTableSeeder extends Seeder
 
         for ($i=0; $i < 50 ; $i++) {
             $user = User::create([
-                'id' => Uuid::uuid4(),
                 'username'  => strtolower($faker->unique()->userName),
                 'firstname' => $faker->firstName,
                 'lastname' => $faker->lastName,

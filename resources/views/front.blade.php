@@ -5,11 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{{ $page_title }} | E-learning SMK Wira Harapan</title>
-	{{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700, 900" rel="stylesheet" type="text/css"> --}}
-	<link href="{{ asset( '/css/font-awesome.min.css' ) }}" rel="stylesheet">
-	<link href="{{ asset( '/css/bootstrap.min.css' ) }}" rel="stylesheet">
-	<link href="{{ asset( '/css/login.css' ) }}" rel="stylesheet">
-	<script type="text/javascript" src="{{ asset( '/js/libs/jquery.min.js' ) }}"></script>
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700, 900" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link href="{{ asset( '/src/css/login.css' ) }}" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 </head>
 <body class="login-page">
 	<div class="site">
@@ -44,7 +44,7 @@
 
 	@yield('content')
 
-	<script type="text/javascript" src="{{ asset( '/js/libs/bootstrap.min.js' ) }}"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script type="text/javascript">
 		var base_url = "{{{ url('/') }}}";
 		jQuery('.modal').on('shown.bs.modal', function() {

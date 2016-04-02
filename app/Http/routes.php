@@ -40,8 +40,9 @@ Route::group(['middleware' => ['web']], function () {
 	Route::group(['prefix' => '/lms-admin/', 'namespace' => 'Admin'], function () {
 		Route::get('/', ['uses' => 'HomeController@index', 'as' => 'lms-admin.index'] );	
 		Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'lms-admin.profile']);
-		Route::match(['put', 'patch'],'/profile/{users}', ['uses' => 'HomeController@update', 'as' => 'lms-admin.update']);
-		Route::match(['put', 'patch'],'/profile/password/{users}', ['uses' => 'HomeController@passwordupdate', 'as' => 'lms-admin.passwordupdate']);
+		Route::match(['put', 'patch'], '/profile/{users}', ['uses' => 'HomeController@update', 'as' => 'lms-admin.update']);
+		Route::match(['put', 'patch'], '/profile/password/{users}', ['uses' => 'HomeController@passwordupdate', 'as' => 'lms-admin.passwordupdate']);
+		Route::match(['put', 'patch'], '/profile/changeimage', ['uses' => 'HomeController@changeimage', 'as' => 'lms-admin.changeimage']);
 		Route::resource('/users', 'UserController', ['except' => 'show']);
 		Route::resource('/majors', 'MajorController', ['except' => 'show']);
 		Route::resource('/subjects', 'SubjectController', ['except' => 'show']);
@@ -51,12 +52,20 @@ Route::group(['middleware' => ['web']], function () {
 		Route::delete('/classrooms/removemember/{users}', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
 	});
 
-	Route::group(['prefix' => '/api/v1/', 'namespace' => 'API', 'middleware' => 'throttle:10,1'], function () {
-		Route::resource('/users', 'UserController', ['only' => ['index', 'show']]);
+	Route::group(['prefix' => '/v1/', 'namespace' => 'API', 'middleware' => 'throttle:10,1'], function () {
+		Route::get('/users', 'UserController@index');
+		Route::get('/users/{users}', 'UserController@show');
+		Route::get('/teachers', 'UserController@teachers');
+		Route::get('/students', 'UserController@students');
+		Route::get('/profile', 'UserController@profile');
+		Route::post('/updateprofile', 'UserController@updateProfile');
+		Route::post('/updatepassword', 'UserController@updatePassword');
+
 		Route::resource('/announcements', 'AnnouncementController', ['only' => ['index', 'show']]);
-		Route::resource('/quizes', 'QuizController');
 		Route::resource('/tasks', 'TaskController');
+		Route::resource('/quizes', 'QuizController');
 		Route::resource('/files', 'FileController');
 		Route::resource('/feeds', 'FeedController', ['except' => ['edit', 'update']]);
+		Route::resource('/activities', 'ActivityController', ['except' => ['edit', 'update']]);
 	});
 });
