@@ -1,4 +1,6 @@
-## Learning Management System with Laravel 5
+## LMS Laravel
+
+Sistem pembelajaran online yang dibuat menggunakan Framework Laravel 5.
 
 ### License
 
