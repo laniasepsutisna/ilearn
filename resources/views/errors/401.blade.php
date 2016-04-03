@@ -14,9 +14,9 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: #205081;
                 display: table;
-                font-weight: 100;
+                font-weight: 300;
                 font-family: 'Lato';
             }
 
@@ -35,6 +35,7 @@
                 font-size: 72px;
                 margin-bottom: 40px;
             }
+
             a {
                 text-decoration: none;
                 color: #205081;
@@ -45,7 +46,9 @@
         <div class="container">
             <div class="content">
                 <div class="title">401.</div>
-                <p>Anda tidak memiliki hak akses untuk mengakses halaman ini. <a href="{{ url('/') }}"><strong>Kembali ke halaman depan.</strong></a></p>
+                    <h1>Anda tidak memiliki hak untuk mengakses halaman ini.</h1>
+                    <a href="{{ url('/') }}"><strong>Kembali ke halaman depan.</strong></a>
+                </div>
             </div>
         </div>
     </body>

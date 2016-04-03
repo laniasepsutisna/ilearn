@@ -26,42 +26,35 @@
 	
 	<nav class="navbar navbar-fixed-top navbar-default ilearn-main-nav">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="navbar-header">						
-						<a class="navbar-brand" href="#"><strong>WH</strong> LMS</a>
-					</div>
+			<div class="navbar-header">
+				<a class="navbar-brand" href="{{ route('home.index') }}"><strong>WH</strong> LMS</a>
+			</div>
 
-					<div class="collapse navbar-collapse" id="navbar-collapse-on-mobile">
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href=""><i class="fa fa-bell"></i></a></li>		
-							<li><a href="">Timoti</a></li>		
-							<li><a href=""><i class="fa fa-sign-out"></i></a></li>
-						</ul>
-					</div>
-				</div>
+			<div class="navbar-primary">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="{{ route('announcements.index') }}"><i class="fa fa-bell"></i></a></li>		
+					<li class="profile-link"><a href="{{ route('user.profile') }}">{{ $lms['profile']->firstname }}</a></li>		
+					<li><a href="{{ route('get.logout') }}"><i class="fa fa-sign-out"></i></a></li>
+				</ul>
 			</div>
 		</div>
 	</nav>
 
 	<div class="container content">
 		<div class="row">
-			<div class="ilearn-alert col-md-12">
-				@include('user.notif')
-			</div>
-			<div class="col-sm-4 col-md-3">
+			<div class="col-sm-4 col-md-2 hidden-xs">
 
 				@include('user.students.sidebars.left-sidebar')
 
 			</div>
 
-			<div class="col-sm-8 col-md-6">
+			<div class="col-sm-8 col-md-7">
 
 				@yield('content')
 
 			</div>
 
-			<div class="col-sm-8 custom-sm-offset-4 col-md-3">
+			<div class="col-sm-8 custom-sm-offset-4 col-md-3 hidden-xs">
 
 				@include( 'user.students.sidebars.right-sidebar' )
 

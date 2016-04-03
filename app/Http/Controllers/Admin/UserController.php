@@ -10,12 +10,7 @@ use App\Models\Role;
 use App\Models\User;
 
 class UserController extends Controller
-{	
-    public function __construct(){
-        $this->middleware('auth');
-        $this->middleware('role:staff');
-	}
-
+{
     public function index(Request $request)
     {
         $querystring = $this->buildQueryString($request);

@@ -10,11 +10,6 @@ use App\Models\User;
 
 class ClassroomController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-        $this->middleware('role:staff');
-    }
-
     public function index(Request $request)
     {
         $classrooms = Classroom::orderBy('created_at', 'DESC')->paginate(7);

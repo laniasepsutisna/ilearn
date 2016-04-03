@@ -10,11 +10,6 @@ use App\Models\Announcement;
 
 class AnnouncementController extends Controller
 {
-	public function __construct(){
-		$this->middleware('auth');
-		$this->middleware('role:staff');
-	}
-
     public function index(Request $request)
     {
         $q = $request->q;

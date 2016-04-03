@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-        $this->middleware('role:staff');
-    }
-
     public function index(Request $request)
     {
         $subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')

@@ -1,8 +1,9 @@
+html {
+	font-size: 16px;
+}
+
 body {
 	background-color: #F5F8FA;
-	overflow-x: hidden;
-	font-size: 1em;
-	font-weight: 300;
 	line-height: 1.6;
 	font-family: "Open Sans", Helvetica, sans;
 	color: #1E3948;
@@ -10,7 +11,7 @@ body {
 
 .navbar-default {
 	background-color: #205081;
-	font-size: 14px;
+	font-size: 1rem;
 }
 
 .navbar-header {
@@ -37,8 +38,16 @@ body {
 	padding-bottom: 15px;
 }
 
-.navbar-brand {
-	height: 44px;
+@media(min-width:768px){
+	.navbar-brand {
+		height: 50px;
+	}
+}
+
+@media(max-width:767px){
+	.navbar-brand {
+		height: 43px;
+	}
 }
 
 .navbar-nav {
@@ -46,17 +55,8 @@ body {
 	margin-bottom: 0;
 }
 
-.dropdown-menu {
-	right: 5px;
-}
-
-.navbar-nav .open .dropdown-menu {
-	position: absolute;
-}
-
-.navbar-right {
-	float: right !important;
-	margin-right: -15px;
+.navbar-primary {
+	display: inline;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -68,36 +68,39 @@ body {
 	color: #FFFFFF;
 }
 
-@media (max-width: 767px){
-	.dropdown-menu > li > a,
-	.dropdown-menu > li > a:hover,
-	.dropdown-menu > li > a:focus {
-		background: #205081;
-		color: #FFFFFF
-	}
-	.dropdown-menu .divider {
-		background: rgba(255,255,252, 0.2);
-	}
-}
-
-.navbar-default .dropdown-menu > li > a {
-	padding: 6px 15px;
-}
-
-.navbar-default .navbar-toggle {
-	border-color: rgba(255,255,252, 0.3);
-}
-
-.navbar-default .navbar-toggle .icon-bar {
-	background-color: #F5F6F7;
+.profile-link {
+	font-size: 0.875rem;
 }
 
 .content {
 	padding-top: 81px;
 }
-.ilearn-alert {
-	font-size: 14px;
+
+@media(min-width: 768px){
+	.left-sidebar {
+		position: fixed;
+	}
 }
+
+.lms-sidebar-menu ul li,
+.classrooms ul li {
+	display: block;
+}
+
+.lms-sidebar-menu ul li a {
+	font-weight: 500;
+}
+
+.lms-sidebar-menu ul li a .fa,
+.classrooms .fa {
+	width: 20px;
+}
+
+.lms-sidebar-menu h5,
+.classrooms h5 {
+	font-weight: 700;
+}
+
 .widget,
 .entry {
 	background-color: #FFFFFF;
@@ -108,35 +111,43 @@ body {
 	padding: 15px;
 	font-size: 14px;
 }
+
 @media (min-width: 767px) and (max-width: 991px){
 	.custom-sm-offset-4 {
 		margin-left: 33.3333%;
 	}
 }
+
 .widget > .heading {
 	margin: 0 0 15px;
 	font-size: 15px;
 	font-weight: 500;
 }
+
 .widget > ul {
 	list-style: none;
 	padding: 0;
 }
+
 .widget i[class^="fa"] {
 	margin-right: 10px;
 }
+
 .widget > ul > li {
 	display: block;
 	margin-bottom: 6px;
 }
+
 .widget > ul > li.divider {
 	border-bottom: 1px solid #F5F6F7;
 	content: "";
 	margin: 10px 0;
 }
+
 .widget.profile {
 	padding: 0;
 }
+
 .widget.profile .sidebar-pp {
 	width: 100%;
 	height: 225px;
@@ -145,61 +156,77 @@ body {
 	background-position: top center;
 	background-repeat: no-repeat;
 }
+
 .widget.profile .profile-data {
 	padding: 0 15px;
 }
+
 .widget.profile .profile-data img {
 	margin-top: -50px;
 	width: 100px;
 	height: 100px;
 	border: 4px solid #FFFFFF;
 }
+
 .widget.profile .biography {
 	margin-bottom: 30px;
 }
+
 .widget.profile .username {
 	font-weight: 500;
 }
+
 .widget.profile .profile-meta {
 	padding: 0 15px 15px;
 }
+
 .widget.ilearn-badge .badges {
 	padding: 0;
 	list-style: none;
 }
+
 .widget.ilearn-badge .badges li {
 	display: inline-block;
 }
+
 .widget.ilearn-badge .badges li a {
 	display: block;
 	padding: 5px;
 }
+
 .widget.ilearn-badge .badges li a img {
 	max-width: 20px;
 	height: auto;
 }
+
 .widget.online .friends i[class^="fa"] {
 	color: green;
 }
+
 .widget.announcement ul {
 	list-style: none;
 	padding: 0;
 }
+
 .widget.announcement ul li.announce {
 	display: block;
 	margin-bottom: 6px;
 }
+
 .announce > img {
 	display: block;
 	max-width: 100%;
 }
+
 .announce > h5 {
 	margin-top: 15px;
 	font-weight: 600;
 }
+
 .announce > p {
 
 }
+
 .announce > h5,
 .announce > p {
 	font-size: 14px;
@@ -208,42 +235,56 @@ body {
 .entry {
 	padding: 0;
 }
+
 .warning-announcement {
 	border-radius: 4px;
 	font-size: 14px;
 	margin-bottom: 30px;
 }
+
 .warning-announcement .post {
 	border-color: transparent;
 }
+
 .entry .page-title {
 	padding: 15px;
 	margin: 10px 0;
 	border-bottom: 1px solid #F5F6F7;
 }
+
 .entry .page-title > h3 {
 	font-size: 22px;
 	margin: 5px 0 15px;
 }
+
 .entry > footer {
 	margin: 10px 10px 10px 0;
 }
+
 .post {
 	padding: 15px;
 	border-bottom: 1px solid #F5F6F7;	
 }
+
 .post span,
 .post p {
 	display: inline;
 }
+
 .post:last-child {
 	border-color: transparent;
 }
+
 .post i[class^="fa"] {
 	margin-right: 10px;
 }
+
 .post .timespan {
 	display: block;
 	clear: both;
 	text-align: right;
+}
+
+.footer {
+	font-size: 0.875rem;
 }

@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 
 class MajorController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth');
-        $this->middleware('role:staff');
-    }
-
     public function index(Request $request)
     {
         $majors = Major::where('name', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%')->orderBy('created_at', 'DESC')->paginate(7);

@@ -48,7 +48,7 @@ class Classroom extends Model
 
     public function getClassNameAttribute()
     {
-        return $this->grade . ' ' . $this->major->description . ' ' . $this->subject->name;
+        return $this->grade . ' ' . $this->major->name . ' ' . $this->subject->name;
     }
 
     public function getTeachersAttribute()

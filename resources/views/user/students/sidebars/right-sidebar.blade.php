@@ -1,4 +1,22 @@
 <aside class="sidebar right-sidebar">
+	<div class="widget profile">
+		<div class="sidebar-pp" style="background-image: url('{{ $lms['profile']->cover }}');"></div>
+		<div class="profile-data text-center">
+			<a href=""><img class="img-circle" src="{{ $lms['profile']->picture }}"></a>
+			<h4 class="username">{{ $lms['profile']->fullname }}</h4>
+			<p class="biography">{{ $lms['profile']->email }}</p>
+		</div>
+	</div>
+	
+	<div class="widget online">		
+		<h5 class="heading">Sedang Online <small>· <a href="">Lihat Semua</a></small></h5>
+		<ul class="friends">
+			@foreach($lms['online'] as $online)
+				<li><a href=""><i class="fa fa-circle"></i> {{ $online->fullname }}</a></li>
+			@endforeach
+		</ul>
+	</div>
+	
 	<div class="widget tasks">
 		<h5 class="heading">Tugas</h5>
 		<ul class="task">
@@ -8,27 +26,13 @@
 			<li><a href="">Bahasa Inggris</a></li>
 		</ul>
 	</div>
-	<div class="widget announcement hidden-xs">
-		<h5 class="heading">Pengumuman <small>· <a href="">Lihat Semua</a></small></h5>
-		<ul>
-			<li class="announce">
-				<img src="http://bootstrap-themes.github.io/application/assets/img/instagram_2.jpg">
-				<h5>Pengumuman untuk liburan</h5>
-				<p>Iceland is so chill, and everything looks cool here. Also, we heard the people are pretty nice. What are you waiting for?</p>
-			</li>
-			<li class="announce">
-				<img src="http://bootstrap-themes.github.io/application/assets/img/unsplash_2.jpg">
-				<h5>Mohon pelunasan pembayaran</h5>
-				<p>Iceland is so chill, and everything looks cool here. Also, we heard the people are pretty nice. What are you waiting for?</p>
-			</li>
-			<li class="divider" role="separator"></li>
-			<li>
-				<p><a href="" class="btn btn-info">Lihat Semua</a></p>
-			</li>
-		</ul>
-	</div>
 
 	<div class="widget footer">
-		<p>&copy; 2015 iLearn. <a href="">Tentang</a> · <a href="">Bantuan</a> · <a href="">Dokumentasi</a> · <a href="">Status</a> · <a href="">Kontribusi</a> · <a href="">Credits</a> · <a href="">Pengembangan</a></p>
+		<p>&copy; 2015 iLearn.
+			<a href="https://github.com/alfredcrosby/ilearn">Tentang</a> &middot; 
+			<a href="https://github.com/alfredcrosby/ilearn/wiki">Bantuan</a> &middot; 
+			<a href="https://github.com/alfredcrosby/ilearn/wiki">Dokumentasi</a> &middot; 
+			<a href="https://github.com/alfredcrosby/ilearn/graphs/contributors">Kontribusi</a> &middot; 
+		</p>
 	</div>
 </aside>

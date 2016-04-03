@@ -15,12 +15,6 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('role:staff');
-    }
-
     public function index()
     {
         $users = User::orderBy('created_at', 'DESC')->paginate(5);

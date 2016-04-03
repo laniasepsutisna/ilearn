@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Anda tersesat.</title>
+        <title>Halaman tidak ditemukan.</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -14,9 +14,9 @@
                 margin: 0;
                 padding: 0;
                 width: 100%;
-                color: #B0BEC5;
+                color: #205081;
                 display: table;
-                font-weight: 100;
+                font-weight: 300;
                 font-family: 'Lato';
             }
 
@@ -29,12 +29,14 @@
             .content {
                 text-align: center;
                 display: inline-block;
+                color: #205081;
             }
 
             .title {
                 font-size: 72px;
                 margin-bottom: 40px;
             }
+            
             a {
                 text-decoration: none;
                 color: #205081;
@@ -45,7 +47,10 @@
         <div class="container">
             <div class="content">
                 <div class="title">404.</div>
-                <p>Anda tersesat terlalu jauh! <a href="{{ url('/') }}"><strong>Saya ingin kembali T.T</strong></a></p>
+                <div>
+                    <h1>Halaman tidak ditemukan!</h1>
+                    <a href="{{ url('/') }}"><strong>Saya ingin kembali kerumah.</strong></a>
+                </div>
             </div>
         </div>
     </body>

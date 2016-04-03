@@ -52,12 +52,18 @@ class User extends Authenticatable
 
     public function hasRole($name)
     {
-        if($this->role === $name){
-            return true;
+        if(is_array($name)) {
+            foreach ($name as $roleName) {
+                if( $this->role === $roleName ) {
+                    return true;
+                }
+            }
         }
 
         return false;
     }
+
+
 
     public function announcements()
     {
