@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \View::composer(['user.*'], 'App\Http\ViewComposers\SidebarComposer');
+        \View::composer(['user.*'], 'App\Http\ViewComposers\AppComposer');
     }
 
     /**

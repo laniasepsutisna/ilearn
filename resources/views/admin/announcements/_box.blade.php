@@ -15,7 +15,7 @@
                     <div class="product-info">
                         <a href="{{ route('lms-admin.announcements.edit', $a) }}" class="product-title">
                             {{ $a->title }}
-                            <span class="label label-{{ $a->status == 'info' ? 'info' : 'warning' }} pull-right">{{ $a->status }}</span>
+                            <span class="label label-{{ $a->status == 'info' ? 'info' : 'danger' }} pull-right">{{ $a->urgensi }}</span>
                         </a>
                         <span class="product-description">
                             {!! $a->content !!}

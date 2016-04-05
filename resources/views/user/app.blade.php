@@ -11,7 +11,7 @@
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>{{ $page_title or 'Home' }} | LMS SMK WIRA HARAPAN</title>
+	<title>{{ $page_title or 'Beranda' }} | LMS SMK WIRA HARAPAN</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -33,34 +33,18 @@
 			<div class="navbar-primary">
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="{{ route('announcements.index') }}"><i class="fa fa-bell"></i></a></li>		
-					<li class="profile-link"><a href="{{ route('user.profile') }}">{{ $lms['profile']->firstname }}</a></li>		
+					<li class="profile-link">
+						<a href="{{ route('home.profile') }}">
+							<img class="img-circle" src="{{ $lms['profile']->picture }}"> 
+							{{ $lms['profile']->firstname }}</a>
+						</li>		
 					<li><a href="{{ route('get.logout') }}"><i class="fa fa-sign-out"></i></a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<div class="container content">
-		<div class="row">
-			<div class="col-sm-4 col-md-2 hidden-xs">
-
-				@include('user.students.sidebars.left-sidebar')
-
-			</div>
-
-			<div class="col-sm-8 col-md-7">
-
-				@yield('content')
-
-			</div>
-
-			<div class="col-sm-8 custom-sm-offset-4 col-md-3 hidden-xs">
-
-				@include( 'user.students.sidebars.right-sidebar' )
-
-			</div>
-		</div>
-	</div>
+	@yield('content')
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>

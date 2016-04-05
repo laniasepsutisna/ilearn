@@ -11,9 +11,11 @@
 	<div class="widget online">		
 		<h5 class="heading">Sedang Online <small>· <a href="">Lihat Semua</a></small></h5>
 		<ul class="friends">
-			@foreach($lms['online'] as $online)
+			@forelse($lms['online'] as $online)
 				<li><a href=""><i class="fa fa-circle"></i> {{ $online->fullname }}</a></li>
-			@endforeach
+			@empty
+				<li><small>Tidak ada user online.</small></li>
+			@endforelse
 		</ul>
 	</div>
 	

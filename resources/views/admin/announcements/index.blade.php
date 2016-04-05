@@ -55,7 +55,7 @@
 	                       			{{ '...' }}
                        			@endif
                    			</td>
-	                        <td>{{ $announcement->status }}</td>
+	                        <td>{{ $announcement->urgensi }}</td>
 	                    </tr>
 	                    @endforeach
 	                </tbody>

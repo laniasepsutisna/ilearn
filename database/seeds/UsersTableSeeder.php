@@ -63,7 +63,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         for ($i=0; $i < 10; $i++) {            
-            $status = ['info', 'warning'];
+            $status = ['info', 'danger'];
             $admin->announcements()->create([
                 'title' => $faker->unique()->sentence(),
                 'user_id' => $admin->id,

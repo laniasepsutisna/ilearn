@@ -14,7 +14,7 @@ class SubjectController extends Controller
         $subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')
                     ->orWhere('description', 'LIKE', '%' . $request->q . '%')
                     ->orderBy('created_at', 'DESC')->paginate(7);
-        $page_title = 'Mata Pelajaran';
+        $page_title = 'Semua Mata Pelajaran';
 
         return view('admin.subjects.index', compact('subjects', 'page_title'));
     }

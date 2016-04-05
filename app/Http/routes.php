@@ -46,14 +46,12 @@ Route::group(['prefix' => '/lms-admin/', 'namespace' => 'Admin', 'middleware' =>
 	Route::delete('/classrooms/removemember/{users}', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
 });
 
-
 Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|student']], function () {
-	Route::resource('/home', 'HomeController', ['except' => 'show']);
-	Route::get('/profile', ['uses' => 'UserController@profile', 'as' => 'user.profile']);
-	Route::post('/updateprofile', ['uses' => 'UserController@updateprofile', 'as' => 'user.postprofile']);
-	Route::post('/updatepassword', ['uses' => 'UserController@updatepassword', 'as' => 'user.postpassword']);
-
-	Route::resource('/announcements', 'AnnouncementController', ['only' => ['index', 'show']]);
+	Route::get('/home', ['uses' => 'HomeController@index', 'as' => 'home.index']);
+	Route::get('/profile', ['uses' => 'HomeController@profile', 'as' => 'home.profile']);
+	Route::match(['put', 'patch'], '/updateprofile', ['uses' => 'HomeController@update', 'as' => 'home.update']);
+	Route::match(['put', 'patch'], '/updatepassword', ['uses' => 'HomeController@passwordupdate', 'as' => 'home.passwordupdate']);
+	Route::resource('/announcements', 'AnnouncementController', ['only' => ['index']]);
 	Route::get('/classrooms/{$classrooms}', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.show']);
 	Route::resource('/tasks', 'TaskController');
 	Route::resource('/quizes', 'QuizController');

@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $querystring = $this->buildQueryString($request);
         $users = $this->buildIndexQuery($request);
-        $page_title = $request->has('q') ? 'Pencarian ' . $request->q : 'Users';
+        $page_title = $request->has('q') ? 'Pencarian ' . $request->q : 'Semua Users';
         
         return view('admin.users.index', compact('users', 'querystring', 'page_title'));
     }

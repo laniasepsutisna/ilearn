@@ -6,20 +6,6 @@
 
 @section('content')
 <div class="row">
-	<div class="pull-right col-xs-6 col-sm-4 col-md-3">
-
-		{!! Form::open(['method' => 'get']) !!}
-			<div class="form-group {!! $errors->has('title') ? 'has-error' : '' !!}">
-				<div class="input-group">
-					<span class="input-group-addon"><i class="fa fa-search"></i></span>
-					{!! Form::text( 'q', Request::has('q') ? Request::get('q') : null, ['class' => 'form-control', 'placeholder' => 'Cari mata pelajaran...']) !!}
-				</div>
-			</div>
-		{!! Form::close() !!}
-		
-	</div>
-</div>
-<div class="row">
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header">

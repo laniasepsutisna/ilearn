@@ -34,7 +34,15 @@
 
   		@include('admin.sidebar')
 
-		<div class="content-wrapper">
+
+
+		<div class="content-wrapper">		
+	        <section class="content-header">
+	        	<h1>
+	        		{{ $page_title or 'Beranda' }}
+	        		<small>@yield('page_description')</small>
+	        	</h1>
+	        </section>
 			<section class="content">
 				@if (Session::has('flash_notification.message'))
 		            <div class="alert alert-{{ Session::get('flash_notification.level') }}">
@@ -42,7 +50,6 @@
 		                {{ Session::get('flash_notification.message') }}
 		            </div>
 			    @endif
-			    
 				@yield('content')
 			</section>
 		</div>

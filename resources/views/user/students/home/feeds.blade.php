@@ -1,6 +1,6 @@
-@extends('user.app')
+@extends('user.students.content')
 
-@section('content')
+@section('subcontent')
 <div class="entry">
 	<div class="page-title">
 		<h3>Feeds</h3>
