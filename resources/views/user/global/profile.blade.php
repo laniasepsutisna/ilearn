@@ -6,9 +6,9 @@
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
 				<figure class="profile-pict text-center">
-					<img class="img-circle" src="{{ $user->picture }}">
+					<img class="img-circle" src="{{ $user->picture_md }}">
 					<figcaption>
-						<a href="#" id="changePicture" class="btn-change-image"><i class="fa fa-camera-retro"></i></a>
+						<a href="#" id="changePicture" class="btn-change-image"><i class="fa fa-camera"></i></a>
 					</figcaption>
 				</figure>				
 				<h1 class="profile-name text-center">{{ $user->fullname }}</h1>

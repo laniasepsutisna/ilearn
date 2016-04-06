@@ -59,10 +59,17 @@ trait UserMetaAccessor
         return $this->usermeta->telp_orangtua;
     }
 
-    public function getPictureAttribute()
+    public function getPictureSmAttribute()
     {
         if ($this->usermeta->picture !== '') {
-            return url('/uploads/' . $this->usermeta->picture);
+            return url('/uploads/45x45-' . $this->usermeta->picture);
+        }
+    }
+
+    public function getPictureMdAttribute()
+    {
+        if ($this->usermeta->picture !== '') {
+            return url('/uploads/120x120-' . $this->usermeta->picture);
         }
     }
 
@@ -70,6 +77,13 @@ trait UserMetaAccessor
     {
         if ($this->usermeta->cover !== '') {
             return url('/uploads/' . $this->usermeta->cover);
+        }
+    }
+
+    public function getCoverSmAttribute()
+    {
+        if ($this->usermeta->cover !== '') {
+            return url('/uploads/280x175-' . $this->usermeta->cover);
         }
     }
 

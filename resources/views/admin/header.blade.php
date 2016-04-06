@@ -12,12 +12,12 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown user user-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ Auth::user()->picture }}" class="user-image" alt="User Image"/>
+						<img src="{{ Auth::user()->picture_sm }}" class="user-image" alt="User Image"/>
 						<span class="hidden-xs">{{ Auth::user()->firstname }}</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li class="user-header" style="background: url({{ Auth::user()->cover }});">
-							<img src="{{ Auth::user()->picture }}" class="img-circle" alt="User Image" />
+						<li class="user-header" style="background: url({{ Auth::user()->cover_sm }});">
+							<img src="{{ Auth::user()->picture_md }}" class="img-circle" alt="User Image" />
 							<p>
 								{{ Auth::user()->fullname }}
 								<small>{{ Auth::user()->created_at }}</small>

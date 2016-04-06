@@ -4,14 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 use App\Models\Announcement;
 use App\Models\Classroom;
 use App\Models\Major;
 use App\Models\Subject;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HomeController extends Controller
 {
@@ -63,7 +65,7 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function passwordupdate(Request $request, $id)
+    public function passwordUpdate(Request $request)
     {
         $this->validate($request, [
             'password' => 'required|confirmed|min:6',
@@ -73,7 +75,7 @@ class HomeController extends Controller
             'confirmed' => 'Kolom :attribute tidak cocok!'
         ]);
 
-        $user = User::findOrFail($id);
+        $user = User::findOrFail(Auth::user()->id);
         if( $request->has('password') ) {
             $user->update(['password' => bcrypt($request->password)]);
         }
@@ -82,31 +84,37 @@ class HomeController extends Controller
         return redirect()->back();
     }
 
-    public function changeimage(Request $request)
+    public function changeImage(Request $request)
     {
         $this->validate($request,[
             'field' => 'required',
-            'image' => 'required|mimes:jpeg,bmp,png'
+            'image' => 'required|mimes:jpeg,png'
         ], [
             'required' => 'Kolom :attribute diperlukan!',
             'mimes' => 'Format file harus *.jpg, *.png *.bmp'
         ]);
 
         $data = [];
+        $user = User::findOrFail(Auth::user()->id);
 
         if($request->hasFile('image')){
-            $data[$request->field] = $this->upload($request->image);
+            $data[$request->field] = $this->saveImage($request->file('image'));
             $user->usermeta()->update($data);
         }
+
+        return redirect()->back();
         
     }
 
-    public function upload(UploadedFile $image)
+    public function saveImage(UploadedFile $image)
     {
         $timestamp = str_replace([' ', ':'], '-', Carbon::now()->toDateTimeString());
-        $fileName = $timestamp . '-' . $file->getClientOriginalName();
-        $destination = public_path() . DIRECTORY_SEPARATOR . 'img';
-        $image->move($destination, $fileName);
+        $fileName = $timestamp . '-' . $image->getClientOriginalName();
+        $destination = public_path() . DIRECTORY_SEPARATOR . 'uploads';
+        $uploaded = $image->move($destination, $fileName);
+
+        Image::make($uploaded)->fit(45,45)->save($destination . '/45x45-' . $fileName);
+        Image::make($uploaded)->fit(120,120)->save($destination . '/120x120-' . $fileName);
 
         return $fileName;
     }

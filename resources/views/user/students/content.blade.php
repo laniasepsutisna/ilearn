@@ -15,7 +15,7 @@
 
 		</div>
 
-		<div class="col-sm-8 custom-sm-offset-4 col-md-3 hidden-xs">
+		<div class="col-sm-8 custom-sm-offset-4 col-md-3 hidden-sm">
 
 			@include( 'user.students.sidebars.right-sidebar' )
 

@@ -3,8 +3,8 @@
 		<h5 class="heading">DASHBOARD</h5>
 		<ul class="nav">
 			<li><a href="{{ url('/') }}"><i class="fa fa-dashboard"></i> Timeline</a></li>
-			<li><a href="{{ url('/files') }}"><i class="fa fa-file-text"></i> Files</a></li>
-			<li><a href="{{ url('/calendar') }}"><i class="fa fa-calendar"></i> Calendar</a></li>
+			<li><a href="{{ url('/files') }}"><i class="fa fa-file-text"></i> File</a></li>
+			<li><a href="{{ url('/calendar') }}"><i class="fa fa-calendar"></i> Kalender</a></li>
 		</ul>
 	</div>
 

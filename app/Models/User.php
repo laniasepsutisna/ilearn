@@ -14,7 +14,7 @@ class User extends Authenticatable
     public $incrementing = false;
 
     protected $appends = [
-        'fullname', 'picture'
+        'fullname', 'picture_md', 'picture_sm', 'cover_sm'
     ];
 
     protected $fillable = [

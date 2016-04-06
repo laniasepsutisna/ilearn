@@ -17,18 +17,15 @@
                 <h4 class="modal-title">Upload Image</h4>
             </div>
             <div class="modal-body">
-                {!! Form::open(['url' => route('lms-admin.changeimage'), 'files' => true, 'method' => 'patch']) !!}
+                {!! Form::model($user, ['route' => 'lms-admin.changeimage', 'files' => true, 'method' => 'patch']) !!}
                     {!! Form::hidden('field', 'picture', ['class' => 'field_type']) !!}
                     <div class="form-group">
                         {!! Form::label('image', 'Image', ['class' => 'sr-only']) !!}
                         {!! Form::file('image') !!}
-                        
                     </div>
-            </div>
-            <div class="modal-footer">
-                {!! Form::submit('Update Image', ['class'=>'btn btn-flat btn-success']) !!}
-            </div>
+                    {!! Form::submit('Update Image', ['class'=>'btn btn-flat btn-success']) !!}
                 {!! Form::close() !!}
+            </div>
         </div>
     </div>
 </div>
@@ -44,13 +41,13 @@
                 <span id="chg-cover"><a href="#" data-toggle="modal" data-target="#changeImage">Ganti Cover</a></span>
                 <figure class="picture">
                     <a href="#" id="chg-pict-button" data-toggle="modal" data-target="#changeImage">
-                        <img src="{{ $user->picture }}">
+                        <img src="{{ $user->picture_md }}">
                         <span class="chg-picture">Ganti Foto</span>
                     </a>
                 </figure>
             </div> 
 
-            {!! Form::model($user, ['route' => ['lms-admin.update', $user], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+            {!! Form::model($user, ['route' => 'lms-admin.update', 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
                 @include('admin.home._form-profile', ['model' => $user])
             {!! Form::close() !!}
         </div>
@@ -60,7 +57,7 @@
             <div class="box-header with-border">
                 <h3 class="box-title">Change Password</h3>
             </div>
-            {!! Form::open(['url' => route('lms-admin.passwordupdate', $user->id), 'method' => 'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+            {!! Form::open(['route' => 'lms-admin.passwordupdate', 'method' => 'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
                 <div class="box-body">
                     <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                         {!! Form::label('password', 'Password', ['class' => 'col-md-3 control-label']) !!}

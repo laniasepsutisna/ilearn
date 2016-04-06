@@ -161,6 +161,7 @@ body {
 
 .widget.profile {
 	padding: 0;
+	margin-top: 0;
 }
 
 .widget.profile .sidebar-pp {

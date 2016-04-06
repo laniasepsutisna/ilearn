@@ -1,8 +1,8 @@
 <aside class="sidebar right-sidebar">
 	<div class="widget profile">
-		<div class="sidebar-pp" style="background-image: url('{{ $lms['profile']->cover }}');"></div>
+		<div class="sidebar-pp" style="background-image: url('{{ $lms['profile']->cover_sm }}');"></div>
 		<div class="profile-data text-center">
-			<a href=""><img class="img-circle" src="{{ $lms['profile']->picture }}"></a>
+			<a href=""><img class="img-circle" src="{{ $lms['profile']->picture_md }}"></a>
 			<h4 class="username">{{ $lms['profile']->fullname }}</h4>
 			<p class="biography">{{ $lms['profile']->email }}</p>
 		</div>

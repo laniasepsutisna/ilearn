@@ -34,9 +34,10 @@ Route::post('password/reset', ['uses' => 'Auth\PasswordController@postReset', 'a
 Route::group(['prefix' => '/lms-admin/', 'namespace' => 'Admin', 'middleware' => ['auth', 'role:staff']], function () {
 	Route::get('/', ['uses' => 'HomeController@index', 'as' => 'lms-admin.index'] );	
 	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'lms-admin.profile']);
-	Route::match(['put', 'patch'], '/profile/{users}', ['uses' => 'HomeController@update', 'as' => 'lms-admin.update']);
-	Route::match(['put', 'patch'], '/profile/password/{users}', ['uses' => 'HomeController@passwordupdate', 'as' => 'lms-admin.passwordupdate']);
-	Route::match(['put', 'patch'], '/profile/changeimage', ['uses' => 'HomeController@changeimage', 'as' => 'lms-admin.changeimage']);
+	Route::match(['put', 'patch'], '/profile', ['uses' => 'HomeController@update', 'as' => 'lms-admin.update']);
+	Route::match(['put', 'patch'], '/profile/password', ['uses' => 'HomeController@passwordUpdate', 'as' => 'lms-admin.passwordupdate']);
+	Route::match(['put', 'patch'], '/profile/changeimage', ['uses' => 'HomeController@changeImage', 'as' => 'lms-admin.changeimage']);
+
 	Route::resource('/users', 'UserController', ['except' => 'show']);
 	Route::resource('/majors', 'MajorController', ['except' => 'show']);
 	Route::resource('/subjects', 'SubjectController', ['except' => 'show']);
