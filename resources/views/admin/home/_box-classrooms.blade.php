@@ -17,7 +17,7 @@
                             {{ $c->classname }}
                         </a>
                         <span class="product-description">
-                            Jumlah Anggota : {{ $c->users()->count() }} orang.
+                            Jumlah Anggota : {{ $c->students()->count() }} orang.
                         </span>
                     </div>
                 </li>

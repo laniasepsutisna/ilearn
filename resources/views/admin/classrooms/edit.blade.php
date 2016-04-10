@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">Edit {{ $classroom->classname }}</h3>                
@@ -21,11 +21,8 @@
             {!! Form::close() !!}
         </div>
     </div>
-    <div class="col-md-3">
-        @include('admin.classrooms._teachers', ['model' => $teachers])
-    </div>
 
-    <div class="col-md-3">
+    <div class="col-md-5">
         @include('admin.classrooms._students', ['model' => $students])
     </div>
 </div>

@@ -29,6 +29,7 @@ class ClassroomController extends Controller
             'grade' => 'required',
             'major_id' => 'required|exists:majors,id',
             'subject_id' => 'required|exists:subjects,id',
+            'teacher_id' => 'required',
             'description' => 'required'
         ], [
             'required' => 'Kolom :attribute diperlukan!',
@@ -44,16 +45,12 @@ class ClassroomController extends Controller
     public function edit($id)
     {
         $classroom = Classroom::findOrFail($id);
-        $teachers = $classroom->users()->where('classroom_user.role', 'teacher')->paginate(5, ['*'], 't_page');
-        $students = $classroom->users()->where('classroom_user.role', 'student')->paginate(5, ['*'], 's_page');
+        $students = $classroom->students()->where('role', 'student')->paginate(5, ['*'], 's_page');
         $page_title = 'Manage Kelas';
 
-        $ids = [];
-        foreach ($classroom->users as $user) {
-            $ids[] = $user->id;
-        }
+        $ids = $classroom->students->pluck('id');
 
-        return view('admin.classrooms.edit', compact('classroom', 'page_title', 'teachers', 'students', 'ids'));
+        return view('admin.classrooms.edit', compact('classroom', 'page_title', 'students', 'ids'));
     }
 
     public function update(Request $request, $id)
@@ -64,6 +61,7 @@ class ClassroomController extends Controller
             'grade' => 'required',
             'major_id' => 'required|exists:majors,id',
             'subject_id' => 'required|exists:subjects,id',
+            'teacher_id' => 'required|exists:users,id',
             'description' => 'required'
         ], [
             'required' => 'Kolom :attribute diperlukan!',
@@ -86,46 +84,24 @@ class ClassroomController extends Controller
 
     public function addMembers(Request $request)
     {
-        $classroom = Classroom::findOrFail($request->classroom_id);
-        $data = $this->addingMembers($request);
+        $this->validate($request, [
+            'students' => 'required|exists:users,id'
+        ], [
+            'required' => 'Kolom :attribute tidak boleh kosong!',
+            'exists' => 'Kolom :attribute tidak ditemukan!'
+        ]);
 
-        $classroom->users()->sync($data, false);
+        $classroom = Classroom::findOrFail($request->classroom_id);
+        $classroom->students()->sync($request->students, false);
 
         \Flash::success('Member berhasil ditambahkan.');
         return redirect()->back();
     }
 
-    public function addingMembers($request)
-    {
-        $data = [];
-        $validation = [];
-        $users = [];
-
-        if($request->has('teachers-submit')) {
-            $validation = ['teachers' => 'required|exists:users,id'];
-            $users = $request->teachers;
-        } elseif($request->has('students-submit')) {
-            $validation = ['students' => 'required|exists:users,id'];
-            $users = $request->students;
-        }
-        
-        $this->validate($request, $validation, [
-            'required' => 'Kolom :attribute tidak boleh kosong!',
-            'unique' => 'Kolom :attribute sudah ada di kelas ini!',
-            'exists' => 'Kolom :attribute tidak ditemukan!'
-        ]);
-
-        foreach ($users as $user) {
-            $data[$user] = ['role' => $request->role]; 
-        }
-
-        return $data;
-    }
-
     public function removeMember(Request $request, $id) {
 
         $classroom = Classroom::findOrFail($request->classroom_id);
-        $classroom->users()->detach($id);
+        $classroom->students()->detach($id);
 
         \Flash::success('User berhasil dihapus dari kelas.');
         return redirect()->back();

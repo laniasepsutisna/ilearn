@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class AppComposer
 {
 	
-	public function compose(View $view) {
+	public function compose(View $view)
+	{
 		$data = [];
 		$user_id = Auth::user()->id;
 
-		$data['profile'] = User::find($user_id);
+		$data['profile'] = Auth::user();
 		$data['classrooms'] = User::find($user_id)->classrooms;
 		$data['announcements'] = Announcement::orderBy('created_at')->limit(5)->get();
 		$data['online'] = User::where(function($query) use ($user_id){

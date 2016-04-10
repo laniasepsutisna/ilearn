@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Traits\UuidModel;
+use App\Models\Discussion;
 use App\Traits\UserMetaAccessor;
+use App\Traits\UuidModel;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -18,7 +19,7 @@ class User extends Authenticatable
     ];
 
     protected $fillable = [
-        'no_induk', 'username', 'firstname', 'lastname', 'email', 'role', 'password', 'status',
+        'no_induk', 'username', 'firstname', 'lastname', 'email', 'role', 'password', 'status'
     ];
 
     protected $hidden = [
@@ -30,6 +31,26 @@ class User extends Authenticatable
         return $this->firstname . ' ' . $this->lastname;
     }
 
+    public function announcements()
+    {
+        return $this->hasMany('App\Models\Announcement');
+    }
+
+    public function usermeta()
+    {
+        return $this->hasOne('App\Models\UserMeta');
+    }
+
+    public function teacherclassroom()
+    {
+        return $this->hasMany('App\Models\Classroom', 'teacher_id');
+    }
+
+    public function classrooms()
+    {
+        return $this->belongsToMany('App\Models\Classroom');
+    }
+    
     public function getRoleNameAttribute(){
         switch ($this->role) {
             case 'staff':
@@ -49,7 +70,7 @@ class User extends Authenticatable
                 break;
         }
     }
-
+    
     public function hasRole($name)
     {
         if(is_array($name)) {
@@ -58,36 +79,11 @@ class User extends Authenticatable
                     return true;
                 }
             }
+        } else{
+            if( $this->role === $name ) {
+                return true;
+            }
         }
-
         return false;
     }
-
-
-
-    public function announcements()
-    {
-        return $this->hasMany(Announcement::class);
-    }
-
-    public function usermeta()
-    {
-        return $this->hasOne(UserMeta::class);
-    }
-
-    public function classrooms()
-    {
-        return $this->belongsToMany(Classroom::class);
-    }
-
-    public function getGroupAttribute()
-    {
-        $classrooms = '';
-        foreach ($this->classrooms as $classroom) {
-            $classrooms[$classroom->id] = $classroom->classname;
-        }
-
-        return $classrooms;
-    }
-
 }

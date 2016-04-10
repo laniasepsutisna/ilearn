@@ -1,4 +1,4 @@
-@extends('user.students.content')
+@extends('user.content')
 
 @section('subcontent')
 <div class="entry">

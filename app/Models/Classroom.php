@@ -2,38 +2,58 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidModel;
+use Illuminate\Database\Eloquent\Model;
 
 class Classroom extends Model
 {
     use UuidModel;
 
-    protected $appends = ['classname'];
+    protected $appends = ['classname', 'teachername'];
 
 	protected $fillable = [
-        'id', 'subject_id', 'major_id', 'user_id', 'grade', 'description', 'logo', 'cover'
+        'id', 'subject_id', 'major_id', 'teacher_id', 'grade', 'description', 'logo', 'cover'
     ];
 
     protected $hidden = [
-        'id', 'subject_id', 'major_id', 'user_id', 'created_at', 'updated_at', 'pivot'
+        'id', 'subject_id', 'major_id', 'created_at', 'updated_at', 'pivot'
     ];
 
     public $incrementing = false;
 
-    public function subject()
+    public function teacher()
     {
-    	return $this->belongsTo(Subject::class);
+        return $this->belongsTo('App\Models\User');
     }
 
-    public function getSubjectNameAttribute()
+    public function students()
     {
-        return $this->subject->name;
+        return $this->belongsToMany('App\Models\User');
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo('App\Models\Subject');
     }
 
     public function major()
     {
-    	return $this->belongsTo(Major::class);
+    	return $this->belongsTo('App\Models\Major');
+    }
+
+    public function discussions()
+    {
+        return $this->hasMany('App\Models\Discussion');
+    }
+
+    public function getTeacherNameAttribute()
+    {
+        return $this->teacher->firstname . ' ' . $this->teacher->lastname;
+    }
+    
+    public function getSubjectNameAttribute()
+    {
+        return $this->subject->name;
     }
 
     public function getMajorNameAttribute()
@@ -41,24 +61,9 @@ class Classroom extends Model
         return $this->major->name;
     }
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class);
-    }
-
     public function getClassNameAttribute()
     {
         return $this->grade . ' ' . $this->major->name . ' ' . $this->subject->name;
-    }
-
-    public function getTeachersAttribute()
-    {
-        $names = [];
-        $teachers = $this->users()->where('classroom_user.role', 'teacher')->get();
-        foreach ($teachers as $teacher) {
-            $names[] = $teacher->fullname;
-        }
-        return implode(', ', $names);
     }
 
     public function addMembers($users)

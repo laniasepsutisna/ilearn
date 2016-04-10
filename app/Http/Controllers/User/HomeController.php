@@ -5,14 +5,17 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('user.students.home.feeds');
+        return view('user.global.feeds');
     }
 
     public function profile()
@@ -23,13 +26,11 @@ class HomeController extends Controller
         return view('user.global.profile', compact('user', 'page_title'));
     }
 
-    public function update()
+    public function password()
     {
-        //
-    }
+        $user = User::find(Auth::user()->id);
+        $page_title = 'Password';
 
-    public function passwordupdate()
-    {
-        //
+        return view('user.global.password', compact('user', 'page_title'));
     }
 }

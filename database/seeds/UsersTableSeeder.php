@@ -1,10 +1,13 @@
 <?php
 
+use App\Models\Classroom;
+use App\Models\Major;
+use App\Models\Subject;
+use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
 use Ramsey\Uuid\Uuid;
-use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {

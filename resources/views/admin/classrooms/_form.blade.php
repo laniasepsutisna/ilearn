@@ -23,6 +23,14 @@
         </div>
     </div>
 
+    <div class="form-group {{ $errors->has('teacher_id') ? 'has-error' : '' }}">
+        {!! Form::label('teacher_id', 'Guru', array('class' => 'col-md-3 control-label')) !!}
+        <div class="col-md-6">
+            {!! Form::select('teacher_id', App\Models\User::where('role', 'teacher')->get()->pluck('fullname', 'id'), null, ['class' => 'form-control select2', 'id' => 'teacher_id', 'placeholder' => 'Guru...']) !!}                            
+            {!! $errors->first('teacher_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
     <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
         {!! Form::label('description', 'Deskripsi', array('class' => 'col-md-3 control-label')) !!}
         <div class="col-md-9">

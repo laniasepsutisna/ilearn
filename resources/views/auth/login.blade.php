@@ -9,7 +9,7 @@
 					<h4 class="modal-title" id="loginModalLabel">Masuk ke E-Learning</h4>
 				</div>
 				<div class="modal-body">
-                    {!! Form::open(['url' => route('post.login'), 'class' => 'form-horizontal', 'role' => 'form']) !!}
+                    {!! Form::open(['url' => route('auth.login'), 'class' => 'form-horizontal', 'role' => 'form']) !!}
                         <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                             {!! Form::label('username', 'Username', ['class' => 'col-md-3 control-label']) !!}
                             <div class="col-md-8">

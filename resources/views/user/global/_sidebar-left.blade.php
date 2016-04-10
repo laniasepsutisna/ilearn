@@ -11,9 +11,15 @@
 	<div class="classrooms">
 		<h5 class="heading">KELAS</h5>
 		<ul class="nav">
-			@foreach($lms['classrooms'] as $classroom)
-				<li><a href="{{ route('classrooms.show', [$classroom->id]) }}"><i class="fa fa-institution"></i> {{ $classroom->classname }}</a></li>
-			@endforeach
+			@can('manage')
+				@foreach($lms['profile']->teacherclassroom as $classroom)
+					<li><a href="{{ route('classrooms.show', [$classroom->id]) }}"><i class="fa fa-institution"></i> {{ $classroom->classname }}</a></li>
+				@endforeach
+			@else
+				@foreach($lms['classrooms'] as $classroom)
+					<li><a href="{{ route('classrooms.show', [$classroom->id]) }}"><i class="fa fa-institution"></i> {{ $classroom->classname }}</a></li>
+				@endforeach
+			@endcan
 		</ul>
 	</div>
 </aside>

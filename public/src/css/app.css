@@ -17,6 +17,7 @@ body {
 .navbar-default {
 	background-color: #205081;
 	font-size: 1rem;
+	border: none;
 }
 
 .navbar-header {
@@ -320,4 +321,70 @@ div.profile .change-cover {
 	color: #fff;
 	text-decoration: none;
 	background: rgba(0,0,0,0.5);
+}
+
+.profile-form {
+	padding: 2rem 0;
+}
+
+.form-group div[class^="col-md-offset"] {
+    padding-left: 15px;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+	background-color: #205081;
+}
+
+@media(min-width: 768px){
+	.modal-dialog {
+		margin: 15% auto;
+	}
+}
+
+.modal-content {
+	box-shadow: unset;
+	border-radius: 0;
+}
+
+input.datepicker {
+	padding: 6px 12px;
+}
+
+#chg-cover {
+    background: rgba(0,0,0,0.3);
+    color: #FFF;
+    position: relative;
+    display: inline-block;
+    padding: 5px 8px;
+    transition: all 0.1s linear 0s;
+}
+
+#chg-cover:hover {
+	color: #FFF;
+    background: rgba(0,0,0,0.5);
+    text-decoration: none;
+}
+
+#chg-picture {
+	color: #FFF;
+	text-shadow: 0 0 100px rgba(0,0,0,0.9);
+}
+
+/* Form */
+
+.form-control {
+	border-radius: 0;
+	box-shadow: none;
+	outline: none;
+}
+
+/* Classrooms */
+.classroom-header {
+	padding: 1.25rem;
+}
+
+.cpost {
+	padding: 1.25rem;
 }

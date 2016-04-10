@@ -34,8 +34,8 @@
         								{!! Form::close() !!}
 		                        	</div>
 		                        </td>
-		                        <td>{{ $classroom->teachers }}</td>
-		                        <td>{{ $classroom->users()->count() }} orang.</td>
+		                        <td>{{ $classroom->teachername }}</td>
+		                        <td>{{ $classroom->students()->count() }} siswa.</td>
 		                    </tr>
 	                    @endforeach
 	                </tbody>

@@ -42,5 +42,6 @@ class MajorsTableSeeder extends Seeder
             'name' => 'UPW',
             'description' => 'Usaha Perjalanan Wisata'
         ]);
+
     }
 }

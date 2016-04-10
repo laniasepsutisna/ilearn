@@ -1,5 +1,5 @@
 <div class="box-body">
-    <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
+    <input type="hidden" value="{{ $lms['profile']->id }}" name="user_id">
     <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
         {!! Form::label('title', 'Judul Pengumuman', array('class' => 'col-md-3 control-label')) !!}
         <div class="col-md-6">

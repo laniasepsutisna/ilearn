@@ -12,15 +12,15 @@
 			<ul class="nav navbar-nav">
 				<li class="dropdown user user-menu">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-						<img src="{{ Auth::user()->picture_sm }}" class="user-image" alt="User Image"/>
-						<span class="hidden-xs">{{ Auth::user()->firstname }}</span>
+						<img src="{{ $lms['profile']->picture_sm }}" class="user-image" alt="User Image"/>
+						<span class="hidden-xs">{{ $lms['profile']->firstname }}</span>
 					</a>
 					<ul class="dropdown-menu">
-						<li class="user-header" style="background: url({{ Auth::user()->cover_sm }});">
-							<img src="{{ Auth::user()->picture_md }}" class="img-circle" alt="User Image" />
+						<li class="user-header" style="background: url({{ $lms['profile']->cover_sm }});">
+							<img src="{{ $lms['profile']->picture_md }}" class="img-circle" alt="User Image" />
 							<p>
-								{{ Auth::user()->fullname }}
-								<small>{{ Auth::user()->created_at }}</small>
+								{{ $lms['profile']->fullname }}
+								<small>{{ $lms['profile']->email }}</small>
 							</p>
 						</li>
 						<li class="user-footer">
@@ -28,7 +28,7 @@
 								<a href="{{ route('lms-admin.profile') }}" class="btn btn-default btn-flat">Profil</a>
 							</div>
 							<div class="pull-right">
-								<a href="{{ route('get.logout') }}" class="btn btn-default btn-flat">Keluar</a>
+								<a href="{{ route('auth.logout') }}" class="btn btn-default btn-flat">Keluar</a>
 							</div>
 						</li>
 					</ul>

@@ -13,6 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        \View::composer(['admin.*'], 'App\Http\ViewComposers\AdminComposer');
         \View::composer(['user.*'], 'App\Http\ViewComposers\AppComposer');
     }
 

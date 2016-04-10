@@ -71,7 +71,17 @@ class UserController extends Controller
             'email' => 'Kolom :attribute harus berupa email.'
         ]);
 
-        $user = User::create($request->all());
+        $data = $request->all();
+        //default password
+        $data['password'] = bcrypt('secret');
+
+        $user = User::create($data);
+
+        $user->usermeta()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
 
         \Flash::success('User tersimpan.');
         return redirect()->route('lms-admin.users.edit', [$user->id]);
