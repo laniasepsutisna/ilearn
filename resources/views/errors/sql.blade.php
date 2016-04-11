@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Akses tidak diijinkan.</title>
+        <title>SQL Error.</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -45,8 +45,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">401.</div>
-                    <h1>Anda tidak memiliki hak untuk mengakses halaman ini.</h1>
+                <div class="title">SQL ERROR {{ $e[1] }}.</div>
+                    <h1>{{ $e[2] }}</h1>
                     <a href="{{ url('/') }}"><strong>Kembali ke halaman depan.</strong></a>
                 </div>
             </div>

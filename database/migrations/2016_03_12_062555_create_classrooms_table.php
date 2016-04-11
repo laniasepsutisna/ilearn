@@ -25,9 +25,9 @@ class CreateClassroomsTable extends Migration
 
             $table->primary(['id']);
 
-            $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
-            $table->foreign('major_id')->references('id')->on('majors')->onDelete('cascade');
-            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('subject_id')->references('id')->on('subjects');
+            $table->foreign('major_id')->references('id')->on('majors');
+            $table->foreign('teacher_id')->references('id')->on('users');
         });
 
         Schema::create('classroom_user', function (Blueprint $table) {

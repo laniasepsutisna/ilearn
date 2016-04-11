@@ -381,10 +381,26 @@ input.datepicker {
 }
 
 /* Classrooms */
-.classroom-header {
-	padding: 1.25rem;
+.panel {
+	border-radius: 0;
 }
 
-.cpost {
-	padding: 1.25rem;
+.panel-heading,
+.panel-footer {
+	border-radius: 0;
 }
+
+.dropdown-menu {
+	border-radius: 0;
+}
+
+.cpost-entry {
+	position: relative;
+}
+
+.cpost-meta .dropdown {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+}
+

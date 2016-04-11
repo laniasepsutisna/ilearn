@@ -19,6 +19,9 @@ class CreateDiscussionsTable extends Migration
             $table->uuid('user_id');
             $table->string('content', 300);
             $table->timestamps();
+
+            $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

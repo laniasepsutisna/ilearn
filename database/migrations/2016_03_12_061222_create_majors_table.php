@@ -22,7 +22,7 @@ class CreateMajorsTable extends Migration
         });
 
         Schema::table('user_metas', function($table) {
-            $table->foreign('major_id')->references('id')->on('user_metas');
+            $table->foreign('major_id')->references('id')->on('user_metas')->onDelete('cascade');
         });
     }
 
