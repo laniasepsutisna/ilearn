@@ -36,13 +36,15 @@ class UserController extends Controller
     public function buildIndexQuery($request)
     {
         if( $request->has('type') ) {            
-            $users = User::where('role', $request->type)->orderBy('created_at', 'DESC')->paginate(7);
+            $users = User::where('role', $request->type)
+                ->orderBy('created_at', 'DESC')
+                ->paginate(7);
         } elseif( $request->has('q') ){
             $users = User::where(function($query) use ($request){
-                        $query->where('firstname', 'LIKE', '%' . $request->q . '%')                        
-                                ->orWhere('lastname', 'LIKE', '%' . $request->q . '%')                      
-                                ->orWhere('email', 'LIKE', '%' . $request->q . '%');
-                    })->orderBy('created_at', 'DESC')->paginate(7);
+                $query->where('firstname', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('lastname', 'LIKE', '%' . $request->q . '%')
+                    ->orWhere('email', 'LIKE', '%' . $request->q . '%');
+            })->orderBy('created_at', 'DESC')->paginate(7);
         } else {
             $users = User::orderBy('created_at', 'DESC')->paginate(7);
         }

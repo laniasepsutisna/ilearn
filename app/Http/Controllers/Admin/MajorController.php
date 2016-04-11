@@ -11,7 +11,10 @@ class MajorController extends Controller
 {
     public function index(Request $request)
     {
-        $majors = Major::where('name', 'LIKE', '%' . $request->q . '%')->orWhere('description', 'LIKE', '%' . $request->q . '%')->orderBy('created_at', 'DESC')->paginate(7);
+        $majors = Major::where('name', 'LIKE', '%' . $request->q . '%')
+            ->orWhere('description', 'LIKE', '%' . $request->q . '%')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(7);
         $page_title = 'Semua Jurusan';
 
         return view('admin.majors.index', compact('majors', 'page_title'));
