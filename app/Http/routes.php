@@ -35,7 +35,7 @@ Route::post('/password/email', ['uses' => 'Auth\PasswordController@postEmail', '
 Route::get('/password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset', 'as' => 'reset.request']);
 Route::post('/password/reset', ['uses' => 'Auth\PasswordController@postReset', 'as' => 'reset.store']);
 
-Route::group(['prefix' => '/lms-admin/', 'namespace' => 'Admin', 'middleware' => ['auth', 'role:staff']], function () {
+Route::group(['prefix' => '/lms-admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'role:staff']], function () {
 	Route::get('/', ['uses' => 'HomeController@index', 'as' => 'lms-admin.index'] );
 	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'lms-admin.profile']);
 	
@@ -55,6 +55,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 
 	Route::resource('/announcements', 'AnnouncementController', ['only' => ['index']]);
 	Route::resource('/classrooms', 'ClassroomController', ['only' => ['show', 'update']]);
+	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);
 	Route::resource('/tasks', 'TaskController');
 	Route::resource('/quizes', 'QuizController');
 	Route::resource('/files', 'FileController');

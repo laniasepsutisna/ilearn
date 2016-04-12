@@ -29,5 +29,9 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('manage', function ($user) {
             return $user->hasRole('teacher');
         });
+
+        $gate->define('delete-discussion', function ($user, $discuss) {
+            return $user->id === $discuss->user_id;
+        });
     }
 }

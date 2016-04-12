@@ -16,7 +16,7 @@ class Classroom extends Model
     ];
 
     protected $hidden = [
-        'id', 'subject_id', 'major_id', 'created_at', 'updated_at', 'pivot'
+        'id', 'subject_id', 'major_id', 'created_at', 'discussions', 'updated_at', 'pivot'
     ];
 
     public $incrementing = false;
@@ -43,7 +43,12 @@ class Classroom extends Model
 
     public function discussions()
     {
-        return $this->hasMany('App\Models\Discussion');
+        return $this->hasMany('App\Models\Discussion')->orderBy('created_at', 'DESC');
+    }
+
+    public function getPaginateDiscussionsAttribute()
+    {
+        return $this->discussions()->where('parent_id', '')->paginate(7);
     }
 
     public function getTeacherNameAttribute()

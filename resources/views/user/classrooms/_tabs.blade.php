@@ -14,7 +14,9 @@
 
 <div class="tab-content">
 	<div role="tabpanel" class="tab-pane active" id="discussion">
-		{!! Form::open() !!}
+		{!! Form::open(['route' => 'discuss.store']) !!}
+			{!! Form::hidden('classroom_id', $classroom->id) !!}
+			{!! Form::hidden('user_id', $lms['profile']->id) !!}
 			<div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
 				{!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Bagikan isi pikiran anda dikelas ini...']) !!}
 				{!! $errors->first('content', '<p class="help-block">:message</p>') !!}
