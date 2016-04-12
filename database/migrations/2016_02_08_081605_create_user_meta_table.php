@@ -22,7 +22,7 @@ class CreateUserMetaTable extends Migration
             $table->string('tempatlahir', 15);
             $table->string('tanggallahir', 15);
             $table->string('telp', 13);
-            $table->string('alamat', 150);
+            $table->text('alamat', 150);
             $table->string('orangtua', 60);
             $table->string('wali', 60);
             $table->string('telp_orangtua', 13);

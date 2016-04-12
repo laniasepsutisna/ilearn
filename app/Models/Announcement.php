@@ -40,7 +40,7 @@ class Announcement extends Model
     	}
     }
 
-    public function getHumantimeAttribute()
+    public function getHumanTimeAttribute()
     {
         $now = Carbon::now();
         $created = Carbon::parse($this->created_at);

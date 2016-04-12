@@ -16,7 +16,7 @@ class CreateAnnouncementsTable extends Migration
             $table->uuid('id')->unique();
             $table->uuid('user_id');
             $table->string('title', 150);
-            $table->text('content', 300);
+            $table->text('content');
             $table->enum('status', ['info', 'danger']);
             $table->timestamps();
 

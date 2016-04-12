@@ -41,6 +41,11 @@ class Classroom extends Model
     	return $this->belongsTo('App\Models\Major');
     }
 
+    public function tasks()
+    {
+        return $this->hasMany('App\Models\Task');
+    }
+
     public function discussions()
     {
         return $this->hasMany('App\Models\Discussion')->orderBy('created_at', 'DESC');

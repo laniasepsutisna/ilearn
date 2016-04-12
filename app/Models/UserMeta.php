@@ -18,9 +18,4 @@ class UserMeta extends Model
 	protected $hidden = [
 		'id', 'user_id', 'major_id', 'created_at', 'updated_at'
 	];
-
-    public function user()
-    {
-    	return $this->belongsTo('App\Models\User');
-    }
 }

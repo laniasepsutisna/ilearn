@@ -24,6 +24,7 @@
 		</div>
 		<div class="cpost-content panel-body">
 			{{ $discuss->content }}
+			<small>{{ $discuss->human_time }}</small>
 		</div>
 		<ul class="list-group response-wrapper">
 			@foreach($discuss->comments as $comment)

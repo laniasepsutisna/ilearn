@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDiscussionsTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,17 @@ class CreateDiscussionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('discussions', function(Blueprint $table) {
-            $table->uuid('id')->unique();
-            $table->uuid('parent_id');
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->uuid('id');
             $table->uuid('classroom_id');
-            $table->uuid('user_id');
-            $table->string('content', 300);
+            $table->text('content', 500);
+            $table->string('file');
+            $table->date('deadline');
             $table->timestamps();
 
             $table->primary(['id']);
-            
+
             $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -34,6 +33,6 @@ class CreateDiscussionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('discussions');
+        Schema::drop('tasks');
     }
 }

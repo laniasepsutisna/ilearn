@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidModel;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
 class Discussion extends Model
 {
@@ -40,5 +41,17 @@ class Discussion extends Model
     public function comments()
     {
     	return $this->hasMany('App\Models\Discussion', 'parent_id')->orderBy('created_at', 'DESC');
+    }
+
+    public function getHumanTimeAttribute()
+    {
+        $now = Carbon::now();
+        $created = Carbon::parse($this->created_at);
+
+        if( $created->lt($now) ) {
+            return $created->diffForHumans();
+        } else {
+            return $created->format('l jS F Y h:i:s A');
+        }
     }
 }
