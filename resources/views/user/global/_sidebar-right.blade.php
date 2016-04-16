@@ -21,12 +21,16 @@
 	
 	<div class="widget tasks">
 		<h5 class="heading">Tugas</h5>
-		<ul class="task">
-			<li><a href="">Matematika</a></li>
-			<li><a href="">Produktif 24</a></li>
-			<li><a href="">Bahasa Bali</a></li>
-			<li><a href="">Bahasa Inggris</a></li>
-		</ul>
+		@foreach($lms['profile']->classrooms as $classroom)
+		<div>
+			<strong>{{ $classroom->class_name }}</strong>
+			<ul class="task">
+			@foreach($classroom->assignments as $assignment)
+				<li><a href="{{ route('assignments.show', $assignment->id) }}">{{ $assignment->title }}</a></li>
+			@endforeach
+			</ul>
+		</div>
+		@endforeach
 	</div>
 
 	<div class="widget footer">

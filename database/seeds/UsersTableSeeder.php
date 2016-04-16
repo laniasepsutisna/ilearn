@@ -50,6 +50,21 @@ class UsersTableSeeder extends Seeder
             'cover' => 'cover-default.jpg'
         ]);
 
+        $guru1 = User::create([
+            'username'  => 'yanti',
+            'firstname' => 'Haryanti',
+            'lastname' => 'S.Kom',
+            'email' => 'yanti@yahoo.com',
+            'role' => 'teacher',
+            'status' => 'active',
+            'password' => bcrypt('secret')
+        ]);
+
+        $guru1->usermeta()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
         $siswa = User::create([
             'username'  => 'reynold',
             'firstname' => 'Putu Reynold',
@@ -65,6 +80,21 @@ class UsersTableSeeder extends Seeder
             'cover' => 'cover-default.jpg'
         ]);
 
+        $siswa1 = User::create([
+            'username'  => 'olin',
+            'firstname' => 'Charolina',
+            'lastname' => 'Oktaviana',
+            'email' => 'char@olin.com',
+            'role' => 'student',
+            'status' => 'active',
+            'password' => bcrypt('secret')
+        ]);
+
+        $siswa1->usermeta()->create([
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ]);
+
         for ($i=0; $i < 10; $i++) {            
             $status = ['info', 'danger'];
             $admin->announcements()->create([
@@ -76,7 +106,7 @@ class UsersTableSeeder extends Seeder
             $this->command->info('Pengumuman ke-' . $i);
         }
 
-        $role = ['staff', 'teacher', 'student'];
+        /*$role = ['staff', 'teacher', 'student'];
 
         for ($i=0; $i < 50 ; $i++) {
             $user = User::create([
@@ -94,7 +124,7 @@ class UsersTableSeeder extends Seeder
                 'cover' => 'cover-default.jpg'
             ]);
             $this->command->info('User ke-' . $i);
-        }
+        }*/
 
         $this->command->info('Finished!');
     }

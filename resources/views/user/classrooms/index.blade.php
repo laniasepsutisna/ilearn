@@ -1,7 +1,7 @@
 @extends('user.content')
 
 @section('subcontent')
-	<div class="classroom-wrapper panel panel-primary">
+	<div class="classroom-wrapper panel panel-default">
 		<header class="classroom-header panel-heading">
 			<h1 class="panel-title">{{ $classroom->classname }}</h1>
 			<p>

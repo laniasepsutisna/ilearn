@@ -13,24 +13,24 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class HomeController extends Controller
 {
-    public function index()
-    {
-        return view('user.global.feeds');
-    }
+  public function index()
+  {
+    return view('user.global.feeds');
+  }
 
-    public function profile()
-    {
-        $user = User::find(Auth::user()->id);
-        $page_title = 'Profil';
+  public function profile()
+  {
+    $user = User::find(Auth::user()->id);
+    $page_title = 'Profil';
 
-        return view('user.global.profile', compact('user', 'page_title'));
-    }
+    return view('user.global.profile', compact('user', 'page_title'));
+  }
 
-    public function password()
-    {
-        $user = User::find(Auth::user()->id);
-        $page_title = 'Password';
+  public function password()
+  {
+    $user = User::find(Auth::user()->id);
+    $page_title = 'Password';
 
-        return view('user.global.password', compact('user', 'page_title'));
-    }
+    return view('user.global.password', compact('user', 'page_title'));
+  }
 }

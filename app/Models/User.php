@@ -10,80 +10,85 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use UuidModel, CanResetPassword, UserMetaAccessor;
-    
-    public $incrementing = false;
+	use UuidModel, CanResetPassword, UserMetaAccessor;
+	
+	public $incrementing = false;
 
-    protected $appends = [
-        'fullname', 'picture_md', 'picture_sm', 'cover_sm'
-    ];
+	protected $appends = [
+		'fullname', 'picture_md', 'picture_sm', 'cover_sm'
+	];
 
-    protected $fillable = [
-        'no_induk', 'username', 'firstname', 'lastname', 'email', 'role', 'password', 'status'
-    ];
+	protected $fillable = [
+		'no_induk', 'username', 'firstname', 'lastname', 'email', 'role', 'password', 'status'
+	];
 
-    protected $hidden = [
-        'id', 'password', 'pivot', 'remember_token', 'created_at', 'updated_at'
-    ];
+	protected $hidden = [
+		'id', 'password', 'pivot', 'remember_token', 'created_at', 'updated_at'
+	];
 
-    public function getFullnameAttribute()
-    {
-        return $this->firstname . ' ' . $this->lastname;
-    }
+	public function getFullnameAttribute()
+	{
+		return $this->firstname . ' ' . $this->lastname;
+	}
 
-    public function announcements()
-    {
-        return $this->hasMany('App\Models\Announcement');
-    }
+	public function announcements()
+	{
+		return $this->hasMany('App\Models\Announcement');
+	}
 
-    public function usermeta()
-    {
-        return $this->hasOne('App\Models\UserMeta');
-    }
+	public function usermeta()
+	{
+		return $this->hasOne('App\Models\UserMeta');
+	}
 
-    public function teacherclassroom()
-    {
-        return $this->hasMany('App\Models\Classroom', 'teacher_id');
-    }
+	public function teacherclassroom()
+	{
+		return $this->hasMany('App\Models\Classroom', 'teacher_id');
+	}
 
-    public function classrooms()
-    {
-        return $this->belongsToMany('App\Models\Classroom');
-    }
-    
-    public function getRoleNameAttribute(){
-        switch ($this->role) {
-            case 'staff':
-                return 'Tata Usaha';
-                break;
-            
-            case 'teacher':
-                return 'Guru';
-                break;
+	public function classrooms()
+	{
+		return $this->belongsToMany('App\Models\Classroom');
+	}
 
-            case 'student':
-                return 'Siswa';
-                break;
+	public function submissions()
+	{
+		return $this->belongsToMany('App\Models\Assignment', 'submissions');
+	}
+	
+	public function getRoleNameAttribute(){
+		switch ($this->role) {
+			case 'staff':
+				return 'Tata Usaha';
+				break;
+			
+			case 'teacher':
+				return 'Guru';
+				break;
 
-            default:
-                return 'Siswa';
-                break;
-        }
-    }
-    
-    public function hasRole($name)
-    {
-        if(is_array($name)) {
-            foreach ($name as $roleName) {
-                if( $this->role === $roleName ) {
-                    return true;
-                }
-            }
-        } else{
-            if( $this->role === $name ) {
-                return true;
-            }
-        }
-        return false;
-    }
+			case 'student':
+				return 'Siswa';
+				break;
+
+			default:
+				return 'Siswa';
+				break;
+		}
+	}
+	
+	public function hasRole($name)
+	{
+		if(is_array($name)) {
+			foreach ($name as $roleName) {
+				if( $this->role === $roleName ) {
+					return true;
+				}
+			}
+		} else{
+			if( $this->role === $name ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

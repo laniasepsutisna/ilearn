@@ -9,70 +9,70 @@ use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
-    public function index(Request $request)
-    {
-        $subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')
-                    ->orWhere('description', 'LIKE', '%' . $request->q . '%')
-                    ->orderBy('created_at', 'DESC')->paginate(7);
-        $page_title = 'Semua Mata Pelajaran';
+	public function index(Request $request)
+	{
+		$subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')
+					->orWhere('description', 'LIKE', '%' . $request->q . '%')
+					->orderBy('created_at', 'DESC')->paginate(7);
+		$page_title = 'Semua Mata Pelajaran';
 
-        return view('admin.subjects.index', compact('subjects', 'page_title'));
-    }
+		return view('admin.subjects.index', compact('subjects', 'page_title'));
+	}
 
-    public function create()
-    {
-        $subjects = Subject::orderBy('created_at', 'DESC')->paginate(7);
-        $page_title = 'Tambah Mata Pelajaran';
+	public function create()
+	{
+		$subjects = Subject::orderBy('created_at', 'DESC')->paginate(7);
+		$page_title = 'Tambah Mata Pelajaran';
 
-        return view('admin.subjects.create', compact('subjects', 'page_title'));
-    }
+		return view('admin.subjects.create', compact('subjects', 'page_title'));
+	}
 
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required'
-        ], [
-            'required' => 'Kolom :attribute diperlukan!'
-        ]);
+	public function store(Request $request)
+	{
+		$this->validate($request, [
+			'name' => 'required',
+			'description' => 'required'
+		], [
+			'required' => 'Kolom :attribute diperlukan!'
+		]);
 
-        $subject = Subject::create($request->all());
+		$subject = Subject::create($request->all());
 
-        \Flash::success('Mata pelajaran berhasil ditambah.');
-        return redirect()->route('lms-admin.subjects.edit', [$subject->id]);
-    }
+		\Flash::success('Mata pelajaran berhasil ditambah.');
+		return redirect()->route('lms-admin.subjects.edit', [$subject->id]);
+	}
 
-    public function edit($id)
-    {
-        $subject = Subject::findOrFail($id);
-        $subjects = Subject::orderBy('created_at', 'DESC')->paginate(7);
-        $page_title = 'Edit Mata Pelajaran';
+	public function edit($id)
+	{
+		$subject = Subject::findOrFail($id);
+		$subjects = Subject::orderBy('created_at', 'DESC')->paginate(7);
+		$page_title = 'Edit Mata Pelajaran';
 
-        return view('admin.subjects.edit', compact('subjects', 'subject', 'page_title'));
-    }
+		return view('admin.subjects.edit', compact('subjects', 'subject', 'page_title'));
+	}
 
-    public function update(Request $request, $id)
-    {
-        $subject = Subject::find($id);
+	public function update(Request $request, $id)
+	{
+		$subject = Subject::find($id);
 
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required'
-        ], [
-            'required' => 'Kolom :attribute diperlukan!'
-        ]);
+		$this->validate($request, [
+			'name' => 'required',
+			'description' => 'required'
+		], [
+			'required' => 'Kolom :attribute diperlukan!'
+		]);
 
-        $subject->update($request->all());
+		$subject->update($request->all());
 
-        \Flash::success('Mata pelajaran berhasil diubah.');
-        return redirect()->back();
-    }
+		\Flash::success('Mata pelajaran berhasil diubah.');
+		return redirect()->back();
+	}
 
-    public function destroy($id)
-    {
-        Subject::find($id)->delete();
+	public function destroy($id)
+	{
+		Subject::find($id)->delete();
 
-        \Flash::success('Mata pelajaran berhasil dihapus.');
-        return redirect()->back();
-    }
+		\Flash::success('Mata pelajaran berhasil dihapus.');
+		return redirect()->back();
+	}
 }

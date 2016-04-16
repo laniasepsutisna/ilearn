@@ -9,8 +9,8 @@ function set_active($routes, $output = 'active')
 			}
 		}
 	} else {
-    	if (Route::currentRouteNamed($routes)){
-    		return $output;
-    	}
-    }
+		if (Route::currentRouteNamed($routes)){
+			return $output;
+		}
+	}
 }

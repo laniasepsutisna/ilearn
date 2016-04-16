@@ -15,17 +15,17 @@ class AdminComposer
 {
 	
 	public function compose(View $view)
-    {
-        $data = [];
+	{
+		$data = [];
 		$user_id = Auth::user()->id;
 
 		$data['profile'] = User::find($user_id);
 
-        // $data['users'] = collect(User::all())->chunk(30)->toArray();
-        $data['majors'] = Major::all();
-        $data['subjects'] = Subject::all();
-        $data['classrooms'] = Classroom::all();
-        // $data['announcements'] = collect(Announcement::all())->chunk(100)->toArray();
+		// $data['users'] = collect(User::all())->chunk(30)->toArray();
+		$data['majors'] = Major::all();
+		$data['subjects'] = Subject::all();
+		$data['classrooms'] = Classroom::all();
+		// $data['announcements'] = collect(Announcement::all())->chunk(100)->toArray();
 		
 		$view->with('lms', $data);
 	}

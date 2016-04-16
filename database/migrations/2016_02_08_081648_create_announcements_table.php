@@ -5,33 +5,33 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateAnnouncementsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::create('announcements', function (Blueprint $table) {
-            $table->uuid('id')->unique();
-            $table->uuid('user_id');
-            $table->string('title', 150);
-            $table->text('content');
-            $table->enum('status', ['info', 'danger']);
-            $table->timestamps();
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('announcements', function (Blueprint $table) {
+			$table->uuid('id')->unique();
+			$table->uuid('user_id');
+			$table->string('title', 150);
+			$table->text('content');
+			$table->enum('status', ['info', 'danger']);
+			$table->timestamps();
 
-            $table->primary(['id']);
-            $table->foreign('user_id')->references('id')->on('users');
-        });
-    }
+			$table->primary(['id']);
+			$table->foreign('user_id')->references('id')->on('users');
+		});
+	}
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::drop('announcements');
-    }
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('announcements');
+	}
 }

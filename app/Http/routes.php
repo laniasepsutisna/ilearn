@@ -56,7 +56,8 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::resource('/announcements', 'AnnouncementController', ['only' => ['index']]);
 	Route::resource('/classrooms', 'ClassroomController', ['only' => ['show', 'update']]);
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);
-	Route::resource('/tasks', 'TaskController');
+	Route::resource('/assignments', 'AssignmentController', ['except' => ['create']]);
+	Route::post('/createsubmission/{assignment}', ['uses' => 'AssignmentController@createsubmission', 'as' => 'createsubmission']);
 	Route::resource('/quizes', 'QuizController');
 	Route::resource('/files', 'FileController');
 	Route::resource('/activities', 'ActivityController', ['except' => ['edit', 'update']]);

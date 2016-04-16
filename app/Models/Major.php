@@ -9,8 +9,8 @@ class Major extends Model
 {
 	use UuidModel;
 
-    public $incrementing = false;
-    
+	public $incrementing = false;
+	
 	protected $fillable = ['name', 'description'];
 
 	protected $hidden = [

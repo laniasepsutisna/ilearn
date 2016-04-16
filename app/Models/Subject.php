@@ -8,13 +8,13 @@ use App\Traits\UuidModel;
 class Subject extends Model
 {
 
-    use UuidModel;
+	use UuidModel;
 
-    public $incrementing = false;
-    
-    protected $fillable = [
-    	'name', 'description'
-    ];
+	public $incrementing = false;
+	
+	protected $fillable = [
+		'name', 'description'
+	];
 
 	protected $hidden = [
 		'id', 'created_at', 'updated_at'

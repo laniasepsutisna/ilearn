@@ -9,8 +9,8 @@ class UserMeta extends Model
 {
 	use UuidModel;
 
-    public $incrementing = false;
-    
+	public $incrementing = false;
+	
 	protected  $fillable = [
 		'user_id', 'major_id', 'nis', 'nisn', 'agama', 'tempatlahir', 'tanggallahir', 'orangtua', 'wali', 'alamat', 'telp', 'telp_orangtua', 'picture', 'cover'
 	];

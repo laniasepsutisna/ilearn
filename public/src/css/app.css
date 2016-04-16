@@ -381,19 +381,6 @@ input.datepicker {
 }
 
 /* Classrooms */
-.panel {
-	border-radius: 0;
-}
-
-.panel-heading,
-.panel-footer {
-	border-radius: 0;
-}
-
-.dropdown-menu {
-	border-radius: 0;
-}
-
 .cpost-entry {
 	position: relative;
 }
@@ -402,5 +389,18 @@ input.datepicker {
 	position: absolute;
 	top: 1rem;
 	right: 1rem;
+}
+
+.nav-tabs > li > a {
+	border-radius: 2px 2px 0 0;
+}
+
+.tab-content {
+	border: 1px solid #ddd;
+	border-top: none;
+}
+
+.tab-pane {
+	padding: 1rem;
 }
 
