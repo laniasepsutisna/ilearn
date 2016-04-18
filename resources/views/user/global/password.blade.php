@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-md-9">			
 				<div class="entry profile-form">
-					{!! Form::open(['route' => ['auth.passwordupdate'], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+					{!! Form::open(['route' => ['auth.updatepassword'], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 		                <div class="form-body">
 							<div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
 		                        {!! Form::label('password', 'Password', ['class' => 'col-md-3 control-label']) !!}

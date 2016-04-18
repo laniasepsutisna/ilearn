@@ -20,7 +20,7 @@ class HomeController extends Controller
 
   public function profile()
   {
-    $user = User::find(Auth::user()->id);
+    $user = Auth::user();
     $page_title = 'Profil';
 
     return view('user.global.profile', compact('user', 'page_title'));
@@ -28,7 +28,7 @@ class HomeController extends Controller
 
   public function password()
   {
-    $user = User::find(Auth::user()->id);
+    $user = Auth::user();
     $page_title = 'Password';
 
     return view('user.global.password', compact('user', 'page_title'));

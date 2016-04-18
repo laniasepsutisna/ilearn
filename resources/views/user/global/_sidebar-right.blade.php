@@ -33,7 +33,7 @@
 		@endforeach
 	</div>
 
-	<div class="widget footer">
+	<div class="footer">
 		<p>&copy; 2015 iLearn.
 			<a href="https://github.com/alfredcrosby/ilearn">Tentang</a> &middot; 
 			<a href="https://github.com/alfredcrosby/ilearn/wiki">Bantuan</a> &middot; 

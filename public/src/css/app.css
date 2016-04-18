@@ -260,8 +260,9 @@ body {
 	margin-right: 10px;
 }
 
-.footer {
-	font-size: 0.875rem;
+.footer p {
+	font-size: 0.75rem;
+	padding: 1rem;
 }
 
 /* Profile */
