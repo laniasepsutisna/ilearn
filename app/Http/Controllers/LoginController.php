@@ -163,7 +163,7 @@ class LoginController extends Controller
 		$uploaded = $image->move($destination, $fileName);
 
 		if($cover) {
-			Image::make($uploaded)->fit(280,175)->save($destination . '/280x175-' . $fileName);
+			Image::make($uploaded)->fit(253,190)->save($destination . '/253x190-' . $fileName);
 		} else {
 			Image::make($uploaded)->fit(45,45)->save($destination . '/45x45-' . $fileName);
 			Image::make($uploaded)->fit(120,120)->save($destination . '/120x120-' . $fileName);

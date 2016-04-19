@@ -3,18 +3,15 @@
 @section('subcontent')
 	<div class="classroom-wrapper panel panel-default">
 		<header class="classroom-header panel-heading">
-			<h1 class="panel-title">{{ $classroom->classname }}</h1>
-			<p>
-				<span><strong>Guru:</strong> {{ $classroom->teacher_name }}</span> &middot;
-				<span><strong>Kelas:</strong> {{ $classroom->grade }}</span> &middot; 
-				@can('manage')
-					<span class="pull-right"><button><i class="fa fa-cog"></i></button></span>
-				@endcan
-			</p>
+			<h1 class="panel-title text-bold">{{ $classroom->classname }}</h1>
 		</header>
-		<div class="panel-body">			
-			@include('user.classrooms._tabs')
-		</div>
+		<ul class="list-group">
+			<li class="list-group-item">
+				<p><strong>Guru:</strong> {{ $classroom->teacher_name }}</p>
+				<p><strong>Kelas:</strong> {{ $classroom->grade }}</p>
+			</li>
+		</ul>
+		@include('user.classrooms._tabs')
 	</div>
 	@include('user.classrooms._post')
 @endsection

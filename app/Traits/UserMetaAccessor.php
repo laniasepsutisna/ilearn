@@ -83,7 +83,7 @@ trait UserMetaAccessor
     public function getCoverSmAttribute()
     {
         if ($this->usermeta->cover !== '') {
-            return url('/uploads/280x175-' . $this->usermeta->cover);
+            return url('/uploads/253x190-' . $this->usermeta->cover);
         }
     }
 
