@@ -1,6 +1,15 @@
 @extends('user.content')
 
 @section('subcontent')
+@foreach($lms['announcements'] as $announcement)
+	@if($announcement->status === 'danger')
+		<div class="alert alert-warning alert-dismissible" role="alert">
+			<strong>{{ $announcement->title }}</strong>
+			<div>{{ $announcement->content }}</div>
+		</div>
+	@endif
+@endforeach
+
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h2 class="panel-title text-bold">Timeline</h2>

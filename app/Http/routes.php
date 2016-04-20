@@ -53,12 +53,23 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'home.profile']);
 	Route::get('/password', ['uses' => 'HomeController@password', 'as' => 'home.password']);
 
+	Route::get('/libraries/assignments', ['uses' => 'HomeController@assignments', 'as' => 'home.assignments']);
+	Route::get('/libraries/quiz', ['uses' => 'HomeController@quizes', 'as' => 'home.quizes']);
+
+	Route::get('/calendar', ['uses' => 'HomeController@calendar', 'as' => 'home.calendar']);
+
 	Route::resource('/announcements', 'AnnouncementController', ['only' => ['index']]);
-	Route::resource('/classrooms', 'ClassroomController', ['only' => ['show', 'update']]);
+
+	Route::get('/classrooms/{classrooms}', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.show']);
+	Route::get('/classrooms/{classrooms}/courses', ['uses' => 'ClassroomController@courses', 'as' => 'classrooms.courses']);
+	Route::get('/classrooms/{classrooms}/assignments', ['uses' => 'ClassroomController@assignments', 'as' => 'classrooms.assignments']);
+	Route::get('/classrooms/{classrooms}/quizes', ['uses' => 'ClassroomController@quizes', 'as' => 'classrooms.quizes']);
+	Route::get('/classrooms/{classrooms}/members', ['uses' => 'ClassroomController@members', 'as' => 'classrooms.members']);
+	Route::get('/classrooms/download/{filename}', ['uses' => 'ClassroomController@download', 'as' => 'classrooms.download']);
+
+
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);
 	Route::resource('/assignments', 'AssignmentController', ['except' => ['create']]);
 	Route::post('/createsubmission/{assignment}', ['uses' => 'AssignmentController@createsubmission', 'as' => 'createsubmission']);
 	Route::resource('/quizes', 'QuizController');
-	Route::resource('/files', 'FileController');
-	Route::resource('/activities', 'ActivityController', ['except' => ['edit', 'update']]);
 });

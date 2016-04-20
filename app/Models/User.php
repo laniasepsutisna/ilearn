@@ -41,7 +41,7 @@ class User extends Authenticatable
 		return $this->hasOne('App\Models\UserMeta');
 	}
 
-	public function teacherclassroom()
+	public function teacherclassrooms()
 	{
 		return $this->hasMany('App\Models\Classroom', 'teacher_id');
 	}
@@ -51,11 +51,16 @@ class User extends Authenticatable
 		return $this->belongsToMany('App\Models\Classroom');
 	}
 
+	public function teacherassignments()
+	{
+		return $this->hasMany('App\Models\Assignment');
+	}
+
 	public function submissions()
 	{
 		return $this->belongsToMany('App\Models\Assignment', 'submissions');
 	}
-	
+
 	public function getRoleNameAttribute(){
 		switch ($this->role) {
 			case 'staff':

@@ -121,6 +121,10 @@ body {
 
 /* Content & Widget */
 
+.libraries {
+	margin-top: 100px;
+}
+
 .profile-menu .nav-stacked > li {
 	display: block;
 }
@@ -195,7 +199,8 @@ div.profile .change-cover {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:focus,
 .nav-pills > li.active > a:hover {
-	background-color: #205081;
+	background-color: #FAFAFA;
+	color: #205081;
 }
 
 @media(min-width: 768px){
@@ -336,15 +341,38 @@ input.datepicker {
 	margin: 0 5px;
 }
 
-.classroom-wrapper .tab-content {
+.classroom-wrapper .nav-tabs {
+	border-bottom: none;
+}
+
+.classroom-wrapper .nav-tabs > li:first-child > a {
+	border-left-color: transparent;
+	border-bottom-left-radius: 3px;
+}
+
+.classroom-wrapper .nav-tabs > li.active > a {
+	background-color: #fafafa;
+}
+
+.attached {
+	font-size: 1rem;
+	margin-right: 10px;
+}
+
+.no-content {
+	color: #bfbfbf;
+	margin: 75px 0;
+}
+
+.new .tab-content {
 	border: none;
 }
 
-.classroom-wrapper .nav-tabs > li {
+.new .nav-tabs > li {
 	margin-bottom: -2px;
 }
 
-.classroom-wrapper .nav-tabs > li:first-child a {
+.new .nav-tabs > li:first-child a {
 	border-left: none;
 }
 
@@ -358,3 +386,10 @@ input.datepicker {
 	border-radius: 0;
 }
 
+/* Footer */
+
+.footer p {
+	font-size: .75rem;
+}
+
+/* Toggle sidebar #263238 */

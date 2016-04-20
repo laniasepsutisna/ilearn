@@ -43,6 +43,11 @@ class Discussion extends Model
 		return $this->hasMany('App\Models\Discussion', 'parent_id')->orderBy('created_at', 'DESC');
 	}
 
+	public function getPaginateCommentsAttribute()
+	{
+		return $this->comments()->limit(5)->get()->reverse();
+	}
+
 	public function getHumanTimeAttribute()
 	{
 		$now = Carbon::now();

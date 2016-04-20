@@ -2,7 +2,7 @@
 
 @section('content')
 
-	@include('user.global._picture')
+	@include('user.global.profiles._picture')
 
 	<div class="container">
 		<div class="row">
@@ -24,13 +24,13 @@
 					<header class="panel-heading">
 						<h2 class="panel-title">Update Profil</h2>
 					</header>
-					<div class="panel-body"> 
-						@if($user->id === $lms['profile']->id)
-							{!! Form::model($user, ['route' => ['auth.update', $user], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
-								@include('user.global._form-profile')
+					<div class="panel-body">
+						@if($lms['profile']->id === $lms['profile']->id)
+							{!! Form::model($lms['profile'], ['route' => ['auth.update', $lms['profile']], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+								@include('user.global.profiles._form-profile')
 							{!! Form::close() !!}
 						@else
-							@include('user.global._identity')
+							@include('user.global.profiles._identity')
 						@endif
 					</div>
 				</div>

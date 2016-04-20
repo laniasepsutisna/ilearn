@@ -11,7 +11,7 @@
 	
 	<div class="panel panel-default online">
 		<header class="panel-heading">	
-			<h2 class="panel-title">Sedang Online &middot; <small> <a href="">Lihat Semua</a></small></h2>
+			<h2 class="panel-title">Sedang Online</h2>
 		</header>	
 		<ul class="friends list-group">
 			@forelse($lms['online'] as $online)
@@ -20,24 +20,25 @@
 				<li class="list-group-item"><small>Tidak ada user online.</small></li>
 			@endforelse
 		</ul>
+		<footer class="panel-footer text-center">
+			<a href="" class="btn btn-link btn-sm">Lihat semua</a>
+		</footer>
 	</div>
 	
 	<div class="panel panel-default tasks">
 		<header class="panel-heading">	
-			<h2 class="panel-title">Tugas &middot; <small> <a href="">Lihat Semua</a></small></h2>
+			<h2 class="panel-title">Tugas</h2>
 		</header>
 		<ul class="list-group">
-			@foreach($lms['profile']->classrooms as $classroom)
-				<li class="list-group-item text-bold">{{ $classroom->class_name }}</li>
-				<li class="list-group-item">
-					<ul class="list-group text-small">
-						@foreach($classroom->assignments as $assignment)
-							<li class="list-group-item"><a href="{{ route('assignments.show', $assignment->id) }}">{{ $assignment->title }}</a></li>
-						@endforeach
-					</ul>
-				</li>
-			@endforeach
+			@forelse($lms['assignments'] as $assignment)
+				<li class="list-group-item"><a href="{{ route('assignments.show', $assignment->id) }}">{{ $assignment->title }}</a></li>
+			@empty
+				<li class="list-group-item">Yay, tidak ada tugas.</li>
+			@endforelse
 		</ul>
+		<footer class="panel-footer text-center">
+			<a href="" class="btn btn-link btn-sm">Lihat semua</a>
+		</footer>
 	</div>
 
 	<div class="panel panel-default footer">

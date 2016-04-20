@@ -57,6 +57,11 @@ class Classroom extends Model
 		return $this->discussions()->where('parent_id', '')->paginate(7);
 	}
 
+	public function getPaginateAssignmentsAttribute()
+	{
+		return $this->assignments()->paginate(7);
+	}
+
 	public function getTeacherNameAttribute()
 	{
 		return $this->teacher->firstname . ' ' . $this->teacher->lastname;

@@ -2,7 +2,7 @@
 
 @section('content')
 
-	@include('user.global._picture')
+	@include('user.global.profiles._picture')
 
 	<div class="container">
 		<div class="row">

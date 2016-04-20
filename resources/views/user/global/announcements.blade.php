@@ -3,7 +3,7 @@
 @section('content')
 <div class="container content">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-10 col-md-offset-1">
 			<div class="text-right">
 				<a class="btn btn-link btn-sm" href="{{ route('home.index') }}"><i class="fa fa-angle-double-right"></i> Kembali ke Beranda.</a>
 			</div>
@@ -25,10 +25,8 @@
 					</li>
 					@endforeach
 				</ul>
-				<footer class="panel-footer">
-					<div class="pull-right">
-						{{ $announcements->links() }}
-					</div>
+				<footer class="panel-footer text-right">
+					{{ $announcements->links() }}
 				</footer>
 			</div>
 		</div>

@@ -29,7 +29,7 @@ class Assignment extends Model
 	public function getDeadlineAttribute()
 	{
 		foreach ($this->classrooms as $classroom) {
-			return Carbon::parse($classroom->pivot->deadline);
+			return Carbon::parse($classroom->pivot->deadline)->toFormattedDateString();
 		}
 	}
 

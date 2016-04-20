@@ -4,6 +4,9 @@
 	</li>
 	@can('manage')
 	<li role="presentation">
+		<a href="#module" aria-controls="settings" role="tab" data-toggle="tab">Materi</a>
+	</li>
+	<li role="presentation">
 		<a href="#assignment" aria-controls="settings" role="tab" data-toggle="tab">Tugas</a>
 	</li>
 	<li role="presentation">
@@ -31,6 +34,11 @@
 		{!! Form::close() !!}
 	</div>
 	@can('manage')
+	<div role="tabpanel" class="tab-pane" id="module">
+		<div class="text-center">
+			<a href="">Pilih Materi</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Materi Baru</a>
+		</div>
+	</div>
 	<div role="tabpanel" class="tab-pane" id="assignment">
 		<div class="text-center">
 			<a href="">Pilih Tugas</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Tugas Baru</a>
