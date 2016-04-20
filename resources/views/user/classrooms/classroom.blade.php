@@ -6,9 +6,8 @@
 			<h1 class="panel-title text-bold">{{ $classroom->classname }}</h1>
 		</header>
 		<ul class="list-group">
-			<li class="list-group-item">
-				<p><strong>Pengajar: </strong> {{ $classroom->teacher_name }}</p>
-			</li>
+			<li class="list-group-item">{!! $classroom->description !!}</li>
+			<li class="list-group-item text-small"><strong>Guru:</strong> {{ $classroom->teacher_name }}</li>
 		</ul>
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="{{ set_active('classrooms.show') }}">

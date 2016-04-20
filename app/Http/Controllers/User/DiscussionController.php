@@ -23,17 +23,21 @@ class DiscussionController extends Controller
 
 		if($request->user_id === Auth::user()->id) {
 			Discussion::create($request->all());
+
+			\Flash::success('Diskusi berhasil ditambahkan.');
+
 			return redirect()->back();
 		}
 
 		return;
 	}
 
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
     	Discussion::findOrFail($id)->delete();
 
-        \Flash::success('Jurusan berhasil dihapus.');
-        return redirect()->back();
+        \Flash::success('Diskusi berhasil dihapus.');
+
+        return redirect()->route('classrooms.show', $request->classroom);
     }
 }

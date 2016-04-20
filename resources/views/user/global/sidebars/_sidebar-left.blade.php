@@ -3,7 +3,9 @@
 		<h5 class="heading">DASHBOARD</h5>
 		<ul class="nav">
 			<li><a href="{{ route('home.index') }}"><i class="fa fa-dashboard"></i> Timeline</a></li>
-			<li><a href="{{ route('home.assignments') }}"><i class="fa fa-file-text"></i> Perpustakaan</a></li>
+			@can('manage')
+				<li><a href="{{ route('assignments.index') }}"><i class="fa fa-file-text"></i> Perpustakaan</a></li>
+			@endcan
 			<li><a href="{{ route('home.calendar') }}"><i class="fa fa-calendar"></i> Kalender</a></li>
 		</ul>
 	</div>

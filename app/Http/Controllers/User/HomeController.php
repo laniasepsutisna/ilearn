@@ -32,20 +32,6 @@ class HomeController extends Controller
 		return view('user.global.password', compact('page_title'));
 	}
 
-	public function assignments()
-	{
-		$page_title = 'Perpustakaan - Tugas';
-
-		return view('user.global.assignments', compact('page_title'));
-	}
-
-	public function quizes()
-	{
-		$page_title = 'Perpustakaan - Quiz';
-
-		return view('user.global.quizes', compact('page_title'));
-	}
-
 	public function calendar()
 	{
 		$page_title = 'Kalendar';

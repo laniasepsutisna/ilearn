@@ -23,7 +23,7 @@
 			{!! Form::hidden('user_id', $lms['profile']->id) !!}
 
 			<div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
-				{!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Bagikan isi pikiran anda dikelas ini...', 'rows' => '5']) !!}
+				{!! Form::textarea('content', null, ['class' => 'form-control discuss-textarea', 'placeholder' => 'Bagikan isi pikiran anda dikelas ini...', 'rows' => '2']) !!}
 				{!! $errors->first('content', '<p class="help-block">:message</p>') !!}
 			</div>
 
@@ -36,17 +36,17 @@
 	@can('manage')
 	<div role="tabpanel" class="tab-pane" id="module">
 		<div class="text-center">
-			<a href="">Pilih Materi</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Materi Baru</a>
+			<a href="#" id="selectModule">Pilih Materi</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Materi Baru</a>
 		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane" id="assignment">
 		<div class="text-center">
-			<a href="">Pilih Tugas</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Tugas Baru</a>
+			<a href="#" id="selectAssignment">Pilih Tugas</a> <span class="atau">atau</span> <a href="{{ route('assignments.create') }}" class="btn btn-primary">Buat Tugas Baru</a>
 		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane" id="quiz">
 		<div class="text-center">
-			<a href="">Pilih Quiz</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Quiz Baru</a>
+			<a href="#" id="selectQuiz">Pilih Quiz</a> <span class="atau">atau</span> <a href="{{ route('quizes.create') }}" class="btn btn-primary">Buat Quiz Baru</a>
 		</div>
 	</div>
 	@endcan

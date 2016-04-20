@@ -9,6 +9,15 @@ body {
 	color: #1E3948;
 }
 
+.hide-auto {
+	position: fixed;
+	top: 5%; left: 0; right: 0;
+	max-width: 500px;
+	margin: auto;
+	z-index: 99999;
+	border-radius: 0;
+}
+
 .btn {
 	border-radius: 0;
 	border: none;
@@ -282,6 +291,14 @@ input.datepicker {
 
 .tab-pane {
 	padding: 1rem;
+}
+
+.discuss-textarea {
+	resize: none;
+}
+
+.discuss-textarea:focus {
+	box-shadow: none;
 }
 
 /* Panel & thumbnail */

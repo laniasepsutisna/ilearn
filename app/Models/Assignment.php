@@ -23,13 +23,13 @@ class Assignment extends Model
 
 	public function submissions()
 	{
-		return $this->belongsToMany('App\Models\User', 'submissions')->withPivot('title', 'file', 'content');
+		return $this->belongsToMany('App\Models\User', 'submissions')->withPivot('title', 'file', 'content')->withTimestamps();;
 	}
 
 	public function getDeadlineAttribute()
 	{
 		foreach ($this->classrooms as $classroom) {
-			return Carbon::parse($classroom->pivot->deadline)->toFormattedDateString();
+			return Carbon::parse($classroom->pivot->deadline);
 		}
 	}
 

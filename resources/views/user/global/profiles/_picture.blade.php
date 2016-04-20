@@ -7,7 +7,7 @@
                 <h4 class="modal-title">Upload Image</h4>
             </div>
             <div class="modal-body">
-                {!! Form::model($lms['profile'], ['route' => 'auth.image', 'files' => true, 'method' => 'patch']) !!}
+                {!! Form::model($lms['profile'], ['route' => 'auth.image', 'files' => true, 'method' => 'put']) !!}
                     {!! Form::hidden('field', 'picture', ['class' => 'field_type']) !!}
                     <div class="form-group">
                         {!! Form::label('image', 'Image', ['class' => 'sr-only']) !!}

@@ -10,8 +10,8 @@
 					</header>
 					<div class="panel-body">
 						<ul class="nav nav-pills nav-stacked">
-							<li class="{{ set_active('home.assignments') }}"><a href="{{ route('home.assignments') }}">Tugas</a></li>
-							<li class="{{ set_active('home.quizes') }}"><a href="{{ route('home.quizes') }}">Quiz</a></li>
+							<li class="{{ set_active('assignments.index') }}"><a href="{{ route('assignments.index') }}">Tugas</a></li>
+							<li class="{{ set_active('quizes.index') }}"><a href="{{ route('quizes.index') }}">Quiz</a></li>
 						</ul>
 					</div>
 				</div>
@@ -19,9 +19,10 @@
 			<div class="col-md-9">			
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<h2 class="panel-title">Quiz</h2>
+						<h2 class="panel-title">{{ $page_title }}</h2>
 					</header>
 					<div class="panel-body">
+						Buat Quiz
 					</div>
 				</div>
 			</div>

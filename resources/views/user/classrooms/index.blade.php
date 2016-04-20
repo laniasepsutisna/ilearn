@@ -35,7 +35,7 @@
 			</div>
 			<ul class="list-group"> 
 				@if($discuss->comments->count() > 5)
-				<li class="list-group-item text-center"><a href="" class="btn btn-link btn-sm">Lihat {{ $discuss->comments->count() - 5 }} komentar sebelumnya...</a></li> 
+				<li class="list-group-item text-center"><a href="{{ route('classrooms.discussiondetail', [$classroom, $discuss]) }}" class="btn btn-link btn-sm">Lihat {{ $discuss->comments->count() - 5 }} komentar sebelumnya...</a></li> 
 				@endif
 				@foreach($discuss->paginate_comments as $comment)
 					<li class="list-group-item">

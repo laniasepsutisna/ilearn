@@ -1,6 +1,10 @@
 (function($){
     $(document).ready(function(){
-        // your js here
+        if($('.hide-auto').length){
+            setTimeout(function(){
+                $('.hide-auto').remove();
+            }, 2000);
+        }
     });
 
     $('.changeImage').click(function(e){

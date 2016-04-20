@@ -26,7 +26,7 @@
 					</header>
 					<div class="panel-body">
 						@if($lms['profile']->id === $lms['profile']->id)
-							{!! Form::model($lms['profile'], ['route' => ['auth.update', $lms['profile']], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+							{!! Form::model($lms['profile'], ['route' => ['auth.update', $lms['profile']], 'method' =>'put', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 								@include('user.global.profiles._form-profile')
 							{!! Form::close() !!}
 						@else

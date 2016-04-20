@@ -17,7 +17,7 @@
 			@forelse($lms['online'] as $online)
 				<li class="list-group-item"><a href=""><i class="fa fa-circle"></i> {{ $online->fullname }}</a></li>
 			@empty
-				<li class="list-group-item"><small>Tidak ada user online.</small></li>
+				<li class="list-group-item text-small">Tidak ada user online.</li>
 			@endforelse
 		</ul>
 		<footer class="panel-footer text-center">
@@ -31,9 +31,9 @@
 		</header>
 		<ul class="list-group">
 			@forelse($lms['assignments'] as $assignment)
-				<li class="list-group-item"><a href="{{ route('assignments.show', $assignment->id) }}">{{ $assignment->title }}</a></li>
+				<li class="list-group-item"><a href="{{ route('classrooms.assignmentdetail', [$assignment->pivot->classroom_id, $assignment->id]) }}">{{ $assignment->title }}</a></li>
 			@empty
-				<li class="list-group-item">Yay, tidak ada tugas.</li>
+				<li class="list-group-item text-small">Yay, tidak ada tugas.</li>
 			@endforelse
 		</ul>
 		<footer class="panel-footer text-center">

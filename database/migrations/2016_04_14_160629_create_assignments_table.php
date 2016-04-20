@@ -42,6 +42,7 @@ class CreateAssignmentsTable extends Migration
 			$table->string('title', 150);
 			$table->string('file');
 			$table->string('content', 500);
+			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 			$table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');

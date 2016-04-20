@@ -25,7 +25,7 @@
 						<h2 class="panel-title">Update Password</h2>
 					</header>
 					<div class="panel-body"> 
-					{!! Form::open(['route' => ['auth.updatepassword'], 'method' =>'patch', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+					{!! Form::open(['route' => ['auth.updatepassword'], 'method' =>'put', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 		                <div class="form-body">
 							<div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
 		                        {!! Form::label('password', 'Password', ['class' => 'col-md-3 control-label']) !!}

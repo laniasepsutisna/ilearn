@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <!--                                     ____
-                                         |  |
-       _____  _  ___  ________  ______   |  |__     __   __
-     / 	___/ | ' __/ |  ___  | /  _____\ |   _  \  |  | |  |
-    |  |__   |  |    | |___| | \_____  \ |  |_)  | |  |_|  |
-     \_____\ |__|    |_______| /_______/ |_'____/  _\___,  |
-      https://github.com/alfredcrosby/ilearn      |_______/
+										 |  |
+	   _____  _  ___  ________  ______   |  |__     __   __
+	 / 	___/ | ' __/ |  ___  | /  _____\ |   _  \  |  | |  |
+	|  |__   |  |    | |___| | \_____  \ |  |_)  | |  |_|  |
+	 \_____\ |__|    |_______| /_______/ |_'____/  _\___,  |
+	  https://github.com/alfredcrosby/ilearn      |_______/
  -->
 <html>
 <head>
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>{{ $page_title or 'Beranda' }} | LMS SMK WIRA HARAPAN</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -23,6 +23,12 @@
 	<![endif]-->
 </head>
 <body class="students logged-in user-style-user_name">
+	@if (Session::has('flash_notification.message'))
+		<div class="alert alert-{{ Session::get('flash_notification.level') }} hide-auto">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			{{ Session::get('flash_notification.message') }}
+		</div>
+	@endif
 	
 	<nav class="navbar navbar-fixed-top navbar-default ilearn-main-nav">
 		<div class="container">
