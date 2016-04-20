@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Gate;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Classroom;
@@ -16,21 +17,11 @@ class ClassroomController extends Controller
     	$classroom = Classroom::findOrFail($id);
     	$page_title = 'Kelas ' . $classroom->classname;
 
-    	if(Auth::user()->id == $classroom->teacher_id || $this->isStudentIn($classroom, Auth::user()->id)) {
+    	if (Gate::allows('member-of', $classroom)){
     		return view('user.classrooms.index', compact('classroom', 'page_title'));
-    	}
+        }
 
 		return abort(401);
-    }
-
-    private function isStudentIn($classroom, $user_id)
-    {
-    	foreach ($classroom->students as $student) {
-    		if($student->id === $user_id) {
-    			return true;
-    		}
-    	}
-    	return false;
     }
 
     public function courses($id)
@@ -38,7 +29,7 @@ class ClassroomController extends Controller
         $classroom = Classroom::findOrFail($id);
         $page_title = 'Materi - Kelas ' . $classroom->classname;
 
-        if(Auth::user()->id == $classroom->teacher_id || $this->isStudentIn($classroom, Auth::user()->id)) {
+        if (Gate::allows('member-of', $classroom)){
             return view('user.classrooms.courses', compact('classroom', 'page_title'));
         }
 
@@ -50,7 +41,7 @@ class ClassroomController extends Controller
         $classroom = Classroom::findOrFail($id);
         $page_title = 'Tugas - Kelas ' . $classroom->classname;
 
-        if(Auth::user()->id == $classroom->teacher_id || $this->isStudentIn($classroom, Auth::user()->id)) {
+        if (Gate::allows('member-of', $classroom)){
             return view('user.classrooms.assignments', compact('classroom', 'page_title'));
         }
 
@@ -62,7 +53,7 @@ class ClassroomController extends Controller
         $classroom = Classroom::findOrFail($id);
         $page_title = 'Quiz - Kelas ' . $classroom->classname;
 
-        if(Auth::user()->id == $classroom->teacher_id || $this->isStudentIn($classroom, Auth::user()->id)) {
+        if (Gate::allows('member-of', $classroom)){
             return view('user.classrooms.quizes', compact('classroom', 'page_title'));
         }
 
@@ -74,7 +65,7 @@ class ClassroomController extends Controller
         $classroom = Classroom::findOrFail($id);
         $page_title = 'Anggota - Kelas ' . $classroom->classname;
 
-        if(Auth::user()->id == $classroom->teacher_id || $this->isStudentIn($classroom, Auth::user()->id)) {
+        if (Gate::allows('member-of', $classroom)){
             return view('user.classrooms.members', compact('classroom', 'page_title'));
         }
 
@@ -90,5 +81,17 @@ class ClassroomController extends Controller
         }
 
         return abort(500);
+    }
+
+    public function discussionDetail($classroom, $discussion)
+    {
+        $discussion = Classroom::findOrFail($classroom)
+            ->discussions()->where('id', $discussion);
+
+        if (Gate::allows('member-of', $classroom)){
+            return view('user.classrooms.members', compact('classroom', 'page_title'));
+        }
+
+        return abort(401);
     }
 }

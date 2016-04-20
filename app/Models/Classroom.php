@@ -97,4 +97,14 @@ class Classroom extends Model
 
 		return $this->users()->attach($users);
 	}
+
+	public function isMember($user)
+	{
+		foreach ($this->students as $student) {
+			if($student->id === $user) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

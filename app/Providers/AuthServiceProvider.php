@@ -33,5 +33,11 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('delete-discussion', function ($user, $discuss) {
             return $user->id === $discuss->user_id;
         });
+
+        $gate->define('member-of', function($user, $classroom) {
+            if($user->id == $classroom->teacher_id || $classroom->isMember($user->id)) {
+                return true;
+            }
+        });
     }
 }
