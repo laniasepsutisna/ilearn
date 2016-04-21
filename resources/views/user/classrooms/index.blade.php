@@ -19,6 +19,7 @@
 								<ul class="dropdown-menu">
 									<li>
 										{!! Form::open(['route' => ['discuss.destroy', $discuss->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+											{!! Form::hidden('classroom', $classroom->id) !!}
 											{!! Form::submit('Hapus', ['class'=>'btn btn-link btn-sm']) !!}
 										{!! Form::close() !!}
 									</li>

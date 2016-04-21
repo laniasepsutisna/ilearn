@@ -35,7 +35,7 @@ class AppComposer
 		$data = [];
 		foreach ($classrooms as $class) {
 			foreach ($class->assignments as $assigment) {
-				$data[$assigment->id] = $assigment;
+				$data[$class->id] = $assigment;
 			}
 		}
 

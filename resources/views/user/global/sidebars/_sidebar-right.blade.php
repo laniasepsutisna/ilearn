@@ -31,7 +31,7 @@
 		</header>
 		<ul class="list-group">
 			@forelse($lms['assignments'] as $assignment)
-				<li class="list-group-item"><a href="{{ route('classrooms.assignmentdetail', [$assignment->pivot->classroom_id, $assignment->id]) }}">{{ $assignment->title }}</a></li>
+				<li class="list-group-item"><a href="{{ route('classrooms.assignmentdetail', [$assignment->pivot->classroom_id, $assignment->pivot->assignment_id]) }}">{{ $assignment->title }}</a></li>
 			@empty
 				<li class="list-group-item text-small">Yay, tidak ada tugas.</li>
 			@endforelse

@@ -22,7 +22,9 @@
 						<h2 class="panel-title">{{ $page_title }}</h2>
 					</header>
 					<div class="panel-body">
-						@include('user.assignments._form')
+						{!! Form::open(['route' => 'assignments.store', 'files' => true]) !!}
+							@include('user.assignments._form')
+						{!! Form::close() !!}
 					</div>
 				</div>
 			</div>

@@ -6,7 +6,7 @@
 			<h2 class="panel-title text-bold">{{ $assignment->title }}</h2>
 		</header>
 		<ul class="list-group">
-			<li class="list-group-item">{{ $assignment->content }}</li>
+			<li class="list-group-item">{!! $assignment->content !!}</li>
 			
 			<li class="list-group-item"><span class="text-small"><strong>Deadline:</strong> {{ $assignment->deadline->toFormattedDateString() }}</span></li>
 			@if($assignment->file)

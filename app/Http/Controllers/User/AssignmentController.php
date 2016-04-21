@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Assignment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class AssignmentController extends Controller
 {
 	public function index()
 	{
-		$assignments = Assignment::where('user_id', Auth::user()->id)->get();
+		$assignments = Assignment::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(7);
 		$page_title = 'Perpustakaan - Tugas';
 
 		return view('user.assignments.index', compact('assignments','page_title'));
@@ -41,5 +42,78 @@ class AssignmentController extends Controller
 		\Flash::success('Tugas berhasil ditambahkan.');
 
 		return redirect()->route('assignments.index');
+	}
+
+	public function edit($id)
+	{
+		$assignment = Assignment::findOrFail($id);
+		$attached = [];
+
+		foreach($assignment->classrooms as $class) {
+			$attached[$class->id] = [
+				'classname' => $class->classname,
+				'deadline' => Carbon::parse($class->pivot->deadline)->toFormattedDateString()
+			];
+		}
+
+		$page_title = 'Tugas Baru';
+
+		return view('user.assignments.edit', compact('assignment', 'page_title', 'attached'));
+	}
+
+	public function update(Request $request, $id)
+	{
+		$this->validate($request, [
+			'user_id' => 'required',
+			'title' => 'required',
+			'file' => 'mimes:jpeg,png,doc,docx,pdf,xls,xlsx,ppt,pptx',
+			'content' => 'required'
+		], [
+			'required' => 'Kolom :attribute diperlukan'
+		]);
+
+		$assignment = Assignment::findOrFail($id);
+
+		$assignment->update($request->all());
+
+		\Flash::success('Tugas berhasil diupdate.');
+
+		return redirect()->back();
+	}
+
+	public function destroy($id)
+	{
+		Assignment::findOrFail($id)->delete();
+
+		\Flash::success('Tugas berhasil dihapus.');
+
+		return redirect()->back();
+	}
+
+	public function attachTo(Request $request)
+	{
+		$data = [];
+		$assignment = Assignment::findOrFail($request->assignment_id);
+
+		foreach ($request->classrooms as $class) {
+			$data[$class] = ['deadline' => $request->deadline];
+		}
+
+		$assignment->classrooms()->sync($data, false);
+
+		\Flash::success('Tugas berhasil dibagikan.');
+
+		return redirect()->back();
+	}
+
+	public function detachFrom(Request $request, $id)
+	{
+		$assignment = Assignment::findOrFail($request->assignment_id);
+		$assignment->classrooms()->detach($id);
+
+
+		\Flash::success('Tugas berhasil batalkan.');
+
+		return redirect()->back();
 	}
 }

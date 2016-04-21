@@ -57,7 +57,7 @@
 <div class="form-group {{ $errors->has('alamat') ? 'has-error' : '' }}">
 	{!! Form::label('alamat', 'Alamat', array('class' => 'col-md-3 control-label')) !!}
 	<div class="col-md-8">
-		{!! Form::textarea('alamat', null, ['class' => 'form-control textarea', 'placeholder' => 'Alamat user...', 'id' => 'alamat']) !!}
+		{!! Form::textarea('alamat', null, ['class' => 'form-control', 'placeholder' => 'Alamat user...', 'id' => 'alamat']) !!}
 		{!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

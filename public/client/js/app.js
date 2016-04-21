@@ -5,6 +5,36 @@
                 $('.hide-auto').remove();
             }, 2000);
         }
+
+        $(".textarea").wysihtml5();
+        $('.select2').select2();
+        
+        if( $('.datepicker').length ) {
+            $('.datepicker').datepicker({
+                format: 'yyyy/mm/dd',
+                startDate: '+1d'
+            });
+        }
+    });
+
+    $(document.body).on('click', '.warning-delete', function(e) {
+        e.preventDefault();
+        var $form = $(this).closest('form'),
+            title = $(this).data('title');
+
+        swal({
+            title: 'Anda yakin?',
+            text: 'Anda akan menghapus ' + title + ' !',
+            type: 'warning',
+            showCancelButton: true,
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Ya, lanjutkan!',
+            closeOnConfirm: true
+        },
+        function() {
+            $form.submit();
+        });
     });
 
     $('.changeImage').click(function(e){
@@ -23,5 +53,13 @@
                 form.val('picture');
                 break;
         }
+    });
+
+    $('.shareAssignments').each(function(){
+        var self = $(this);
+        self.on('click', function(e){
+            var val = $(this).data('assg');
+            $('#chgAssignment').val(val);
+        });
     });
 })(jQuery);

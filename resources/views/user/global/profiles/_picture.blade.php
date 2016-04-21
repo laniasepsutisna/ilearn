@@ -6,16 +6,20 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Upload Image</h4>
             </div>
-            <div class="modal-body">
-                {!! Form::model($lms['profile'], ['route' => 'auth.image', 'files' => true, 'method' => 'put']) !!}
+            
+            {!! Form::model($lms['profile'], ['route' => 'auth.image', 'files' => true, 'method' => 'put']) !!}
+                <div class="modal-body">
                     {!! Form::hidden('field', 'picture', ['class' => 'field_type']) !!}
                     <div class="form-group">
                         {!! Form::label('image', 'Image', ['class' => 'sr-only']) !!}
                         {!! Form::file('image') !!}
                     </div>
-                    {!! Form::submit('Update Image', ['class'=>'btn btn-flat btn-success']) !!}
-                {!! Form::close() !!}
-            </div>
+                </div>
+                <div class="modal-footer">
+                    {!! Form::button('Batal', ['class' => 'btn btn-link', 'data-dismiss' => 'modal']) !!}
+                    {!! Form::submit('Ganti Gambar', ['class'=>'btn btn-flat btn-success']) !!}
+                </div>
+            {!! Form::close() !!}
         </div>
     </div>
 </div>

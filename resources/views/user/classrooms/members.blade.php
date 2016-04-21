@@ -6,21 +6,19 @@
 		</header>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-sm-4 col-md-3">
+				<div class="col-sm-3 col-md-2">
 					<div class="thumbnail">
 						<img src="{{ $classroom->teacher->picture_md }}" alt="{{ $classroom->teacher->fullname }}">
 						<div class="caption">
-							<p>{{ $classroom->teacher->fullname }}</p>
 							<small>Guru</small>
 						</div>
 					</div>
 				</div>
 				@foreach($classroom->students as $student)
-					<div class="col-sm-4 col-md-3">
+					<div class="col-sm-3 col-md-2">
 						<div class="thumbnail">
 							<img src="{{ $student->picture_md }}" alt="{{ $student->fullname }}">
 							<div class="caption">
-								<p>{{ $student->fullname }}</p>
 								<small>Siswa</small>
 							</div>
 						</div>

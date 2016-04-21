@@ -15,7 +15,11 @@
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="{{ asset('/src/css/app.css') }}">
+	<link rel="stylesheet" href="{{ asset('/client/css/bootstrap3-wysihtml5.min.css') }}">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="{{ asset('/client/css/datepicker3.css') }}">
+	<link rel="stylesheet" href="{{ asset('/client/css/sweetalert.css') }}">
+	<link rel="stylesheet" href="{{ asset('/client/css/app.css') }}">
 
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -44,7 +48,7 @@
 							<img class="img-circle" src="{{ $lms['profile']->picture }}"> 
 							{{ $lms['profile']->firstname }}</a>
 						</li>		
-					<li><a href="{{ route('auth.logout') }}"><i class="fa fa-sign-out"></i></a></li>
+					<li><a href="{{ route('auth.logout') }}"><i class="fa fa-power-off"></i></a></li>
 				</ul>
 			</div>
 		</div>
@@ -54,6 +58,10 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
+	<script type="text/javascript" src="{{ asset('/client/js/bootstrap3-wysihtml5.all.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/client/js/bootstrap-datepicker.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/client/js/sweetalert.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/client/js/app.js') }}"></script>
 </body>
 </html>
