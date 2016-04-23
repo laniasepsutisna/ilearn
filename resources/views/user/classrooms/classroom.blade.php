@@ -49,7 +49,7 @@
 
 	<div class="panel panel-default new">
 		<header class="classroom-header panel-heading">
-			<h1 class="panel-title">Bagikan ke kelas ini.</h1>
+			<h1 class="panel-title text-bold">Bagikan ke kelas ini.</h1>
 		</header>
 		@include('user.classrooms._tabs')
 	</div>

@@ -1,11 +1,13 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+
 html {
 	font-size: 16px;
 }
 
 body {
+	font-family: "Open Sans", Helvetica, sans;
 	background-color: #F5F8FA;
 	line-height: 1.6;
-	font-family: "Open Sans", Helvetica, sans;
 	color: #1E3948;
 }
 
@@ -24,7 +26,7 @@ body {
 }
 
 .text-bold {
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .navbar-default {
@@ -115,7 +117,7 @@ body {
 }
 
 .lms-sidebar-menu ul li a {
-	font-weight: 500;
+	font-weight: 600;
 }
 
 .lms-sidebar-menu ul li a .fa,
@@ -307,7 +309,7 @@ input.datepicker {
 .thumbnail .fullname {
 	margin-top: 40px;
 	font-size: 1rem;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .panel-default > .panel-heading {
@@ -334,16 +336,16 @@ input.datepicker {
 
 .media-heading {
 	font-size: 1rem;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .text-small {
-	font-size: .75rem;
+	font-size: .825rem;
 }
 
 .text-small .media-heading {
 	font-size: .875rem;
-	font-weight: 700;
+	font-weight: 600;
 }
 
 .atau {

@@ -29,14 +29,14 @@
 						@endcan
 
 						<h4 class="media-heading">{{ $discuss->user->fullname }}</h4>
-						<p>{{ $discuss->content }}</p>
 						<p><small>{{ $discuss->human_time }}</small></p>
+						<p>{{ $discuss->content }}</p>
 					</div>
 				</div>
 			</div>
-			<ul class="list-group"> 
+			<ul class="list-group">
 				@if($discuss->comments->count() > 5)
-				<li class="list-group-item text-center"><a href="{{ route('classrooms.discussiondetail', [$classroom, $discuss]) }}" class="btn btn-link btn-sm">Lihat {{ $discuss->comments->count() - 5 }} komentar sebelumnya...</a></li> 
+				<li class="list-group-item text-center"><a href="{{ route('classrooms.discussiondetail', [$classroom, $discuss]) }}" class="btn btn-link btn-sm">Lihat {{ $discuss->comments->count() - 5 }} komentar sebelumnya...</a></li>
 				@endif
 				@foreach($discuss->paginate_comments as $comment)
 					<li class="list-group-item">
@@ -50,8 +50,8 @@
 									</div>
 									<div class="media-body">
 										<h4 class="media-heading">{{ $comment->user->fullname }}</h4>
-										<p>{{ $comment->content }}</p>
 										<p><small>{{ $comment->human_time }}</small></p>
+										<p>{{ $comment->content }}</p>
 									</div>
 								</li>
 
@@ -76,7 +76,7 @@
 								{!! Form::text('content', null, ['class' => 'form-control', 'placeholder' => 'Balas...']) !!}
 								{!! $errors->first('content', '<p class="help-block">:message</p>') !!}
 							</div>
-							<div class="text-right"> 
+							<div class="text-right">
 								{!! Form::submit('Balas', ['class'=>'btn btn-flat btn-primary']) !!}
 							</div>
 						{!! Form::close() !!}
@@ -87,7 +87,7 @@
 	@empty
 		<h4 class="text-center no-content">Diskusi masih kosong. Mulai diskusi?</h4>
 	@endforelse
-	<div class="text-right"> 
+	<div class="text-right">
 		{{ $classroom->paginate_discussions->links() }}
 	</div>
 @endsection
