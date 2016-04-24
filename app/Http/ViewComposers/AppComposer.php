@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AppComposer
 {
-	
+
 	public function compose(View $view)
 	{
 		$data = [];
@@ -21,21 +21,21 @@ class AppComposer
 		} else {
 			$data['classrooms'] = Auth::user()->classrooms;
 		}
-		
-		$data['assignments'] = $this->classAssignment($data['classrooms']);	
+
+		$data['assignments'] = $this->classAssignment($data['classrooms']);
 		$data['announcements'] = Announcement::orderBy('created_at')->limit(5)->get();
-		
-		$data['online']        = User::where('login', 1)->where('id', '<>', Auth::user()->id)->where('role', '<>', 'staff')->orderBy('firstname')->limit(10)->get();
-		
+
+		$data['online']        = User::onlineusers()->orderBy('firstname')->limit(7)->get();
+
 		$view->with('lms', $data);
 	}
 
 	private function classAssignment($classrooms)
-	{	
+	{
 		$data = [];
 		foreach ($classrooms as $class) {
-			foreach ($class->assignments as $assigment) {
-				$data[$class->id] = $assigment;
+			foreach ($class->showFiveAssignments as $assigment) {
+				$data[$assigment->id] = $assigment;
 			}
 		}
 

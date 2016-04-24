@@ -7,11 +7,12 @@ use App\Traits\UserMetaAccessor;
 use App\Traits\UuidModel;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
 	use UuidModel, CanResetPassword, UserMetaAccessor;
-	
+
 	public $incrementing = false;
 
 	protected $appends = [
@@ -66,7 +67,7 @@ class User extends Authenticatable
 			case 'staff':
 				return 'Tata Usaha';
 				break;
-			
+
 			case 'teacher':
 				return 'Guru';
 				break;
@@ -80,7 +81,7 @@ class User extends Authenticatable
 				break;
 		}
 	}
-	
+
 	public function hasRole($name)
 	{
 		if(is_array($name)) {
@@ -95,5 +96,10 @@ class User extends Authenticatable
 			}
 		}
 		return false;
+	}
+
+	public function scopeOnlineusers($query)
+	{
+		return $query->where('login', 1)->where('role', '<>', 'staff')->where('id', '<>', Auth::user()->id);
 	}
 }

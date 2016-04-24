@@ -44,7 +44,6 @@
 						</ul>
 						<div class="panel-footer text-right">
 							<a href="{{ route('assignments.edit', $assignment->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
-							<button class="btn btn-primary btn-sm shareAssignments" data-toggle="modal" data-target="#assignmentsModal" data-assg="{{ $assignment->id }}"><i class="fa fa-share-alt"></i> Bagikan</button>
 							{!! Form::open(['route' => ['assignments.destroy', $assignment->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
 								{!! Form::button('<i class="fa fa-trash"></i> Hapus', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $assignment->title]) !!}
 							{!! Form::close() !!}
@@ -61,33 +60,4 @@
 		</div>
 	</div>
 
-	<div class="modal fade" id="assignmentsModal" tabindex="-1" role="dialog" aria-labelledby="shareAssignment">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="shareAssignment">Bagikan tugas ini</h4>
-				</div>
-				{!! Form::open(['route' => ['assignments.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
-					<div class="modal-body">
-						<div class="col-md-12">
-							{!! Form::hidden('assignment_id', null, ['id' => 'chgAssignment']) !!}
-							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 
-							{!! Form::select('classrooms[]', $lms['classrooms']->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
-							{!! $errors->first('classrooms', '<p class="help-block">:message</p>') !!}
-							</div>
-							<div class="form-group {{ $errors->has('deadline') ? 'has-error' : '' }}"> 
-							{!! Form::text('deadline', null, ['class' => 'form-control datepicker', 'placeholder' => 'Deadline']) !!}
-							{!! $errors->first('deadline', '<p class="help-block">:message</p>') !!}
-							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						{!! Form::button('Batal', ['class' => 'btn btn-link', 'data-dismiss' => 'modal']) !!}
-						{!! Form::button('<i class="fa fa-share-alt"></i> Bagikan Tugas', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
-					</div>
-				{!! Form::close() !!}
-			</div>
-		</div>
-	</div>
 @endsection

@@ -23,8 +23,8 @@
 			<li role="presentation" class="{{ set_active('classrooms.assignments') }}">
 				<a href="{{ route('classrooms.assignments', $classroom) }}">
 					Tugas
-					@if($classroom->assignments->count() > 0)
-						<span class="badge">{{ $classroom->assignments->count() }}</span>
+					@if($classroom->CountAvailableAssignments > 0)
+						<span class="badge">{{ $classroom->CountAvailableAssignments }}</span>
 					@endif
 				</a>
 			</li>

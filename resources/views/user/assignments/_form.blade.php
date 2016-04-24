@@ -16,5 +16,5 @@
 </div>
 
 <div class="text-right"> 
-	{!! Form::submit(isset($model) ? 'Update Tugas' : 'Buat Tugas', ['class'=>'btn btn-flat btn-success']) !!}
+	{!! Form::submit(isset($assignment) ? 'Update Tugas' : 'Buat Tugas', ['class'=>'btn btn-flat btn-success']) !!}
 </div>

@@ -15,7 +15,7 @@ class CreateAssignmentsTable extends Migration
 		Schema::create('assignments', function (Blueprint $table) {
 			$table->uuid('id');
 			$table->uuid('user_id');
-			$table->string('title');
+			$table->string('title', 60);
 			$table->string('file');
 			$table->text('content', 500);
 			$table->timestamps();
@@ -29,6 +29,7 @@ class CreateAssignmentsTable extends Migration
 			$table->uuid('assignment_id');
 			$table->uuid('classroom_id');
 			$table->date('deadline');
+			$table->timestamps();
 
 			$table->foreign('assignment_id')->references('id')->on('assignments')->onDelete('cascade');
 			$table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
@@ -42,6 +43,7 @@ class CreateAssignmentsTable extends Migration
 			$table->string('title', 150);
 			$table->string('file');
 			$table->string('content', 500);
+			$table->integer('chance');
 			$table->timestamps();
 
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

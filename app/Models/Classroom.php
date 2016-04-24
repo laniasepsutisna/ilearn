@@ -49,7 +49,7 @@ class Classroom extends Model
 
 	public function assignments()
 	{
-		return $this->belongsToMany('App\Models\Assignment');
+		return $this->belongsToMany('App\Models\Assignment')->withPivot('deadline')->withTimestamps()->orderBy('assignment_classroom.created_at', 'DESC');
 	}
 
 	public function getPaginateDiscussionsAttribute()
@@ -57,16 +57,26 @@ class Classroom extends Model
 		return $this->discussions()->where('parent_id', '')->paginate(7);
 	}
 
-	public function getPaginateAssignmentsAttribute()
+	public function getCountAvailableAssignmentsAttribute()
 	{
-		return $this->assignments()->paginate(7);
+		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->count();
+	}
+
+	public function getPaginateAvailableAssignmentsAttribute()
+	{
+		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->paginate(7, ['*'], 'class_assignment');
+	}
+
+	public function getShowFiveAssignmentsAttribute()
+	{
+		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->limit(5)->get();
 	}
 
 	public function getTeacherNameAttribute()
 	{
 		return $this->teacher->firstname . ' ' . $this->teacher->lastname;
 	}
-	
+
 	public function getSubjectNameAttribute()
 	{
 		return $this->subject->name;

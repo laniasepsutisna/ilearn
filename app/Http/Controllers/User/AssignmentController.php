@@ -41,24 +41,18 @@ class AssignmentController extends Controller
 
 		\Flash::success('Tugas berhasil ditambahkan.');
 
-		return redirect()->route('assignments.index');
+		return redirect()->route('assignments.edit', $assignment);
 	}
 
 	public function edit($id)
 	{
 		$assignment = Assignment::findOrFail($id);
-		$attached = [];
-
-		foreach($assignment->classrooms as $class) {
-			$attached[$class->id] = [
-				'classname' => $class->classname,
-				'deadline' => Carbon::parse($class->pivot->deadline)->toFormattedDateString()
-			];
-		}
+		$ids = $assignment->attachedTo;
+		$attached = $assignment->attachedClassroom;
 
 		$page_title = 'Tugas Baru';
 
-		return view('user.assignments.edit', compact('assignment', 'page_title', 'attached'));
+		return view('user.assignments.edit', compact('assignment', 'page_title', 'attached', 'ids'));
 	}
 
 	public function update(Request $request, $id)
@@ -92,6 +86,13 @@ class AssignmentController extends Controller
 
 	public function attachTo(Request $request)
 	{
+		$this->validate($request, [
+			'classrooms' => 'required',
+			'deadline' => 'required',
+		], [
+			'required' => 'Kolom :attribute diperlukan'
+		]);
+
 		$data = [];
 		$assignment = Assignment::findOrFail($request->assignment_id);
 
@@ -108,6 +109,12 @@ class AssignmentController extends Controller
 
 	public function detachFrom(Request $request, $id)
 	{
+		$this->validate($request, [
+			'assignment_id' => 'required',
+		], [
+			'required' => 'Kolom :attribute diperlukan'
+		]);
+
 		$assignment = Assignment::findOrFail($request->assignment_id);
 		$assignment->classrooms()->detach($id);
 

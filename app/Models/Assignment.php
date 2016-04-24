@@ -18,7 +18,7 @@ class Assignment extends Model
 
 	public function classrooms()
 	{
-		return $this->belongsToMany('App\Models\Classroom')->withPivot('deadline');
+		return $this->belongsToMany('App\Models\Classroom')->withPivot('deadline')->withTimestamps();;
 	}
 
 	public function submissions()
@@ -31,6 +31,37 @@ class Assignment extends Model
 		foreach ($this->classrooms as $classroom) {
 			return Carbon::parse($classroom->pivot->deadline);
 		}
+	}
+
+	public function getIsDeadlineAttribute()
+	{
+		$due = $this->deadline->timezone('Asia/Makassar');
+        $now = Carbon::now('Asia/Makassar');
+        $deadline = $now->gte($due);
+
+		return $deadline;
+	}
+
+	public function getAttachedToAttribute()
+	{
+		$ids = [];
+		foreach ($this->classrooms as $classroom) {
+			$ids[] = $classroom->id;
+		}
+
+		return $ids;
+	}
+
+	public function getAttachedClassroomAttribute()
+	{
+		$attached = [];
+		foreach($this->classrooms as $class) {
+			$attached[$class->id] = [
+				'classname' => $class->classname,
+				'deadline' => Carbon::parse($class->pivot->deadline)->toFormattedDateString()
+			];
+		}
+		return $attached;
 	}
 
 	public function addAssignments($assignment, $deadline)

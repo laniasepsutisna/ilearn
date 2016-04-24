@@ -142,7 +142,7 @@ class ClassroomController extends Controller
     }
 
     public function download($filename)
-    {   
+    {
         if($filename) {
             $pathToFile = public_path('uploads/files/' . $filename);
 
