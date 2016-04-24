@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ClassroomController extends Controller
 {
@@ -92,51 +93,61 @@ class ClassroomController extends Controller
     {
         $classroom  = Classroom::findOrFail($classroom);
         $assignment = Assignment::findOrFail($assignment_id);
-
-        $due = $assignment->deadline->timezone('Asia/Makassar');
-        $now = Carbon::now('Asia/Makassar');
-        $deadline = $now->gte($due);
-
-        $submit = $assignment->submissions->contains(Auth::user()->id);
-
+        $submit     = $assignment->submissions->contains(Auth::user()->id);
+        $submitted  = $assignment->submissions()->where('user_id', Auth::user()->id)->get();
         $page_title = $assignment->title;
 
         if (Gate::allows('member-of', $classroom)){
-            return view('user.classrooms.detail-assignment', compact('classroom', 'assignment', 'submit', 'deadline', 'page_title'));
+            return view('user.classrooms.detail-assignment', compact('classroom', 'assignment', 'submit', 'submitted', 'page_title'));
         }
 
         return abort(401);
     }
 
-    public function createSubmission(Request $request, $id)
+    public function attachSubmission(Request $request, $id)
     {
         $this->validate($request, [
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'file' => 'max:1000|mimes:doc,docx,pdf,zip'
         ], [
             'required' => 'Kolom :attribute diperlukan'
         ]);
 
-        Assignment::find($id)->submissions()
-        ->attach(Auth::user()->id, [
+        $data = [
             'title' => $request->title,
             'file' => $request->file,
-            'content' => $request->content
-        ]);
+            'content' => $request->content,
+        ];
+
+        if($request->hasFile('file')) {
+            $data['file'] = $this->upload($request->file('file'));
+        }
+
+        Assignment::find($id)->submissions()->attach(Auth::user()->id, $data);
+
+        \Flash::success('Tugas selesai!');
 
         return redirect()->back();
     }
 
-    public function updateSubmission(Request $request, $id)
+    public function detachSubmission(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'content' => 'required'
-        ], [
-            'required' => 'Kolom :attribute diperlukan'
-        ]);
+        $file = '';
+        $assignment = Assignment::find($id);
+        $users = $assignment->submissions()->where('user_id', $request->user_id)->get();
 
-        // update
+        foreach ($users as $user) {
+            $file = public_path('/uploads/assignments/' . $user->pivot->file);
+        }
+
+        if(file_exists($file) && $file) {
+            unlink($file);
+        }
+
+        $assignment->submissions()->detach($request->user_id);
+
+        \Flash::success('Jawaban siswa berhasil dibatalkan!');
 
         return redirect()->back();
     }
@@ -144,11 +155,23 @@ class ClassroomController extends Controller
     public function download($filename)
     {
         if($filename) {
-            $pathToFile = public_path('uploads/files/' . $filename);
+            $pathToFile = public_path('uploads/assignments/' . $filename);
 
             return response()->download($pathToFile, null, [], null);
         }
 
         return abort(500);
+    }
+
+    public function upload(UploadedFile $file)
+    {
+        $original = Auth::user()->fullname . '-' . pathinfo( $file->getClientOriginalName(), PATHINFO_FILENAME );
+        $sanitize = preg_replace('/[^a-zA-Z0-9]+/', '-', $original);
+        $fileName = $sanitize . '.' . $file->getClientOriginalExtension();
+        $destination = public_path() . DIRECTORY_SEPARATOR . 'uploads/assignments';
+
+        $uploaded = $file->move($destination, $fileName);
+
+        return $fileName;
     }
 }

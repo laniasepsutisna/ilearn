@@ -8,6 +8,7 @@ use App\Models\Assignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AssignmentController extends Controller
 {
@@ -31,13 +32,19 @@ class AssignmentController extends Controller
 		$this->validate($request, [
 			'user_id' => 'required',
 			'title' => 'required',
-			'file' => 'mimes:jpeg,png,doc,docx,pdf,xls,xlsx,ppt,pptx',
+			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
 		], [
-			'required' => 'Kolom :attribute diperlukan'
+			'required' => 'Kolom :attribute diperlukan',
 		]);
 
-		$assignment = Assignment::create($request->all());
+		$data = $request->except('file');
+
+		if($request->hasFile('file')) {
+			$data['file'] = $this->upload($request->file('file'));
+		}
+
+		$assignment = Assignment::create($data);
 
 		\Flash::success('Tugas berhasil ditambahkan.');
 
@@ -50,7 +57,7 @@ class AssignmentController extends Controller
 		$ids = $assignment->attachedTo;
 		$attached = $assignment->attachedClassroom;
 
-		$page_title = 'Tugas Baru';
+		$page_title = $assignment->title;
 
 		return view('user.assignments.edit', compact('assignment', 'page_title', 'attached', 'ids'));
 	}
@@ -60,15 +67,21 @@ class AssignmentController extends Controller
 		$this->validate($request, [
 			'user_id' => 'required',
 			'title' => 'required',
-			'file' => 'mimes:jpeg,png,doc,docx,pdf,xls,xlsx,ppt,pptx',
+			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
 		], [
 			'required' => 'Kolom :attribute diperlukan'
 		]);
 
+		$data = $request->except('file');
 		$assignment = Assignment::findOrFail($id);
 
-		$assignment->update($request->all());
+		if($request->hasFile('file')) {
+			unlink( public_path( 'uploads/assignments/' . $assignment->file ) );
+			$data['file'] = $this->upload($request->file('file'));
+		}
+
+		$assignment->update($data);
 
 		\Flash::success('Tugas berhasil diupdate.');
 
@@ -77,7 +90,14 @@ class AssignmentController extends Controller
 
 	public function destroy($id)
 	{
-		Assignment::findOrFail($id)->delete();
+		$assignment = Assignment::findOrFail($id);
+		$file = public_path( 'uploads/assignments/' . $assignment->file );
+		
+		if($assignment->file && file_exists($file)) {
+			unlink( $file );
+		}
+
+		$assignment->delete();
 
 		\Flash::success('Tugas berhasil dihapus.');
 
@@ -122,5 +142,17 @@ class AssignmentController extends Controller
 		\Flash::success('Tugas berhasil batalkan.');
 
 		return redirect()->back();
+	}
+
+	public function upload(UploadedFile $file)
+	{
+		$original = pathinfo( $file->getClientOriginalName(), PATHINFO_FILENAME );
+		$sanitize = preg_replace('/[^a-zA-Z0-9]+/', '-', $original);
+		$fileName = $sanitize . '.' . $file->getClientOriginalExtension();
+		$destination = public_path() . DIRECTORY_SEPARATOR . 'uploads/assignments';
+
+		$uploaded = $file->move($destination, $fileName);
+
+		return $fileName;
 	}
 }

@@ -22,8 +22,8 @@
 						<h2 class="panel-title">{{ $page_title }}</h2>
 					</header>
 					<div class="panel-body">
-						{!! Form::model($assignment, ['route' => ['assignments.update', $assignment], 'method' =>'patch', 'role' => 'form']) !!}
-							@include('user.assignments._form')
+						{!! Form::model($assignment, ['route' => ['assignments.update', $assignment], 'method' =>'put', 'role' => 'form', 'files' => true]) !!}
+							@include('user.assignments._form', ['model' => $assignment])
 						{!! Form::close() !!}
 					</div>
 				</div>
@@ -45,12 +45,12 @@
 								</tr>
 							</thead>
 							<tbody>							
-								@forelse($attached as $id => $attach)
+								@forelse($attached as $classroom_id => $attach)
 									<tr>
 										<td>{{$attach['classname'] }}</td>
 										<td>{{$attach['deadline'] }}</td>
 										<td>
-											{!! Form::open(['route' => ['assignments.detach', $id], 'class' => 'inline-form', 'method' => 'delete']) !!}
+											{!! Form::open(['route' => ['assignments.detach', $classroom_id], 'class' => 'inline-form', 'method' => 'delete']) !!}
 												{!! Form::hidden('assignment_id', $assignment->id) !!}
 												{!! Form::submit('Batal', ['class' => 'btn btn-danger btn-sm']) !!}
 											{!! Form::close() !!}

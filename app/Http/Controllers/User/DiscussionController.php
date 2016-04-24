@@ -21,15 +21,11 @@ class DiscussionController extends Controller
 			'required' => 'Kolom :attribute diperlukan!'
 		]);
 
-		if($request->user_id === Auth::user()->id) {
-			Discussion::create($request->all());
+		Discussion::create($request->all());
 
-			\Flash::success('Diskusi berhasil ditambahkan.');
+		\Flash::success('Diskusi berhasil ditambahkan.');
 
-			return redirect()->back();
-		}
-
-		return;
+		return redirect()->back();
 	}
 
     public function destroy($id, Request $request)
@@ -38,6 +34,6 @@ class DiscussionController extends Controller
 
         \Flash::success('Diskusi berhasil dihapus.');
 
-        return redirect()->route('classrooms.show', $request->classroom);
+        return redirect()->route('classrooms.show', $request->classroom_id);
     }
 }

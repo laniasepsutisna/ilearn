@@ -39,7 +39,7 @@
 						<ul class="list-group">
 							<li class="list-group-item">{!! $assignment->content !!}</li>
 							@if($assignment->file)
-								<li class="list-group-item">{{ $assignment->file }}</li>
+								<li class="list-group-item"><i class="fa fa-paperclip"></i> {{ $assignment->file }}</li>
 							@endif
 						</ul>
 						<div class="panel-footer text-right">

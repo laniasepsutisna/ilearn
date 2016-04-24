@@ -54,7 +54,7 @@ class LoginController extends Controller
 			'status' => 'active'
 		], $request->remember)) {
 			$this->clearLoginAttempts($request);
-			User::where('id', Auth::user()->id)->update(['login' => 1]);
+			Auth::user()->update(['login' => 1]);
 
 			if( Auth::user()->hasRole('staff') ) {
 				return redirect()->intended('/lms-admin');
@@ -81,14 +81,14 @@ class LoginController extends Controller
 
 	public function logout()
 	{
-		User::where('id', Auth::user()->id)->update(['login' => 0]);
+		Auth::user()->update(['login' => 0]);
 		Auth::logout();
 		return redirect()->route('login');
 	}
 
 	public function update(Request $request)
 	{
-		$user = User::findOrFail(Auth::user()->id);
+		$user = Auth::user();
 
 		$this->validate($request, [
 			'username' => 'required|unique:users,username,' . $user->id,
@@ -124,7 +124,7 @@ class LoginController extends Controller
 			'confirmed' => 'Kolom :attribute tidak cocok!'
 		]);
 
-		$user = User::findOrFail(Auth::user()->id);
+		$user = Auth::user();
 		if( $request->has('password') ) {
 			$user->update(['password' => bcrypt($request->password)]);
 		}
@@ -145,7 +145,7 @@ class LoginController extends Controller
 
 		$data = [];
 		$cover = $request->field === 'cover' ? true : false;
-		$user = User::findOrFail(Auth::user()->id);
+		$user = Auth::user();
 
 		if($request->hasFile('image')){
 			$data[$request->field] = $this->saveImage($request->file('image'), $cover);

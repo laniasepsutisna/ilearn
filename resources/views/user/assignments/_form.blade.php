@@ -11,10 +11,13 @@
 </div>
 
 <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
-	{!! Form::file('file') !!}
+	<p>{!! Form::file('file') !!}</p>
+	@if(isset($model) && $assignment->file)
+		<p><i class="fa fa-paperclip"></i> {{ $assignment->file }}</p>
+	@endif
 	{!! $errors->first('file', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="text-right"> 
-	{!! Form::submit(isset($assignment) ? 'Update Tugas' : 'Buat Tugas', ['class'=>'btn btn-flat btn-success']) !!}
+	{!! Form::submit(isset($model) ? 'Update Tugas' : 'Buat Tugas', ['class'=>'btn btn-flat btn-success']) !!}
 </div>
