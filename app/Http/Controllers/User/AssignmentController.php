@@ -14,7 +14,7 @@ class AssignmentController extends Controller
 {
 	public function index()
 	{
-		$assignments = Assignment::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(7);
+		$assignments = Assignment::where('teacher_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(7);
 		$page_title = 'Perpustakaan - Tugas';
 
 		return view('user.assignments.index', compact('assignments','page_title'));
@@ -30,7 +30,7 @@ class AssignmentController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'user_id' => 'required',
+			'teacher_id' => 'required',
 			'title' => 'required',
 			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
@@ -65,7 +65,7 @@ class AssignmentController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-			'user_id' => 'required',
+			'teacher_id' => 'required',
 			'title' => 'required',
 			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'

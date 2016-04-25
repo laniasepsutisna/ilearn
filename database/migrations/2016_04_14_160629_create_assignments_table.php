@@ -13,14 +13,14 @@ class CreateAssignmentsTable extends Migration
 	public function up()
 	{
 		Schema::create('assignments', function (Blueprint $table) {
-			$table->uuid('id');
-			$table->uuid('user_id');
+			$table->uuid('id')->unique();
+			$table->uuid('teacher_id');
 			$table->string('title', 60);
 			$table->string('file');
 			$table->text('content', 500);
 			$table->timestamps();
 
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+			$table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
 
 			$table->primary(['id']);
 		});

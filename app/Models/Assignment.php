@@ -13,7 +13,7 @@ class Assignment extends Model
 	public $incrementing = false;
 
 	protected $fillable = [
-		'user_id', 'title', 'file', 'content'
+		'teacher_id', 'title', 'file', 'content'
 	];
 
 	public function classrooms()
@@ -36,8 +36,8 @@ class Assignment extends Model
 	public function getIsDeadlineAttribute()
 	{
 		$due = $this->deadline->timezone('Asia/Makassar');
-        $now = Carbon::now('Asia/Makassar');
-        $deadline = $now->gte($due);
+		$now = Carbon::now('Asia/Makassar');
+		$deadline = $now->gte($due);
 
 		return $deadline;
 	}

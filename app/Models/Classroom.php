@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\UuidModel;
 use Illuminate\Database\Eloquent\Model;
 use Ramsey\Uuid\Uuid;
+use App\Traits\ClassroomAccessor;
 
 class Classroom extends Model
 {
-	use UuidModel;
-
+	use ClassroomAccessor;
+	
 	protected $appends = ['classname', 'teachername'];
 
 	protected $fillable = [
@@ -21,6 +21,25 @@ class Classroom extends Model
 	];
 
 	public $incrementing = false;
+	
+	public static function boot()
+	{
+        static::creating(function($model){
+            $id = $model->getKeyName();
+            if(empty($model->$id)){
+                $model->$id = substr(Uuid::uuid4()->toString(), 0, 8);
+            }
+        });
+
+        static::saving(function($model) {
+            $id = $model->getKeyName();
+        	$original_id = $model->getOriginal($id);
+
+        	if ($original_id !== $model->$id) {
+            	$model->$id = $original_id;
+        	}
+    	});
+	}
 
 	public function teacher()
 	{
@@ -50,51 +69,6 @@ class Classroom extends Model
 	public function assignments()
 	{
 		return $this->belongsToMany('App\Models\Assignment')->withPivot('deadline')->withTimestamps()->orderBy('assignment_classroom.created_at', 'DESC');
-	}
-
-	public function getPaginateDiscussionsAttribute()
-	{
-		return $this->discussions()->where('parent_id', '')->paginate(7);
-	}
-
-	public function getCountAvailableAssignmentsAttribute()
-	{
-		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->count();
-	}
-
-	public function getPaginateAvailableAssignmentsAttribute()
-	{
-		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->paginate(7, ['*'], 'class_assignment');
-	}
-
-	public function getShowFiveAssignmentsAttribute()
-	{
-		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->limit(5)->get();
-	}
-
-	public function getTeacherNameAttribute()
-	{
-		return $this->teacher->firstname . ' ' . $this->teacher->lastname;
-	}
-
-	public function getSubjectNameAttribute()
-	{
-		return $this->subject->name;
-	}
-
-	public function getMajorNameAttribute()
-	{
-		return $this->major->name;
-	}
-
-	public function getClassNameAttribute()
-	{
-		return $this->grade . ' ' . $this->major->name . ' ' . $this->subject->name;
-	}
-
-	public function getAssignmentTitleAttribute()
-	{
-		return $this->assignments;
 	}
 
 	public function addMembers($users)

@@ -24,36 +24,36 @@
 					</header>
 					<div class="panel-body">
 						<div class="pull-left">
-							<a href="{{ route('assignments.create') }}" class="btn btn-success">Buat baru</a>
+							<a href="{{ route('courses.create') }}" class="btn btn-success">Buat baru</a>
 						</div>
 						<div class="pull-right nomargin-paginator">
-							{{ $assignments->links() }}
+							{{ $courses->links() }}
 						</div>
 					</div>
 				</div>
 
-				@forelse($assignments as $assignment)
+				@forelse($courses as $course)
 					<div class="panel panel-default">
 						<header class="panel-heading">
-							<h2 class="panel-title">{{ $assignment->title }}</h2>
+							<h2 class="panel-title">{{ $course->title }}</h2>
 						</header>
 						<ul class="list-group">
-							<li class="list-group-item">{!! $assignment->content !!}</li>
-							@if($assignment->file)
-								<li class="list-group-item"><i class="fa fa-paperclip"></i> {{ $assignment->file }}</li>
+							<li class="list-group-item">{!! $course->content !!}</li>
+							@if($course->file)
+								<li class="list-group-item"><i class="fa fa-paperclip"></i> {{ $course->file }}</li>
 							@endif
 						</ul>
 						<div class="panel-footer text-right">
-							<a href="{{ route('assignments.edit', $assignment->slug) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
-							{!! Form::open(['route' => ['assignments.destroy', $assignment->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
-								{!! Form::button('<i class="fa fa-trash"></i> Hapus', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $assignment->title]) !!}
+							<a href="{{ route('courses.edit', $course->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
+							{!! Form::open(['route' => ['courses.destroy', $course->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
+								{!! Form::button('<i class="fa fa-trash"></i> Hapus', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $course->title]) !!}
 							{!! Form::close() !!}
 						</div>
 					</div>
 				@empty
 					<div class="panel panel-default">
 						<div class="panel-body text-center">
-							Tidak ada tugas sama sekali. <a href="{{ route('assignments.create') }}" class="btn btn-link">Buat tugas sekarang.</a>
+							Tidak ada materi sama sekali. <a href="{{ route('courses.create') }}" class="btn btn-link">Buat materi baru sekarang.</a>
 						</div>
 					</div>
 				@endforelse

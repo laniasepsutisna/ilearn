@@ -11,6 +11,7 @@
 					<div class="panel-body">
 						<ul class="nav nav-pills nav-stacked">
 							<li class="{{ set_active('assignments.index') }}"><a href="{{ route('assignments.index') }}">Tugas</a></li>
+							<li class="{{ set_active('courses.index') }}"><a href="{{ route('courses.index') }}">Materi</a></li>
 							<li class="{{ set_active('quizes.index') }}"><a href="{{ route('quizes.index') }}">Quiz</a></li>
 						</ul>
 					</div>

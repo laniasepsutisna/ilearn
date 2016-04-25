@@ -69,7 +69,6 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);
 	Route::post('/submission/{assignments}', ['uses' => 'ClassroomController@attachSubmission', 'as' => 'submissions.store']);
 	Route::delete('/submission/{assignments}', ['uses' => 'ClassroomController@detachSubmission', 'as' => 'submissions.destroy']);
-	
 });
 
 Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], function () {
@@ -77,5 +76,6 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 	Route::post('/assignments/attach', ['uses' => 'AssignmentController@attachTo', 'as' => 'assignments.attach']);
 	Route::delete('/assignments/detach/{classrooms}', ['uses' => 'AssignmentController@detachFrom', 'as' => 'assignments.detach']);
 	
+	Route::resource('/courses', 'CourseController');
 	Route::resource('/quizes', 'QuizController');
 });

@@ -13,7 +13,7 @@ class CreateClassroomsTable extends Migration
 	public function up()
 	{
 		Schema::create('classrooms', function (Blueprint $table) {
-			$table->uuid('id')->unique();
+			$table->string('id', 8)->unique();
 			$table->uuid('subject_id');
 			$table->uuid('major_id');
 			$table->uuid('teacher_id');
@@ -29,7 +29,7 @@ class CreateClassroomsTable extends Migration
 		});
 
 		Schema::create('classroom_user', function (Blueprint $table) {
-			$table->uuid('classroom_id');
+			$table->string('classroom_id', 8);
 			$table->uuid('user_id');
 			$table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
