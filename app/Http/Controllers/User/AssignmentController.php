@@ -30,7 +30,7 @@ class AssignmentController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required',
+			'teacher_id' => 'required|exists:users,id',
 			'title' => 'required',
 			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'

@@ -1,4 +1,4 @@
-{!! Form::hidden('user_id', $lms['profile']->id) !!}
+{!! Form::hidden('teacher_id', $lms['profile']->id) !!}
 
 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
 	{!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Judul']) !!}

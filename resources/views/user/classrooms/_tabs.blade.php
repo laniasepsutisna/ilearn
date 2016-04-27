@@ -36,7 +36,7 @@
 	@can('manage')
 	<div role="tabpanel" class="tab-pane" id="module">
 		<div class="text-center">
-			<a href="#" id="selectModule">Pilih Materi</a> <span class="atau">atau</span> <a href="" class="btn btn-primary">Buat Materi Baru</a>
+			<a href="#" id="selectModule">Pilih Materi</a> <span class="atau">atau</span> <a href="{{ route('courses.create') }}" class="btn btn-primary">Buat Materi Baru</a>
 		</div>
 	</div>
 	<div role="tabpanel" class="tab-pane" id="assignment">
