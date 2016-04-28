@@ -28,7 +28,7 @@
 						{!! Form::close() !!}
 					</div>
 				</div>
-				{{--
+
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
 						<h2 class="panel-title">Bagikan ke Tiap Kelas</h2>
@@ -41,18 +41,17 @@
 							<thead>
 								<tr>
 									<th>Nama Kelas</th>
-									<th>Deadline</th>
 									<th>Batal</th>
 								</tr>
 							</thead>
 							<tbody>							
 								@forelse($attached as $classroom_id => $attach)
 									<tr>
-										<td>{{$attach['classname'] }}</td>
-										<td>{{$attach['deadline'] }}</td>
+										<td>{{ $attach['classname'] }}</td>
 										<td>
-											{!! Form::open(['route' => ['assignments.detach', $classroom_id], 'class' => 'inline-form', 'method' => 'delete']) !!}
-												{!! Form::hidden('assignment_id', $course->id) !!}
+											{!! Form::open(['route' => 'assignments.detach']) !!}
+												{!! Form::hidden('course_id', $course->id) !!}
+												{!! Form::hidden('classroom_id', $classroom_id) !!}
 												{!! Form::submit('Batal', ['class' => 'btn btn-danger btn-sm']) !!}
 											{!! Form::close() !!}
 										</td>
@@ -66,36 +65,31 @@
 							<tfoot>
 								<tr>
 									<th>Nama Kelas</th>
-									<th>Deadline</th>
 									<th>Batal</th>
 								</tr>
 							</tfoot>
 						</table>
 					</div>
 				</div>
-								--}}
+
 			</div>
 		</div>
 	</div>
-{{-- 
-	<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="shareAssignment">
+
+	<div class="modal fade" id="courseModal" tabindex="-1" role="dialog" aria-labelledby="shareCourse">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="shareAssignment">Bagikan tugas ini</h4>
+					<h4 class="modal-title">Bagikan Materi ini</h4>
 				</div>
-				{!! Form::open(['route' => ['assignments.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
+				{!! Form::open(['route' => ['courses.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 					<div class="modal-body">
 						<div class="col-md-12">
-							{!! Form::hidden('assignment_id', null, ['id' => 'chgAssignment']) !!}
+							{!! Form::hidden('course_id', $course->id) !!}
 							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 
 							{!! Form::select('classrooms[]', App\Models\Classroom::whereNotIn('id', $ids)->get()->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 							{!! $errors->first('classrooms', '<p class="help-block">:message</p>') !!}
-							</div>
-							<div class="form-group {{ $errors->has('deadline') ? 'has-error' : '' }}"> 
-							{!! Form::text('deadline', null, ['class' => 'form-control datepicker', 'placeholder' => 'Deadline']) !!}
-							{!! $errors->first('deadline', '<p class="help-block">:message</p>') !!}
 							</div>
 						</div>
 					</div>
@@ -106,5 +100,5 @@
 				{!! Form::close() !!}
 			</div>
 		</div>
-	</div> --}}
+	</div>
 @endsection

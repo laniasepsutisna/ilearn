@@ -51,8 +51,11 @@ class CourseController extends Controller
 	public function edit($id)
 	{
 		$course = Course::findOrFail($id);
-		$page_title = 'Buat Materi Baru';
-		return view('user.courses.edit', compact('page_title', 'course'));
+		$ids = $course->attachedTo;
+		$attached = $course->attachedClassroom;
+
+		$page_title = $course->name;
+		return view('user.courses.edit', compact('page_title', 'course', 'ids', 'attached'));
 	}
 
 	public function update(Request $request, $id)
@@ -82,14 +85,50 @@ class CourseController extends Controller
 	{
 		$course = Course::findOrFail($id);
 		$picture = public_path( 'uploads/courses/' . $course->picture );
+		$picture_sm = public_path( 'uploads/courses/300x300-' . $course->picture );
 
 		if($course->picture && file_exists($picture)) {
 			unlink( $picture );
+			unlink( $picture_sm );
 		}
 
 		$course->delete();
 
 		\Flash::success('Materi berhasil dihapus.');
+
+		return redirect()->back();
+	}
+
+	public function attachTo(Request $request)
+	{		
+		$this->validate($request, [
+			'classrooms' => 'required',
+		], [
+			'required' => 'Kolom :attribute diperlukan'
+		]);
+
+		$course = Course::findOrFail($request->course_id);
+
+		$course->classrooms()->sync($request->classrooms, false);
+
+		\Flash::success('Materi berhasil dibagikan.');
+
+		return redirect()->back();
+	}
+
+	public function detachFrom(Request $request)
+	{
+		$this->validate($request, [
+			'classroom_id' => 'required',
+			'course_id' => 'required',
+		], [
+			'required' => 'Kolom :attribute diperlukan'
+		]);
+
+		$course = Course::findOrFail($request->course_id);
+		$course->classrooms()->detach($request->classroom_id);
+
+		\Flash::success('Materi berhasil batalkan.');
 
 		return redirect()->back();
 	}

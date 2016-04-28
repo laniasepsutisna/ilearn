@@ -16,7 +16,9 @@
 </div>
 
 <div class="form-group {{ $errors->has('picture') ? 'has-error' : '' }}">
-	<img src="{{ url($model->picture_sm) }}" />
+	@if(isset($model))
+		<img src="{{ url($model->picture_sm) }}" />
+	@endif
 	<p>{!! Form::file('picture') !!}</p>
 	{!! $errors->first('picture', '<p class="help-block">:message</p>') !!}
 </div>

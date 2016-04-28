@@ -44,7 +44,7 @@
 							@endif
 						</ul>
 						<div class="panel-footer text-right">
-							<a href="{{ route('assignments.edit', $assignment->slug) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
+							<a href="{{ route('assignments.edit', $assignment->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
 							{!! Form::open(['route' => ['assignments.destroy', $assignment->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
 								{!! Form::button('<i class="fa fa-trash"></i> Hapus', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $assignment->title]) !!}
 							{!! Form::close() !!}

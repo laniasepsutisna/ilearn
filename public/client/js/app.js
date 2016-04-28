@@ -55,11 +55,4 @@
         }
     });
 
-    $('.shareAssignments').each(function(){
-        var self = $(this);
-        self.on('click', function(e){
-            var val = $(this).data('assg');
-            $('#chgAssignment').val(val);
-        });
-    });
 })(jQuery);

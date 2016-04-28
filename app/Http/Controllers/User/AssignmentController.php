@@ -127,17 +127,17 @@ class AssignmentController extends Controller
 		return redirect()->back();
 	}
 
-	public function detachFrom(Request $request, $id)
+	public function detachFrom(Request $request)
 	{
 		$this->validate($request, [
+			'classroom_id' => 'required',
 			'assignment_id' => 'required',
 		], [
 			'required' => 'Kolom :attribute diperlukan'
 		]);
 
 		$assignment = Assignment::findOrFail($request->assignment_id);
-		$assignment->classrooms()->detach($id);
-
+		$assignment->classrooms()->detach($request->classroom_id);
 
 		\Flash::success('Tugas berhasil batalkan.');
 

@@ -35,7 +35,7 @@
 					</header>
 					<div class="panel-body">
 						<div class="share-to">					
-							<button class="btn btn-primary btn-sm shareAssignments" data-toggle="modal" data-target="#assignmentsModal" data-assg="{{ $assignment->id }}"><i class="fa fa-share-alt"></i> Bagikan</button>
+							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#assignmentsModal" data-assg="{{ $assignment->id }}"><i class="fa fa-share-alt"></i> Bagikan</button>
 						</div>
 						<table class="table table-stripped">
 							<thead>
@@ -48,10 +48,11 @@
 							<tbody>							
 								@forelse($attached as $classroom_id => $attach)
 									<tr>
-										<td>{{$attach['classname'] }}</td>
-										<td>{{$attach['deadline'] }}</td>
+										<td>{{ $attach['classname'] }}</td>
+										<td>{{ $attach['deadline'] }}</td>
 										<td>
-											{!! Form::open(['route' => ['assignments.detach', $classroom_id], 'class' => 'inline-form', 'method' => 'delete']) !!}
+											{!! Form::open(['route' => 'assignments.detach']) !!}
+												{!! Form::hidden('classroom_id', $classroom_id) !!}
 												{!! Form::hidden('assignment_id', $assignment->id) !!}
 												{!! Form::submit('Batal', ['class' => 'btn btn-danger btn-sm']) !!}
 											{!! Form::close() !!}
@@ -87,7 +88,7 @@
 				{!! Form::open(['route' => ['assignments.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 					<div class="modal-body">
 						<div class="col-md-12">
-							{!! Form::hidden('assignment_id', null, ['id' => 'chgAssignment']) !!}
+							{!! Form::hidden('assignment_id', $assignment->id) !!}
 							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 
 							{!! Form::select('classrooms[]', App\Models\Classroom::whereNotIn('id', $ids)->get()->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 							{!! $errors->first('classrooms', '<p class="help-block">:message</p>') !!}

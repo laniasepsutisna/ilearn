@@ -15,6 +15,32 @@ class Course extends Model
 		'teacher_id', 'name', 'description', 'picture', 'level'
 	];
 
+	public function classrooms()
+	{
+		return $this->belongsToMany('App\Models\Classroom')->withTimestamps();
+	}
+
+	public function getAttachedToAttribute()
+	{
+		$ids = [];
+		foreach ($this->classrooms as $classroom) {
+			$ids[] = $classroom->id;
+		}
+
+		return $ids;
+	}
+
+	public function getAttachedClassroomAttribute()
+	{
+		$attached = [];
+		foreach($this->classrooms as $class) {
+			$attached[$class->id] = [
+				'classname' => $class->classname
+			];
+		}
+		return $attached;
+	}
+
     public function getPictureSmAttribute()
     {
         return url('/uploads/courses/300x300-' . $this->picture);

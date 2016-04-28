@@ -39,9 +39,6 @@
 						</header>
 						<ul class="list-group">
 							<li class="list-group-item">{!! $course->description !!}</li>
-							@if($course->picture)
-								<li class="list-group-item"><i class="fa fa-paperclip"></i> {{ $course->picture }}</li>
-							@endif
 						</ul>
 						<div class="panel-footer text-right">
 							<a href="{{ route('courses.edit', $course->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
