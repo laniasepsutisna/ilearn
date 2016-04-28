@@ -15,4 +15,8 @@ class Course extends Model
 		'teacher_id', 'name', 'description', 'picture', 'level'
 	];
 
+    public function getPictureSmAttribute()
+    {
+        return url('/uploads/courses/300x300-' . $this->picture);
+    }
 }

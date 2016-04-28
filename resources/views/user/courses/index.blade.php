@@ -35,18 +35,18 @@
 				@forelse($courses as $course)
 					<div class="panel panel-default">
 						<header class="panel-heading">
-							<h2 class="panel-title">{{ $course->title }}</h2>
+							<h2 class="panel-title">{{ $course->name }}</h2>
 						</header>
 						<ul class="list-group">
-							<li class="list-group-item">{!! $course->content !!}</li>
-							@if($course->file)
-								<li class="list-group-item"><i class="fa fa-paperclip"></i> {{ $course->file }}</li>
+							<li class="list-group-item">{!! $course->description !!}</li>
+							@if($course->picture)
+								<li class="list-group-item"><i class="fa fa-paperclip"></i> {{ $course->picture }}</li>
 							@endif
 						</ul>
 						<div class="panel-footer text-right">
 							<a href="{{ route('courses.edit', $course->id) }}" class="btn btn-success btn-sm"><i class="fa fa-pencil"></i> Edit</a>
 							{!! Form::open(['route' => ['courses.destroy', $course->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
-								{!! Form::button('<i class="fa fa-trash"></i> Hapus', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $course->title]) !!}
+								{!! Form::button('<i class="fa fa-trash"></i> Hapus', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $course->name]) !!}
 							{!! Form::close() !!}
 						</div>
 					</div>

@@ -6,7 +6,7 @@
 		</header>
 		<div class="panel-body">
 			<div class="row">
-				<div class="col-sm-3 col-md-2">
+				<div class="col-xs-3 col-md-2">
 					<div class="thumbnail">
 						<img src="{{ $classroom->teacher->picture_md }}" alt="{{ $classroom->teacher->fullname }}">
 						<div class="caption">
@@ -15,7 +15,7 @@
 					</div>
 				</div>
 				@foreach($classroom->students as $student)
-					<div class="col-sm-3 col-md-2">
+					<div class="col-xs-3 col-md-2">
 						<div class="thumbnail">
 							<img src="{{ $student->picture_md }}" alt="{{ $student->fullname }}">
 							<div class="caption">
