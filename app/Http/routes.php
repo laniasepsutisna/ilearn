@@ -80,5 +80,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 	Route::post('/courses/attach', ['uses' => 'CourseController@attachTo', 'as' => 'courses.attach']);
 	Route::delete('/courses/detach', ['uses' => 'CourseController@detachFrom', 'as' => 'courses.detach']);
 
+	Route::resource('/modules', 'ModuleController', ['except' => ['index', 'create', 'show']]);
+
 	Route::resource('/quizes', 'QuizController');
 });

@@ -3,24 +3,13 @@
 @section('content')	
 	<div class="container libraries">
 		<div class="row">
-			<div class="col-md-3">
-				<div class="profile-menu panel panel-default">
-					<header class="panel-heading">
-						<h2 class="panel-title">Perpustakaan</h2>
-					</header>
-					<div class="panel-body">
-						<ul class="nav nav-pills nav-stacked">
-							<li class="{{ set_active('assignments.index') }}"><a href="{{ route('assignments.index') }}">Tugas</a></li>
-							<li class="{{ set_active('courses.index') }}"><a href="{{ route('courses.index') }}">Materi</a></li>
-							<li class="{{ set_active('quizes.index') }}"><a href="{{ route('quizes.index') }}">Quiz</a></li>
-						</ul>
-					</div>
-				</div>
+			<div class="col-sm-4 col-md-2 hidden-xs">
+				@include('user.global.sidebars._sidebar-left')
 			</div>
-			<div class="col-md-9">			
+			<div class="col-md-10">		
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<h2 class="panel-title">{{ $page_title }}</h2>
+						<h2 class="panel-title text-bold">Edit Tugas</h2>
 					</header>
 					<div class="panel-body">
 						{!! Form::model($assignment, ['route' => ['assignments.update', $assignment], 'method' =>'put', 'role' => 'form', 'files' => true]) !!}
@@ -28,10 +17,9 @@
 						{!! Form::close() !!}
 					</div>
 				</div>
-
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<h2 class="panel-title">Bagikan ke Tiap Kelas</h2>
+						<h2 class="panel-title text-bold">Bagikan ke Tiap Kelas</h2>
 					</header>
 					<div class="panel-body">
 						<div class="share-to">					
@@ -86,7 +74,7 @@
 					<h4 class="modal-title" id="shareAssignment">Bagikan tugas ini</h4>
 				</div>
 				{!! Form::open(['route' => ['assignments.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
-					<div class="modal-body">
+					<div class="modal-body clearfix">
 						<div class="col-md-12">
 							{!! Form::hidden('assignment_id', $assignment->id) !!}
 							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 

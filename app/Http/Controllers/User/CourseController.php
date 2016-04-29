@@ -43,7 +43,7 @@ class CourseController extends Controller
 		$course = Course::create($data);
 
 
-		\Flash::success('Tugas berhasil ditambahkan.');
+		\Flash::success('Materi berhasil ditambahkan.');
 
 		return redirect()->route('courses.edit', $course);
 	}
@@ -64,14 +64,17 @@ class CourseController extends Controller
 			'teacher_id' => 'required|exists:users,id',
 			'name' => 'required',
 			'level' => 'required',
-			'picture' => 'required|max:1000|mimes:jpg,jpeg,png,bmp',
+			'picture' => 'max:1000|mimes:jpg,jpeg,png,bmp',
 			'description' => 'required'
 		], [
 			'required' => 'Kolom :attribute diperlukan',
 		]);
 
 		$data = $request->except('picture');
-		$data['picture'] = $this->upload($request->file('picture'));
+
+		if($request->has('picture')) {
+			$data['picture'] = $this->upload($request->file('picture'));
+		}
 
 		$course = Course::findOrFail($id);
 		$course->update($data);

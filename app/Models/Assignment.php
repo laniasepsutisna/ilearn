@@ -16,6 +16,10 @@ class Assignment extends Model
 		'teacher_id', 'title', 'file', 'content'
 	];
 
+	protected $hidden = [
+		'user_id', 'created_at', 'updated_at'
+	];
+
 	public function classrooms()
 	{
 		return $this->belongsToMany('App\Models\Classroom')->withPivot('deadline')->withTimestamps();;

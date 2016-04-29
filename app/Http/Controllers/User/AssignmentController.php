@@ -32,7 +32,7 @@ class AssignmentController extends Controller
 		$this->validate($request, [
 			'teacher_id' => 'required|exists:users,id',
 			'title' => 'required',
-			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
+			'file' => 'max:10000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
 		], [
 			'required' => 'Kolom :attribute diperlukan',
@@ -67,7 +67,7 @@ class AssignmentController extends Controller
 		$this->validate($request, [
 			'teacher_id' => 'required',
 			'title' => 'required',
-			'file' => 'max:1000|mimes:pdf,docx,doc,zip',
+			'file' => 'max:10000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
 		], [
 			'required' => 'Kolom :attribute diperlukan'
@@ -75,9 +75,13 @@ class AssignmentController extends Controller
 
 		$data = $request->except('file');
 		$assignment = Assignment::findOrFail($id);
+		$file = public_path( 'uploads/assignments/' . $assignment->file );
 
 		if($request->hasFile('file')) {
-			unlink( public_path( 'uploads/assignments/' . $assignment->file ) );
+			if(file_exists($file) && $assignment->file !== '') {
+				unlink( $file );
+			}
+
 			$data['file'] = $this->upload($request->file('file'));
 		}
 

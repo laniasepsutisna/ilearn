@@ -20,6 +20,11 @@ class Course extends Model
 		return $this->belongsToMany('App\Models\Classroom')->withTimestamps();
 	}
 
+	public function modules()
+	{
+		return $this->hasMany('App\Models\Module')->orderBy('created_at', 'ASC');
+	}
+
 	public function getAttachedToAttribute()
 	{
 		$ids = [];

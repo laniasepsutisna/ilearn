@@ -23,7 +23,7 @@
 	@can('manage')		
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h4>Tugas terkumpul <span class="badge">{{ $assignment->submissions->count() }}</span></h4>
+				<h4 class="panel-title text-bold">Tugas terkumpul <span class="badge">{{ $assignment->submissions->count() }}</span></h4>
 			</div>
 			<div class="panel-body">
 				@foreach($assignment->submissions as $user)

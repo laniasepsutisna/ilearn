@@ -3,24 +3,13 @@
 @section('content')	
 	<div class="container libraries">
 		<div class="row">
-			<div class="col-md-3">
-				<div class="profile-menu panel panel-default">
-					<header class="panel-heading">
-						<h2 class="panel-title">Perpustakaan</h2>
-					</header>
-					<div class="panel-body">
-						<ul class="nav nav-pills nav-stacked">
-							<li class="{{ set_active('assignments.index') }}"><a href="{{ route('assignments.index') }}">Tugas</a></li>
-							<li class="{{ set_active('courses.index') }}"><a href="{{ route('courses.index') }}">Materi</a></li>
-							<li class="{{ set_active('quizes.index') }}"><a href="{{ route('quizes.index') }}">Quiz</a></li>
-						</ul>
-					</div>
-				</div>
+			<div class="col-sm-4 col-md-2 hidden-xs">
+				@include('user.global.sidebars._sidebar-left')
 			</div>
-			<div class="col-md-9">			
+			<div class="col-md-10">		
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<h2 class="panel-title">{{ $page_title }}</h2>
+						<h2 class="panel-title text-bold">Edit Materi</h2>
 					</header>
 					<div class="panel-body">
 						{!! Form::model($course, ['route' => ['courses.update', $course], 'method' =>'put', 'role' => 'form', 'files' => true]) !!}
@@ -31,11 +20,40 @@
 
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<h2 class="panel-title">Bagikan ke Tiap Kelas</h2>
+						<h2 class="panel-title text-bold">Modul</h2>
 					</header>
 					<div class="panel-body">
 						<div class="share-to">					
-							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#courseModal" data-assg="{{ $course->id }}"><i class="fa fa-share-alt"></i> Bagikan</button>
+							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#moduleModal"><i class="fa fa-plus"></i> Modul</button>
+						</div>						
+						<ul class="list-group module-list">
+							@forelse($course->modules as $no => $module)
+								<li class="list-group-item">
+									@if($module->media) 
+										<i class="fa fa-play"></i> 
+									@else
+										<i class="fa fa-book"></i> 
+									@endif
+									{{ $no + 1 }}. {{ $module->name }}
+									<span class="pull-right">
+										<a href="#" class="btn-link text-small">Edit</a>
+										<a href="#" style="color: red;" class="btn-link text-small">Delete</a>
+									</span>
+								</li>
+							@empty
+								<li class="list-group-item text-center">Belum ada modul untuk materi ini. <a href="#" class="btn-link" data-toggle="modal" data-target="#moduleModal">Tambahkan</a></li>
+							@endforelse
+						</ul>
+					</div>
+				</div>
+
+				<div class="profile-form panel panel-default">
+					<header class="panel-heading">
+						<h2 class="panel-title text-bold">Bagikan ke Tiap Kelas</h2>
+					</header>
+					<div class="panel-body">
+						<div class="share-to">					
+							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#courseModal"><i class="fa fa-share-alt"></i> Bagikan</button>
 						</div>
 						<table class="table table-stripped">
 							<thead>
@@ -71,7 +89,27 @@
 						</table>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
 
+	<div class="modal fade" id="moduleModal" tabindex="-1" role="dialog" aria-labelledby="newModule">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Tambahkan Modul</h4>
+				</div>
+				{!! Form::open(['route' => ['modules.store'], 'method' => 'post', 'files' => true]) !!}
+					<div class="modal-body clearfix">
+						<div class="col-md-12">
+							@include('user.courses._form-module')
+						</div>
+					</div>
+					<div class="modal-footer text-right">
+						{!! Form::submit('Tambahkan', ['class'=>'btn btn-flat btn-success']) !!}
+					</div>
+				{!! Form::close() !!}
 			</div>
 		</div>
 	</div>
@@ -84,7 +122,7 @@
 					<h4 class="modal-title">Bagikan Materi ini</h4>
 				</div>
 				{!! Form::open(['route' => ['courses.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
-					<div class="modal-body">
+					<div class="modal-body clearfix">
 						<div class="col-md-12">
 							{!! Form::hidden('course_id', $course->id) !!}
 							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 

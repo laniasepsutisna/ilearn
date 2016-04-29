@@ -42,7 +42,8 @@ class CreateCoursesTable extends Migration
 			$table->uuid('course_id');
 			$table->string('name', 60);
 			$table->string('description', 500);
-			$table->string('media', 250);
+			$table->string('media', 500);
+			$table->string('file', 60);
 			$table->timestamps();
 
 			$table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
