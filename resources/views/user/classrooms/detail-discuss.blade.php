@@ -19,7 +19,7 @@
 							<ul class="dropdown-menu">
 								<li>
 									{!! Form::open(['route' => ['discuss.destroy', $discussion->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-										{!! Form::hidden('classroom', $classroom->id) !!}
+										{!! Form::hidden('classroom', $discussion->classroom_id) !!}
 										{!! Form::submit('Hapus', ['class'=>'btn btn-link btn-sm']) !!}
 									{!! Form::close() !!}
 								</li>
@@ -66,7 +66,7 @@
 				</div>
 				<div class="media-body">
 					{!! Form::open(['route' => 'discuss.store']) !!}
-						{!! Form::hidden('classroom_id', $classroom->id) !!}
+						{!! Form::hidden('classroom_id', $discussion->classroom_id) !!}
 						{!! Form::hidden('parent_id', $discussion->id) !!}
 						{!! Form::hidden('user_id', $lms['profile']->id) !!}
 						<div class="form-group {{ $errors->has('response') ? 'has-error' : '' }}">

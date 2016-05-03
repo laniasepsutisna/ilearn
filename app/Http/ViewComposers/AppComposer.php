@@ -25,7 +25,7 @@ class AppComposer
 		$data['assignments']   = $this->classAssignment($data['classrooms']);
 		//$data['courses']       = Auth::user()->teachercourses;
 		$data['announcements'] = Announcement::orderBy('created_at')->limit(5)->get();
-		$data['online']        = User::onlineusers()->orderBy('firstname')->limit(7)->get();
+		$data['online']        = User::onlineusers()->orderBy('created_at')->limit(5)->get();
 
 		$view->with('lms', $data);
 	}

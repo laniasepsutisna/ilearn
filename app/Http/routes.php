@@ -62,8 +62,11 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/classrooms/{classrooms}/assignments', ['uses' => 'ClassroomController@assignments', 'as' => 'classrooms.assignments']);
 	Route::get('/classrooms/{classrooms}/quizes', ['uses' => 'ClassroomController@quizes', 'as' => 'classrooms.quizes']);
 	Route::get('/classrooms/{classrooms}/members', ['uses' => 'ClassroomController@members', 'as' => 'classrooms.members']);
+
 	Route::get('/classrooms/{classrooms}/discuss/{discuss}', ['uses' => 'ClassroomController@discussionDetail', 'as' => 'classrooms.discussiondetail']);
-	Route::get('/classrooms/{classrooms}/assignment/{assignment}', ['uses' => 'ClassroomController@assignmentDetail', 'as' => 'classrooms.assignmentdetail']);
+	Route::get('/classrooms/{classrooms}/assignments/{assignments}', ['uses' => 'ClassroomController@assignmentDetail', 'as' => 'classrooms.assignmentdetail']);
+	Route::get('/classrooms/{classrooms}/courses/{courses}', ['uses' => 'ClassroomController@courseDetail', 'as' => 'classrooms.coursedetail']);
+	Route::get('/classrooms/{classrooms}/modules/{modules}', ['uses' => 'ClassroomController@moduleDetail', 'as' => 'classrooms.moduledetail']);
 	Route::get('/classrooms/download/{filename}', ['uses' => 'ClassroomController@download', 'as' => 'classrooms.download']);
 
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);
@@ -76,9 +79,9 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 	Route::post('/assignments/attach', ['uses' => 'AssignmentController@attachTo', 'as' => 'assignments.attach']);
 	Route::post('/assignments/detach', ['uses' => 'AssignmentController@detachFrom', 'as' => 'assignments.detach']);
 	
-	Route::resource('/courses', 'CourseController');
+	Route::resource('/courses', 'CourseController', ['except' => 'show']);
 	Route::post('/courses/attach', ['uses' => 'CourseController@attachTo', 'as' => 'courses.attach']);
-	Route::delete('/courses/detach', ['uses' => 'CourseController@detachFrom', 'as' => 'courses.detach']);
+	Route::post('/courses/detach', ['uses' => 'CourseController@detachFrom', 'as' => 'courses.detach']);
 
 	Route::resource('/modules', 'ModuleController', ['except' => ['index', 'create', 'show']]);
 

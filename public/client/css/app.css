@@ -37,6 +37,11 @@ body {
 	background-color: #14892c;
 }
 
+.btn-link-danger,
+.btn-link-danger:hover {
+	color: red;
+}
+
 .text-bold {
 	font-weight: 600;
 }
@@ -121,6 +126,15 @@ body {
 	display: block;
 }
 
+.classrooms ul li {
+	display: block;
+}
+
+.nav > li > a:focus,
+.nav > li > a:hover {
+	background-color: none;
+}
+
 .classrooms ul li .fa,
 .lms-sidebar-menu ul li a .fa {
 	width: 12px;
@@ -130,6 +144,17 @@ body {
 .lms-sidebar-menu h5,
 .classrooms h5 {
 	font-weight: 700;
+}
+
+.classrooms ul li a,
+.lms-sidebar-menu ul li a {
+	padding: 5px 15px;
+	margin: 10px 0;
+}
+
+.classrooms ul li.active a,
+.lms-sidebar-menu ul li.active a {
+	border-left: 3px solid #337ab7;
 }
 
 /* Content & Widget */
@@ -347,6 +372,10 @@ input.datepicker {
 .panel-default > .panel-heading {
 	background-color: #FFF;
 	padding: 1.5rem 1rem;
+}
+
+.course-picture img {
+	max-width: 100%;
 }
 
 .friends .list-group-item a {
@@ -577,6 +606,30 @@ input.datepicker {
 
 .module-list li .fa {
 	margin-right: 10px;
+}
+
+.module-list .btn-link {
+	padding: 0;
+}
+
+.modules-in-classroom {
+	margin-top: 1rem;
+}
+
+.modules-in-classroom .fa {
+	margin-right: 1rem;
+}
+
+.module-description {
+	margin-top: 2rem;
+}
+
+.panel-module {
+	margin-bottom: 5rem;
+}
+
+ul.wysihtml5-toolbar > li {
+	height: 30px;
 }
 
 /* Footer */

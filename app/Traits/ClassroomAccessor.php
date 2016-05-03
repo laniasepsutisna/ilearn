@@ -24,6 +24,11 @@ trait ClassroomAccessor
 		return $this->assignments()->where('deadline', '>', date('Y-m-d'))->limit(5)->get();
 	}
 
+	public function getCountCoursesAttribute()
+	{
+		return $this->courses->count();
+	}
+
 	public function getTeacherNameAttribute()
 	{
 		return $this->teacher->firstname . ' ' . $this->teacher->lastname;

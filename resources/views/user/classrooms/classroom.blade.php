@@ -17,14 +17,17 @@
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.courses') }}">
 				<a href="{{ route('classrooms.courses', $classroom) }}">
-					Materi
+					Materi				
+					@if($classroom->countCourses > 0)
+						<span class="badge">{{ $classroom->countCourses }}</span>
+					@endif
 				</a>
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.assignments') }}">
 				<a href="{{ route('classrooms.assignments', $classroom) }}">
 					Tugas
-					@if($classroom->CountAvailableAssignments > 0)
-						<span class="badge">{{ $classroom->CountAvailableAssignments }}</span>
+					@if($classroom->countAvailableAssignments > 0)
+						<span class="badge">{{ $classroom->countAvailableAssignments }}</span>
 					@endif
 				</a>
 			</li>
@@ -47,11 +50,15 @@
 		</ul>
 	</div>
 
-	<div class="panel panel-default new">
-		<header class="classroom-header panel-heading">
-			<h1 class="panel-title text-bold">Bagikan ke kelas ini.</h1>
-		</header>
-		@include('user.classrooms._tabs')
-	</div>
+	@if(! is_detailpage())
+		<div class="panel panel-default new">
+			<header class="classroom-header panel-heading">
+				<h1 class="panel-title text-bold">Bagikan ke kelas ini.</h1>
+			</header>
+			@include('user.classrooms._tabs')
+		</div>
+	@endif
+
 	@yield('classroom_content')
+
 @endsection

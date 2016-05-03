@@ -105,6 +105,10 @@ class User extends Authenticatable
 
 	public function scopeOnlineusers($query)
 	{
-		return $query->where('login', 1)->where('role', '<>', 'staff')->where('id', '<>', Auth::user()->id);
+		return $query->where(function($q) {
+			$q->where('login', 1)
+				->where('role', '<>', 'staff')
+				->where('id', '<>', Auth::user()->id);
+		});
 	}
 }

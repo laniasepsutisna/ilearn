@@ -71,6 +71,11 @@ class Classroom extends Model
 		return $this->belongsToMany('App\Models\Assignment')->withPivot('deadline')->withTimestamps()->orderBy('assignment_classroom.created_at', 'DESC');
 	}
 
+	public function courses()
+	{
+		return $this->belongsToMany('App\Models\Course')->orderBy('created_at', 'DESC');
+	}
+
 	public function addMembers($users)
 	{
 		if( is_array($users) ) {

@@ -48,13 +48,12 @@ class LoginController extends Controller
 			return $this->sendLockoutResponse($request);
 		}
 
-		if (Auth::attempt([
-			$this->loginUsername() => $request->username,
-			'password' => $request->password,
-			'status' => 'active'
-		], $request->remember)) {
+		if (Auth::attempt([ $this->loginUsername() => $request->username, 'password' => $request->password, 'status' => 'active'], $request->remember)) {
+
 			$this->clearLoginAttempts($request);
-			Auth::user()->update(['login' => 1]);
+
+			Auth::user()->login = 1;
+			Auth::user()->save();
 
 			if( Auth::user()->hasRole('staff') ) {
 				return redirect()->intended('/lms-admin');
@@ -81,7 +80,8 @@ class LoginController extends Controller
 
 	public function logout()
 	{
-		Auth::user()->update(['login' => 0]);
+		Auth::user()->login = 0;
+		Auth::user()->save();
 		Auth::logout();
 		return redirect()->route('login');
 	}

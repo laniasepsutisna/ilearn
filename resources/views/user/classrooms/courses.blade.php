@@ -1,23 +1,19 @@
 @extends('user.classrooms.classroom')
 
 @section('classroom_content')
-	{{--@forelse($classroom->paginate_course as $course)
+	@forelse($classroom->courses as $course)
 		<div class="panel panel-default">
 			<header class="panel-heading">
-				<h2 class="panel-title">{{ $course->title }}</h2>
+				<h2 class="panel-title text-bold">{{ $course->name }}</h2>
 			</header>
 			<ul class="list-group">
-				<li class="list-group-item">{{ $course->content }}</li>
-				
-				<li class="list-group-item"><span class="text-small"><strong>Deadline:</strong> {{ $course->deadline }}</span></li>
+				<li class="list-group-item">{!! $course->description !!}</li>
 			</ul>
-			@if($course->file)
-				<div class="panel-footer">
-					<span class="attached"><i class="fa fa-paperclip"></i></span><a href="{{ route('classrooms.download', $course->file) }}">{{ $course->file }}</a>
-				</div>
-			@endif
+			<div class="panel-footer text-right">
+				<a href="{{ route('classrooms.coursedetail', [$classroom->id, $course->id]) }}" class="btn btn-primary">@can('manage') Detail @else Pelajari @endcan</a>
+			</div>
 		</div>
-	@empty --}}
+	@empty
 		<h4 class="text-center no-content">Belum ada materi diberikan untuk kelas ini.</h4>
-	{{-- @endforelse --}}
+	@endforelse
 @endsection

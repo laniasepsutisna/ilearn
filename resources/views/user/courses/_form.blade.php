@@ -16,13 +16,14 @@
 </div>
 
 <div class="form-group {{ $errors->has('picture') ? 'has-error' : '' }}">
+	{!! Form::label('foto', 'Foto', ['class' => 'control-label']) !!}
 	@if(isset($model))
-		<img width="100" height="100" src="{{ url($model->picture_sm) }}" />
+		<p><img width="100" height="100" src="{{ url($model->picture_sm) }}" /></p>
 	@endif
-	<p>{!! Form::file('picture') !!}</p>
+	<p>{!! Form::file('picture', ['id' => 'foto']) !!}</p>
 	{!! $errors->first('picture', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="text-right"> 
-	{!! Form::submit(isset($model) ? 'Update Tugas' : 'Buat Tugas', ['class'=>'btn btn-flat btn-success']) !!}
+	{!! Form::submit(isset($model) ? 'Update' : 'Simpan', ['class'=>'btn btn-flat btn-success']) !!}
 </div>

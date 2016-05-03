@@ -14,3 +14,21 @@ function set_active($routes, $output = 'active')
 		}
 	}
 }
+
+function selected_classroom($id, $output = 'active')
+{
+	return Request::is('classrooms/' . $id . '*') ? $output : null;
+}
+
+function is_detailpage()
+{
+	$routes = ['classrooms.discussiondetail', 'classrooms.assignmentdetail', 'classrooms.coursedetail', 'classrooms.moduledetail'];
+
+	foreach ($routes as $route) {
+		if (Route::currentRouteNamed($route)) {
+			return true;
+		}
+	}
+	
+	return false;
+}

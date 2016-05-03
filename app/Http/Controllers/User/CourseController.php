@@ -71,10 +71,7 @@ class CourseController extends Controller
 		]);
 
 		$data = $request->except('picture');
-
-		if($request->has('picture')) {
-			$data['picture'] = $this->upload($request->file('picture'));
-		}
+		$data['picture'] = $this->upload($request->file('picture'));
 
 		$course = Course::findOrFail($id);
 		$course->update($data);

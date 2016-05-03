@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Assignment;
 use App\Models\Classroom;
+use App\Models\Course;
 use App\Models\Discussion;
+use App\Models\Module;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -75,11 +77,10 @@ class ClassroomController extends Controller
         return abort(401);
     }
 
-    public function discussionDetail($classroom, $discuss)
-    {
-        $classroom  = Classroom::findOrFail($classroom);
-        $discussion = Discussion::findOrFail($discuss);
-
+    public function discussionDetail($classroom_id, $discuss_id)
+    {   
+        $classroom = Classroom::findOrFail($classroom_id);
+        $discussion = Discussion::findOrFail($discuss_id);
         $page_title = 'Diskusi - Detail';
 
         if (Gate::allows('member-of', $classroom)){
@@ -89,9 +90,9 @@ class ClassroomController extends Controller
         return abort(401);
     }
 
-    public function assignmentDetail($classroom, $assignment_id)
+    public function assignmentDetail($classroom_id, $assignment_id)
     {
-        $classroom  = Classroom::findOrFail($classroom);
+        $classroom = Classroom::findOrFail($classroom_id);
         $assignment = Assignment::findOrFail($assignment_id);
         $submit     = $assignment->submissions->contains(Auth::user()->id);
         $submitted  = $assignment->submissions()->where('user_id', Auth::user()->id)->get();
@@ -99,6 +100,43 @@ class ClassroomController extends Controller
 
         if (Gate::allows('member-of', $classroom)){
             return view('user.classrooms.detail-assignment', compact('classroom', 'assignment', 'submit', 'submitted', 'page_title'));
+        }
+
+        return abort(401);
+    }
+
+    public function courseDetail($classroom_id, $course_id)
+    {
+        $modules = [];
+        $viewcount = [];
+
+        $classroom = Classroom::findOrFail($classroom_id);
+        $course = Course::findOrFail($course_id);
+        $page_title = $course->name;
+
+        foreach ($course->modules as $module) {
+            $modules[] = "'" . $module->name . "'";
+            $viewcount[] = "'" . $module->users->count() . "'";
+        }
+
+        if (Gate::allows('member-of', $classroom)){
+            return view('user.classrooms.detail-course', compact('classroom', 'course', 'page_title', 'modules', 'viewcount'));
+        }
+
+        return abort(401);
+    }
+
+    public function moduleDetail($classroom_id, $module_id)
+    {
+        $classroom = Classroom::findOrFail($classroom_id);
+        $module = Module::findOrFail($module_id);        
+        $page_title = $module->name;
+
+        if (Gate::allows('member-of', $classroom)){            
+            if(! Auth::user()->hasRole('teacher') && ! $module->users->contains(Auth::user()->id)) {
+                $module->users()->attach(Auth::user()->id);
+            }
+            return view('user.classrooms.detail-module', compact('classroom', 'module', 'page_title'));
         }
 
         return abort(401);

@@ -36,8 +36,10 @@
 									@endif
 									{{ $no + 1 }}. {{ $module->name }}
 									<span class="pull-right">
-										<a href="#" class="btn-link text-small">Edit</a>
-										<a href="#" style="color: red;" class="btn-link text-small">Delete</a>
+										<a href="{{ route('modules.edit', $module->id) }}" class="btn-link btn-sm">Edit</a>
+										{!! Form::open(['route' => ['modules.destroy', $module->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
+											{!! Form::button('Delete', ['class' => 'btn-link btn-link-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $module->name]) !!}
+										{!! Form::close() !!}
 									</span>
 								</li>
 							@empty
@@ -67,7 +69,7 @@
 									<tr>
 										<td>{{ $attach['classname'] }}</td>
 										<td>
-											{!! Form::open(['route' => 'assignments.detach']) !!}
+											{!! Form::open(['route' => 'courses.detach']) !!}
 												{!! Form::hidden('course_id', $course->id) !!}
 												{!! Form::hidden('classroom_id', $classroom_id) !!}
 												{!! Form::submit('Batal', ['class' => 'btn btn-danger btn-sm']) !!}
@@ -107,7 +109,7 @@
 						</div>
 					</div>
 					<div class="modal-footer text-right">
-						{!! Form::submit('Tambahkan', ['class'=>'btn btn-flat btn-success']) !!}
+						{!! Form::button('Tambahkan', ['class'=>'btn btn-flat btn-success', 'type' => 'submit']) !!}
 					</div>
 				{!! Form::close() !!}
 			</div>
@@ -133,7 +135,7 @@
 					</div>
 					<div class="modal-footer">
 						{!! Form::button('Batal', ['class' => 'btn btn-link', 'data-dismiss' => 'modal']) !!}
-						{!! Form::button('<i class="fa fa-share-alt"></i> Bagikan Tugas', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+						{!! Form::button('<i class="fa fa-share-alt"></i> Bagikan Materi', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
 					</div>
 				{!! Form::close() !!}
 			</div>

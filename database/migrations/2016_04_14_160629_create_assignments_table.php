@@ -41,7 +41,7 @@ class CreateAssignmentsTable extends Migration
 			$table->uuid('assignment_id');
 			$table->uuid('user_id');
 			$table->string('title', 150);
-			$table->string('file');
+			$table->string('file')->nullable();
 			$table->string('content', 500);
 			$table->integer('chance');
 			$table->timestamps();

@@ -6,8 +6,9 @@
             }, 2000);
         }
 
-        $(".textarea").wysihtml5();
+        $('.textarea').wysihtml5();
         $('.select2').select2();
+        $('[data-toggle="tooltip"]').tooltip();
         
         if( $('.datepicker').length ) {
             $('.datepicker').datepicker({
