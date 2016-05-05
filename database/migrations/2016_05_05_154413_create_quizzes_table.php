@@ -14,10 +14,13 @@ class CreateQuizzesTable extends Migration
     {
         Schema::create('quizzes', function(Blueprint $table){
             $table->uuid('id')->unique();
+            $table->string('teacher_id');
             $table->string('title');
             $table->string('type');
             $table->integer('time_limit');
             $table->timestamps();
+
+            $table->foreign('teacher_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->primary(['id']);
         });

@@ -12,8 +12,8 @@
 						<h2 class="panel-title text-bold">{{ $page_title }}</h2>
 					</header>
 					<div class="panel-body">
-						{!! Form::open(['route' => 'quizzes.store']) !!}
-							@include('user.quizzes._form')
+						{!! Form::model($quiz, ['route' => ['quizzes.update', $quiz], 'method' =>'put', 'role' => 'form']) !!}
+							@include('user.quizzes._form', ['model' => $quiz])
 						{!! Form::close() !!}
 					</div>
 				</div>

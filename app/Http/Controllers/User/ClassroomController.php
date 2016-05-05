@@ -17,13 +17,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ClassroomController extends Controller
 {
-    protected $auth_id;
-
-    public function __construct()
-    {
-        $this->auth_id = Auth::user()->id;
-    }
-
     public function show($id)
     {
     	$classroom = Classroom::findOrFail($id);
@@ -101,8 +94,8 @@ class ClassroomController extends Controller
     {
         $classroom = Classroom::findOrFail($classroom_id);
         $assignment = Assignment::findOrFail($assignment_id);
-        $submit     = $assignment->submissions->contains($this->auth_id);
-        $submitted  = $assignment->submissions()->where('user_id', $this->auth_id)->get();
+        $submit     = $assignment->submissions->contains(Auth::user()->id);
+        $submitted  = $assignment->submissions()->where('user_id', Auth::user()->id)->get();
         $page_title = $assignment->title;
 
         if (Gate::allows('member-of', $classroom)){
@@ -129,7 +122,7 @@ class ClassroomController extends Controller
         foreach ($course->modules as $module) {
             $modules[] = "'" . $module->name . "'";
             $viewcount[] = "'" . $module->users->count() . "'";
-            $viewedByMe[] = $module->users()->where('user_id', $this->auth_id)->count();
+            $viewedByMe[] = $module->users()->where('user_id', Auth::user()->id)->count();
         }
 
         /* Student counter */
@@ -151,8 +144,8 @@ class ClassroomController extends Controller
         $page_title = $module->name;
 
         if (Gate::allows('member-of', $classroom)){            
-            if(! Auth::user()->hasRole('teacher') && ! $module->users->contains($this->auth_id)) {
-                $module->users()->attach($this->auth_id);
+            if(! Auth::user()->hasRole('teacher') && ! $module->users->contains(Auth::user()->id)) {
+                $module->users()->attach(Auth::user()->id);
             }
             return view('user.classrooms.detail-module', compact('classroom', 'module', 'page_title'));
         }
@@ -180,7 +173,7 @@ class ClassroomController extends Controller
             $data['file'] = $this->upload($request->file('file'));
         }
 
-        Assignment::find($id)->submissions()->attach($this->auth_id, $data);
+        Assignment::find($id)->submissions()->attach(Auth::user()->id, $data);
 
         \Flash::success('Tugas selesai!');
 

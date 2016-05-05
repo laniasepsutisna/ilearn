@@ -9,7 +9,7 @@
 			<div class="col-md-10">		
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<h2 class="panel-title">Quiz</h2>
+						<a href="{{ route('quizzes.create') }}" class="btn btn-success">Quiz Baru</a>
 					</header>
 					<div class="panel-body">
 						@forelse($quizzes as $quiz)
@@ -18,13 +18,13 @@
 									<h2 class="panel-title text-bold">{{ $quiz->title }}</h2>
 								</header>
 								<ul class="list-group">
-									<li class="list-group-item">{!! $quiz->type !!}</li>
-									<li class="list-group-item">{!! $quiz->type !!}</li>
+									<li class="list-group-item"><strong>Tipe: </strong>{!! $quiz->humanizeType !!}</li>
+									<li class="list-group-item"><strong>Waktu: </strong>{!! $quiz->time_limit !!} menit.</li>
 								</ul>
 								<div class="panel-footer text-right">
 									<a href="{{ route('quizzes.edit', $quiz->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>
 									{!! Form::open(['route' => ['quizzes.destroy', $quiz->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
-										{!! Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $quiz->name]) !!}
+										{!! Form::button('<i class="fa fa-trash"></i>', ['class' => 'btn btn-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $quiz->title]) !!}
 									{!! Form::close() !!}
 								</div>
 							</div>
@@ -36,9 +36,9 @@
 							</div>
 						@endforelse
 					</div>
-					<div class="panel-footer">
+					<div class="panel-footer clearfix">
 						<div class="pull-right nomargin-paginator">
-							{{-- } $quizzes->links() --}}
+							{{ $quizzes->links() }}
 						</div>
 					</div>
 				</div>

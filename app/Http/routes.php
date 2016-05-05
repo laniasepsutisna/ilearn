@@ -86,4 +86,6 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 	Route::resource('/modules', 'ModuleController', ['except' => ['index', 'create', 'show']]);
 
 	Route::resource('/quizzes', 'QuizController', ['except' => 'show']);
+	Route::post('/quizzes/attach', ['uses' => 'QuizController@attachTo', 'as' => 'quizzes.attach']);
+	Route::post('/quizzes/detach', ['uses' => 'QuizController@detachFrom', 'as' => 'quizzes.detach']);
 });

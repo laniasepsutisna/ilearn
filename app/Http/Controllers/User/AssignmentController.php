@@ -112,6 +112,7 @@ class AssignmentController extends Controller
 	{
 		$this->validate($request, [
 			'classrooms' => 'required',
+			'assignment_id' => 'required',
 			'deadline' => 'required',
 		], [
 			'required' => 'Kolom :attribute diperlukan'

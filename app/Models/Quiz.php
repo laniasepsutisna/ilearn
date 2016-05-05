@@ -12,10 +12,15 @@ class Quiz extends Model
 	public $incrementing = false;
 	
 	protected $fillable = [
-		'quiz_id', 'title', 'type', 'time_limit'
+		'teacher_id', 'title', 'type', 'time_limit'
 	];
 
 	protected $hidden = [
 		'created_at', 'updated_at'
 	];
+
+	public function getHumanizeTypeAttribute()
+	{
+		return $this->type === 'multiple_choice' ? 'Pilihan Ganda' : 'Essay';
+	}
 }
