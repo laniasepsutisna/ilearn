@@ -11,7 +11,24 @@
 					<div class="col-xs-12">
 						<canvas id="viewed-module" width="400" height="300"></canvas>
 					</div>
-					<div class="col-xs-12 module-description"></div>
+				</div>
+			</div>
+		</div>
+	@else
+		<div class="panel panel-default">
+			<header class="panel-heading clearfix">
+				<h2 class="panel-title text-bold">Materi Terbaca</h2>
+			</header>
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="progress">
+							<div class="progress-bar progress-bar-{{ $done }}" role="progressbar" aria-valuenow="{{ $percentage }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ $percentage }}%">
+								{{ $student_count }}/{{ $course->modules->count() }}
+								<span class="sr-only">{{ $percentage }}% Complete (success)</span>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

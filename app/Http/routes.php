@@ -85,5 +85,5 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 
 	Route::resource('/modules', 'ModuleController', ['except' => ['index', 'create', 'show']]);
 
-	Route::resource('/quizes', 'QuizController');
+	Route::resource('/quizzes', 'QuizController', ['except' => 'show']);
 });

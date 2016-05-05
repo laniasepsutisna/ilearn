@@ -46,7 +46,7 @@
 	</div>
 	<div role="tabpanel" class="tab-pane" id="quiz">
 		<div class="text-center">
-			<a href="#" id="selectQuiz">Pilih Quiz</a> <span class="atau">atau</span> <a href="{{ route('quizes.create') }}" class="btn btn-primary">Buat Quiz Baru</a>
+			<a href="#" id="selectQuiz">Pilih Quiz</a> <span class="atau">atau</span> <a href="{{ route('quizzes.create') }}" class="btn btn-primary">Buat Quiz Baru</a>
 		</div>
 	</div>
 	@endcan
