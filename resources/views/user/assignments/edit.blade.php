@@ -23,7 +23,7 @@
 					</header>
 					<div class="panel-body">
 						<div class="share-to">					
-							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#assignmentsModal" data-assg="{{ $assignment->id }}"><i class="fa fa-share-alt"></i> Bagikan</button>
+							<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#assignmentsModal"><i class="fa fa-share-alt"></i> Bagikan</button>
 						</div>
 						<table class="table table-stripped">
 							<thead>

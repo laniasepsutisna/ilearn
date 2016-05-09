@@ -23,4 +23,19 @@ class Quiz extends Model
 	{
 		return $this->type === 'multiple_choice' ? 'Pilihan Ganda' : 'Essay';
 	}
+
+	public function classrooms()
+	{
+		return $this->belongsToMany('App\Models\Classroom');
+	}
+
+	public function getAttachedToAttribute()
+	{
+		$ids = [];
+		foreach ($this->classrooms as $classroom) {
+			$ids[] = $classroom->id;
+		}
+
+		return $ids;
+	}
 }

@@ -29,6 +29,16 @@ trait ClassroomAccessor
 		return $this->courses->count();
 	}
 
+	public function getCountQuizAttribute()
+	{
+		return $this->quizzes->count();
+	}
+
+	public function getPaginateQuizzesAttribute()
+	{
+		return $this->quizzes()->paginate(7);
+	}
+
 	public function getTeacherNameAttribute()
 	{
 		return $this->teacher->firstname . ' ' . $this->teacher->lastname;

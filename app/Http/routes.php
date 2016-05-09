@@ -60,13 +60,14 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/classrooms/{classrooms}', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.show']);
 	Route::get('/classrooms/{classrooms}/courses', ['uses' => 'ClassroomController@courses', 'as' => 'classrooms.courses']);
 	Route::get('/classrooms/{classrooms}/assignments', ['uses' => 'ClassroomController@assignments', 'as' => 'classrooms.assignments']);
-	Route::get('/classrooms/{classrooms}/quizes', ['uses' => 'ClassroomController@quizes', 'as' => 'classrooms.quizes']);
+	Route::get('/classrooms/{classrooms}/quizzes', ['uses' => 'ClassroomController@quizzes', 'as' => 'classrooms.quizzes']);
 	Route::get('/classrooms/{classrooms}/members', ['uses' => 'ClassroomController@members', 'as' => 'classrooms.members']);
 
 	Route::get('/classrooms/{classrooms}/discuss/{discuss}', ['uses' => 'ClassroomController@discussionDetail', 'as' => 'classrooms.discussiondetail']);
 	Route::get('/classrooms/{classrooms}/assignments/{assignments}', ['uses' => 'ClassroomController@assignmentDetail', 'as' => 'classrooms.assignmentdetail']);
 	Route::get('/classrooms/{classrooms}/courses/{courses}', ['uses' => 'ClassroomController@courseDetail', 'as' => 'classrooms.coursedetail']);
 	Route::get('/classrooms/{classrooms}/modules/{modules}', ['uses' => 'ClassroomController@moduleDetail', 'as' => 'classrooms.moduledetail']);
+	Route::get('/classrooms/{classrooms}/quizzes/{quizzes}', ['uses' => 'ClassroomController@quizDetail', 'as' => 'classrooms.quizdetail']);
 	Route::get('/classrooms/download/{filename}', ['uses' => 'ClassroomController@download', 'as' => 'classrooms.download']);
 
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);

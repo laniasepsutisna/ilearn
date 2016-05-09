@@ -22,7 +22,13 @@ function selected_classroom($id, $output = 'active')
 
 function is_detailpage()
 {
-	$routes = ['classrooms.discussiondetail', 'classrooms.assignmentdetail', 'classrooms.coursedetail', 'classrooms.moduledetail'];
+	$routes = [
+		'classrooms.discussiondetail',
+		'classrooms.assignmentdetail',
+		'classrooms.coursedetail',
+		'classrooms.moduledetail',
+		'classrooms.quizdetail'
+	];
 
 	foreach ($routes as $route) {
 		if (Route::currentRouteNamed($route)) {

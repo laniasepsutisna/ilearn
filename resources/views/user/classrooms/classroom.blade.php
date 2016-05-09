@@ -31,12 +31,12 @@
 					@endif
 				</a>
 			</li>
-			<li role="presentation" class="{{ set_active('classrooms.quizes') }}">
-				<a href="{{ route('classrooms.quizes', $classroom) }}">
+			<li role="presentation" class="{{ set_active('classrooms.quizzes') }}">
+				<a href="{{ route('classrooms.quizzes', $classroom) }}">
 					Quiz
-					{{--@if($classroom->quizes->count() > 0)
-						<span class="badge">{{ $classroom->quizes->count() }}</span>
-					@endif --}}
+					@if($classroom->countQuiz > 0)
+						<span class="badge">{{ $classroom->countQuiz }}</span>
+					@endif
 				</a>
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.members') }}">

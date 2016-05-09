@@ -45,9 +45,11 @@ class QuizController extends Controller
 	public function edit($id)
 	{
 		$quiz = Quiz::findOrFail($id);
+		$ids = $quiz->attachedTo;
+
 		$page_title = $quiz->title;
 
-		return view('user.quizzes.edit', compact('page_title', 'quiz'));
+		return view('user.quizzes.edit', compact('page_title', 'quiz', 'ids'));
 	}
 
 	public function update(Request $request, $id)

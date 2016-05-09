@@ -9,6 +9,7 @@ use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Discussion;
 use App\Models\Module;
+use App\Models\Quiz;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -53,13 +54,13 @@ class ClassroomController extends Controller
         return abort(401);
     }
 
-    public function quizes($id)
+    public function quizzes($id)
     {
         $classroom = Classroom::findOrFail($id);
         $page_title = 'Quiz - Kelas ' . $classroom->classname;
 
         if (Gate::allows('member-of', $classroom)){
-            return view('user.classrooms.quizes', compact('classroom', 'page_title'));
+            return view('user.classrooms.quizzes', compact('classroom', 'page_title'));
         }
 
         return abort(401);
@@ -148,6 +149,19 @@ class ClassroomController extends Controller
                 $module->users()->attach(Auth::user()->id);
             }
             return view('user.classrooms.detail-module', compact('classroom', 'module', 'page_title'));
+        }
+
+        return abort(401);
+    }
+
+    public function quizDetail($classroom_id, $quiz_id)
+    {
+        $classroom = Classroom::findOrFail($classroom_id);
+        $quiz = Quiz::findOrFail($quiz_id);        
+        $page_title = $quiz->title;
+
+        if (Gate::allows('member-of', $classroom)){
+            return view('user.classrooms.detail-quiz', compact('classroom', 'quiz', 'page_title'));
         }
 
         return abort(401);

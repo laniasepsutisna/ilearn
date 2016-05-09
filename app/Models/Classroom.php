@@ -76,6 +76,11 @@ class Classroom extends Model
 		return $this->belongsToMany('App\Models\Course')->orderBy('created_at', 'DESC');
 	}
 
+	public function quizzes()
+	{
+		return $this->belongsToMany('App\Models\Quiz')->orderBy('created_at', 'DESC');
+	}
+
 	public function addMembers($users)
 	{
 		if( is_array($users) ) {
