@@ -17,6 +17,33 @@
 						{!! Form::close() !!}
 					</div>
 				</div>
+
+				<div class="profile-form panel panel-default">
+					<header class="panel-heading">
+						<h2 class="panel-title text-bold">Pertanyaan</h2>
+					</header>
+					<div class="panel-body">
+						<div class="share-to">					
+							<a class="btn btn-primary btn-sm" href="{{ route('quizzes.mc.create', $quiz->id) }}"><i class="fa fa-plus"></i> Pertanyaan</a>
+						</div>						
+						<ul class="list-group module-list">
+							@forelse($quiz->multiple_choices as $no => $mc)
+								<li class="list-group-item">
+									{{ $no + 1 }}. {{ $mc->question }}
+									<span class="pull-right">
+										<a href="{{ route('questions.edit', $mc->id) }}" class="btn-link btn-sm">Edit</a>
+										{!! Form::open(['route' => ['questions.destroy', $mc->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
+											{!! Form::button('Delete', ['class' => 'btn-link btn-link-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $mc->question]) !!}
+										{!! Form::close() !!}
+									</span>
+								</li>
+							@empty
+								<li class="list-group-item text-center">Belum ada pertanyaan untuk quiz ini. <a href="#" class="btn-link" data-toggle="modal" data-target="#moduleModal">Tambahkan</a></li>
+							@endforelse
+						</ul>
+					</div>
+				</div>
+
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
 						<h2 class="panel-title text-bold">Bagikan ke Tiap Kelas</h2>

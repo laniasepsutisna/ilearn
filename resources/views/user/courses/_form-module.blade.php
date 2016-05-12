@@ -5,12 +5,14 @@
 @endif
 
 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-	{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Judul']) !!}
+	{!! Form::label('name', 'Nama Module', ['class' => 'control-label']) !!}
+	{!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Judul', 'id' => 'name']) !!}
 	{!! $errors->first('name', '<p class="help-block">:message</p>') !!}
 </div>
 
 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-	{!! Form::textarea('description', null, ['class' => 'form-control textarea', 'placeholder' => 'Penjelasan...', 'rows' => '5']) !!}
+	{!! Form::label('description', 'Deskripsi', ['class' => 'control-label']) !!}
+	{!! Form::textarea('description', null, ['class' => 'form-control textarea', 'placeholder' => 'Penjelasan...', 'rows' => '5', 'id' => 'description']) !!}
 	{!! $errors->first('description', '<p class="help-block">:message</p>') !!}
 </div>
 
@@ -21,7 +23,10 @@
 </div>
 
 <div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
-	<p>{!! Form::file('file') !!}</p>	
+	<p>
+		{!! Form::label('file', 'File', ['class' => 'control-label']) !!}
+		{!! Form::file('file') !!}
+	</p>	
 	@if(isset($model))
 		<i class="fa fa-paperclip"></i> {{ $model->file }}
 	@endif

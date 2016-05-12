@@ -30,8 +30,6 @@ class CreateQuizzesTable extends Migration
             $table->uuid('id')->unique();
             $table->string('quiz_id');
             $table->string('question');
-            $table->string('media');
-            $table->string('image');
             
             $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
 

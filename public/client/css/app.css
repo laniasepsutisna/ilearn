@@ -461,6 +461,17 @@ input.datepicker {
 	box-shadow: none;
 	outline: none;
 }
+
+.form-submit {
+	padding: 10px 15px;
+}
+
+.question-wrapper {
+	padding-bottom: 1rem;
+	margin-bottom: 2rem;
+	border-bottom: 1px solid #ddd;
+}
+
 .element-inline {
 	display: inline-block;
 }

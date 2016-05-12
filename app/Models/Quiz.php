@@ -29,6 +29,11 @@ class Quiz extends Model
 		return $this->belongsToMany('App\Models\Classroom');
 	}
 
+	public function multiplechoices()
+	{
+		return $this->hasMany('App\Models\MultipleChoice');
+	}
+
 	public function getAttachedToAttribute()
 	{
 		$ids = [];

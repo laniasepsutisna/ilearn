@@ -56,4 +56,23 @@
         }
     });
 
+    var regex = /\d+/g;
+    var questions = $('.questions-wrapper');
+
+    $('#add-question').click(function(e){
+        e.preventDefault();
+
+        var dom = $('div[class^="question-"]:last');
+        var num = parseInt( dom.prop('id').match(regex) ) + 1;
+
+        dom.clone()
+        .appendTo('#questions-container')
+        .attr('id', 'question-' +  num)
+        .find('.count-question').html(num);
+    });
+
+    $('button.remove').click(function(e){
+
+    });
+
 })(jQuery);
