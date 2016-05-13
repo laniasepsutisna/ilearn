@@ -1,4 +1,4 @@
-<aside class="sidebar left-sidebar">
+<aside class="sidebar left-sidebar hidden-sm hidden-xs">
 	<div class="lms-sidebar-menu">
 		<h5 class="heading">DASHBOARD</h5>
 		<ul class="nav">

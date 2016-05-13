@@ -12,7 +12,7 @@
 						<h2 class="panel-title text-bold">{{ $page_title }}</h2>
 					</header>
 					<div class="panel-body">
-						{!! Form::open(['route' => ['quizzes.mc.store', $quiz->id]]) !!}
+						{!! Form::open(['route' => ['quizzes.mc.store', $quiz->id], 'class' => 'multiple-choice-form']) !!}
 							@include('user.quizzes._form-mc')
 							<div class="col-md-offset-1 form-submit"> 
 								{!! Form::submit('Simpan', ['class'=>'btn btn-flat btn-success']) !!}

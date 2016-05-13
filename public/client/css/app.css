@@ -466,10 +466,14 @@ input.datepicker {
 	padding: 10px 15px;
 }
 
-.question-wrapper {
-	padding-bottom: 1rem;
-	margin-bottom: 2rem;
+.questions-wrapper {
+	padding-bottom: 3rem;
+	margin-bottom: 3rem;
 	border-bottom: 1px solid #ddd;
+}
+
+.count-question {
+	margin-top: 28px;
 }
 
 .element-inline {

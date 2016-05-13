@@ -27,7 +27,7 @@
 							<a class="btn btn-primary btn-sm" href="{{ route('quizzes.mc.create', $quiz->id) }}"><i class="fa fa-plus"></i> Pertanyaan</a>
 						</div>						
 						<ul class="list-group module-list">
-							@forelse($quiz->multiple_choices as $no => $mc)
+							@forelse($quiz->multiplechoices as $no => $mc)
 								<li class="list-group-item">
 									{{ $no + 1 }}. {{ $mc->question }}
 									<span class="pull-right">
@@ -38,7 +38,7 @@
 									</span>
 								</li>
 							@empty
-								<li class="list-group-item text-center">Belum ada pertanyaan untuk quiz ini. <a href="#" class="btn-link" data-toggle="modal" data-target="#moduleModal">Tambahkan</a></li>
+								<li class="list-group-item text-center">Belum ada pertanyaan untuk quiz ini. <a href="{{ route('quizzes.mc.create', $quiz->id) }}" class="btn-link">Tambahkan</a></li>
 							@endforelse
 						</ul>
 					</div>
