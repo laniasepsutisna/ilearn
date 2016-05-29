@@ -13,19 +13,41 @@
 
 		$('[data-toggle="tooltip"]').tooltip();
 		
-		if( $('.datepicker').length ) {
+		if($('.datepicker').length) {
 			$('.datepicker').datepicker({
 				format: 'yyyy/mm/dd',
 				startDate: '+1d'
 			});
+		}
+		var date = new Date();
+    	var d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+
+		if($('#calendar').length) {
+			$('#calendar').fullCalendar({
+				header: {
+					left: 'prev',
+					center: 'title',
+					right: 'next'
+				},
+			    events: [
+			        {
+			          title: 'All Day Event',
+			          start: new Date(y, m, 1),
+			          backgroundColor: "#f56954", //red
+			          borderColor: "#f56954" //red
+			        }
+			    ],
+		    });
 		}
 
 		if($('.questions-wrapper').length) {
 			$(window).bind('beforeunload', function(){
 			    return 'Quiz akan hilang jika anda berpindah halaman. Simpan quiz terlebih dahulu.';
 			});
-		}		
-
+		}
+		
 		$('.multiple-choice-form').submit(function(){
 		    $(window).unbind('beforeunload');
 		});
@@ -104,6 +126,10 @@
 			newDom.find('textarea').val('');
 			newDom.find('input[type="text"]').val('');
 			newDom.attr('id', 'question-' +  num).find('.count-question').html(num);
+			newDom.find('textarea').attr('name', 'questions\[' + num + '\]\[question\]');
+			newDom.find('input').each(function(){
+				$(this).attr('name', $(this).attr('name').replace('questions\[' + extractNumberFromId(dom2copy) + '\]', 'questions\[' + num + '\]'));
+			});
 
 			count++;
 			return callback(count);

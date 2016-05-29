@@ -654,3 +654,14 @@ ul.wysihtml5-toolbar > li {
 }
 
 /* Toggle sidebar #263238 */
+
+/* Calendar */
+
+.fc-state-default {
+	border: 1px solid #ddd;
+	background: #eee;
+	color: #4f4f4f;
+	border-radius: 2px !important;
+	box-shadow: unset;
+	outline: none;
+}

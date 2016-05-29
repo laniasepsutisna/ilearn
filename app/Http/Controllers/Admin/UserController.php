@@ -139,7 +139,7 @@ class UserController extends Controller
 	
 	public function destroy($id)
 	{
-		User::find($id)->delete();
+		User::findOrFail($id)->delete();
 
 		\Flash::success('User berhasil dihapus.');
 		return redirect()->back();

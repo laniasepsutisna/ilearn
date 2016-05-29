@@ -31,8 +31,8 @@
 								<li class="list-group-item">
 									{{ $no + 1 }}. {{ $mc->question }}
 									<span class="pull-right">
-										<a href="{{ route('questions.edit', $mc->id) }}" class="btn-link btn-sm">Edit</a>
-										{!! Form::open(['route' => ['questions.destroy', $mc->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
+										<a href="{{ route('quizzes.mc.edit', [$quiz->id, $mc->id]) }}" class="btn-link btn-sm">Edit</a>
+										{!! Form::open(['route' => ['quizzes.mc.destroy', $quiz->id, $mc->id], 'method' => 'delete', 'class' => 'element-inline']) !!}
 											{!! Form::button('Delete', ['class' => 'btn-link btn-link-danger btn-sm warning-delete', 'type' => 'submit', 'data-title' => $mc->question]) !!}
 										{!! Form::close() !!}
 									</span>

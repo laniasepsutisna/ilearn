@@ -12,13 +12,13 @@ class MultipleChoice extends Model
 	protected $table = 'mc_questions';
 
 	public $incrementing = false;
-	
+		
 	protected $fillable = [
-		'quiz_id','question'
+		'quiz_id', 'question', 'image'
 	];
 
 	public function answers()
 	{
-		return $this->hasMany('App\Models\MultipleChoiceAnswer');
+		return $this->hasMany('App\Models\MultipleChoiceAnswer', 'question_id');
 	}
 }

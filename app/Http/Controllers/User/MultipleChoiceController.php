@@ -9,72 +9,54 @@ use Illuminate\Http\Request;
 
 class MultipleChoiceController extends Controller
 {
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($quiz_id)
-    {
-        $quiz = Quiz::findOrFail($quiz_id);
-        $page_title = 'Buat Pertanyaan Baru';
-        
-        return view('user.quizzes.create-mc', compact('quiz', 'page_title'));
-    }
+	public function create($quiz_id)
+	{
+		$quiz = Quiz::findOrFail($quiz_id);
+		$page_title = 'Tambahkan Pertanyaan';
+		
+		return view('user.quizzes.create-mc', compact('quiz', 'page_title'));
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	public function store(Request $request, $quiz_id)
+	{
+		$this->validate($request, [
+			'questions.*.question' => 'required',
+			'questions.*.image' => 'max:1000|mimes:jpg,jpeg,png,bmp',
+			'questions.*.answers.answer_1' => 'required',
+			'questions.*.answers.answer_2' => 'required',
+			'questions.*.answers.answer_3' => 'required',
+			'questions.*.answers.answer_4' => 'required'
+		]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+		foreach ($request->questions as $questions) {
+			$quiz = Quiz::findOrFail($quiz_id);
+			$question = $quiz->multiplechoices()->create($questions);
+			$question->answers()->create($questions['answers']);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+			// TODO: Save video & Upload image
+		}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+		\Flash::success('Quiz berhasil disimpan.');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+		return redirect()->route('quizzes.edit', $quiz->id);
+	}
+
+	public function edit($quiz_id)
+	{
+		$quiz = Quiz::findOrFail($quiz_id);
+		$page_title = $quiz->title;
+		$questions = $quiz->questions;
+
+		return view('user.quizzes.edit-mc', compact('quiz', 'page_title', 'questions'));
+	}
+
+	public function update(Request $request, $id)
+	{
+		//
+	}
+
+	public function destroy($id)
+	{
+		//
+	}
 }

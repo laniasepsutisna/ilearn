@@ -12,8 +12,8 @@ class SubjectController extends Controller
 	public function index(Request $request)
 	{
 		$subjects = Subject::where('name', 'LIKE', '%' . $request->q . '%')
-					->orWhere('description', 'LIKE', '%' . $request->q . '%')
-					->orderBy('created_at', 'DESC')->paginate(7);
+			->orWhere('description', 'LIKE', '%' . $request->q . '%')
+			->orderBy('created_at', 'DESC')->paginate(7);
 		$page_title = 'Semua Mata Pelajaran';
 
 		return view('admin.subjects.index', compact('subjects', 'page_title'));
@@ -53,7 +53,7 @@ class SubjectController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		$subject = Subject::find($id);
+		$subject = Subject::findOrFail($id);
 
 		$this->validate($request, [
 			'name' => 'required',
@@ -70,7 +70,7 @@ class SubjectController extends Controller
 
 	public function destroy($id)
 	{
-		Subject::find($id)->delete();
+		Subject::findOrFail($id)->delete();
 
 		\Flash::success('Mata pelajaran berhasil dihapus.');
 		return redirect()->back();

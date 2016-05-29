@@ -86,7 +86,7 @@ class AnnouncementController extends Controller
 	
 	public function destroy($id)
 	{
-		Announcement::find($id)->delete();
+		Announcement::findOrFail($id)->delete();
 
 		\Flash::success('Pengumuman berhasil dihapus.');
 		return redirect()->back();

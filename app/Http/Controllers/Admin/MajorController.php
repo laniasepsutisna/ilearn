@@ -54,7 +54,7 @@ class MajorController extends Controller
 
 	public function update(Request $request, $id)
 	{
-		$major = Major::find($id);
+		$major = Major::findOrFail($id);
 		
 		$this->validate($request, [
 			'name' => 'required',
@@ -71,7 +71,7 @@ class MajorController extends Controller
 
 	public function destroy($id)
 	{
-		Major::find($id)->delete();
+		Major::findOrFail($id)->delete();
 
 		\Flash::success('Jurusan berhasil dihapus.');
 		return redirect()->back();

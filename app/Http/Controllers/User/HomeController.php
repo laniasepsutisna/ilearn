@@ -34,7 +34,7 @@ class HomeController extends Controller
 
 	public function calendar()
 	{
-		$page_title = 'Kalendar';
+		$page_title = 'Kalender';
 
 		return view('user.global.calendar', compact('page_title'));
 	}
