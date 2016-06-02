@@ -17,8 +17,28 @@ class MultipleChoice extends Model
 		'quiz_id', 'question', 'image'
 	];
 
-	public function answers()
+	public function answer()
 	{
-		return $this->hasMany('App\Models\MultipleChoiceAnswer', 'question_id');
+		return $this->hasOne('App\Models\MultipleChoiceAnswer', 'question_id');
+	}
+
+	public function getAnswer1Attribute()
+	{
+		return $this->answer->answer_1;
+	}
+
+	public function getAnswer2Attribute()
+	{
+		return $this->answer->answer_2;
+	}
+
+	public function getAnswer3Attribute()
+	{
+		return $this->answer->answer_3;
+	}
+
+	public function getAnswer4Attribute()
+	{
+		return $this->answer->answer_4;
 	}
 }

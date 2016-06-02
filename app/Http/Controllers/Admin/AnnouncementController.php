@@ -55,7 +55,6 @@ class AnnouncementController extends Controller
 	public function edit($id)
 	{
 		$announcements = Announcement::orderBy('created_at', 'DESC')->paginate(7);
-
 		$announcement = Announcement::findOrFail($id);
 		$page_title = 'Edit Pengumuman';
 

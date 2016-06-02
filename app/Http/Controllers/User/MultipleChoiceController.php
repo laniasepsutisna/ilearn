@@ -9,15 +9,15 @@ use Illuminate\Http\Request;
 
 class MultipleChoiceController extends Controller
 {
-	public function create($quiz_id)
+	public function create($quizId)
 	{
-		$quiz = Quiz::findOrFail($quiz_id);
+		$quiz = Quiz::findOrFail($quizId);
 		$page_title = 'Tambahkan Pertanyaan';
 		
 		return view('user.quizzes.create-mc', compact('quiz', 'page_title'));
 	}
 
-	public function store(Request $request, $quiz_id)
+	public function store(Request $request, $quizId)
 	{
 		$this->validate($request, [
 			'questions.*.question' => 'required',
@@ -29,11 +29,11 @@ class MultipleChoiceController extends Controller
 		]);
 
 		foreach ($request->questions as $questions) {
-			$quiz = Quiz::findOrFail($quiz_id);
+			$quiz = Quiz::findOrFail($quizId);
 			$question = $quiz->multiplechoices()->create($questions);
-			$question->answers()->create($questions['answers']);
+			$question->answer()->create($questions['answers']);
 
-			// TODO: Save video & Upload image
+			// TODO: Save uploaded image
 		}
 
 		\Flash::success('Quiz berhasil disimpan.');
@@ -41,22 +41,74 @@ class MultipleChoiceController extends Controller
 		return redirect()->route('quizzes.edit', $quiz->id);
 	}
 
-	public function edit($quiz_id)
+	public function edit($quizId, $questionId)
 	{
-		$quiz = Quiz::findOrFail($quiz_id);
+		$quiz = Quiz::findOrFail($quizId);
 		$page_title = $quiz->title;
-		$questions = $quiz->questions;
 
-		return view('user.quizzes.edit-mc', compact('quiz', 'page_title', 'questions'));
+		if($quiz->type === 'multiple_choice') {
+			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
+		} else {
+			$question = []; // TODO: Essay type
+		}
+
+		return view('user.quizzes.edit-mc', compact('quiz', 'page_title', 'question'));
 	}
 
-	public function update(Request $request, $id)
+	public function update(Request $request, $quizId, $questionId)
 	{
-		//
+		$this->validate($request, [
+			'question' => 'required',
+			'image' => 'max:1000|mimes:jpg,jpeg,png,bmp',
+			'answer_1' => 'required',
+			'answer_2' => 'required',
+			'answer_3' => 'required',
+			'answer_4' => 'required'
+		]);
+
+		$quiz = Quiz::findOrFail($quizId);
+		if($quiz->type === 'multiple_choice') {
+			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
+			$question->update([
+				'question' => $request->question,
+				'image' => $request->image
+			]);
+
+			$question->answer()
+				->update([
+					'answer_1' => $request->answer_1,
+					'answer_2' => $request->answer_2,
+					'answer_3' => $request->answer_3,
+					'answer_4' => $request->answer_4
+				]);
+		} else {
+			// TODO: Essay
+		}
+
+		\Flash::success('Pertanyaan berhasil diubah.');
+
+		return redirect()->back();
 	}
 
-	public function destroy($id)
+	public function destroy($quizId, $questionId)
 	{
-		//
+		$quiz = Quiz::findOrFail($quizId);
+
+		if($question->type === 'multiple_choice') {
+			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
+			$file = public_path( 'uploads/quizzes/' . $question->image );
+			
+			if($question->image && file_exists($file)) {
+				unlink($file);
+			}
+
+			$question->delete();
+		} else {
+			// TODO: Essay
+		}
+
+		\Flash::success('Pertanyaan berhasil dihapus.');
+
+		return redirect()->back();
 	}
 }

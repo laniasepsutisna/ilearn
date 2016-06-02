@@ -31,7 +31,7 @@ class Quiz extends Model
 
 	public function multiplechoices()
 	{
-		return $this->hasMany('App\Models\MultipleChoice');
+		return $this->hasMany('App\Models\MultipleChoice')->orderBy('created_at', 'DESC');
 	}
 
 	public function getAttachedToAttribute()

@@ -5,44 +5,38 @@
 			<div style="margin: 10px 0"><button class="remove-question btn btn-danger btn-sm" disabled="true"><i class="fa fa-close"></i></button></div>
 		</div>
 		<div class="col-xs-11">
-			<div class="form-group {{ $errors->has('question') ? 'has-error' : '' }}">
+			<div class="form-group">
 				{!! Form::label('question', 'Pertanyaan', ['class' => 'control-label']) !!}
 				{!! Form::textarea('questions[1][question]', null, ['class' => 'form-control', 'id' => 'question', 'placeholder' => 'Pertanyaan...', 'rows' => '5']) !!}
-				{!! $errors->first('question', '<p class="help-block">:message</p>') !!}
 			</div>
 
-			<div class="form-group {{ $errors->has('image') ? 'has-error' : '' }}">
+			<div class="form-group">
 				{!! Form::label('image', 'Gambar', ['class' => 'control-label']) !!}
 				{!! Form::file('questions[1][image]', ['class' => 'form-control', 'id' => 'image']) !!}
-				{!! $errors->first('image', '<p class="help-block">:message</p>') !!}
 			</div>
 	
 			<div class="row">
 				<div class="form-group col-xs-12">
 					<strong>Jawaban:</strong>
 				</div>
-				<div class="form-group col-xs-6 {{ $errors->has('answer_1') ? 'has-error' : '' }}">
+				<div class="form-group col-xs-6">
 					{!! Form::label('answer_1', 'A', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_1]', null, ['class' => 'form-control']) !!}
-					{!! $errors->first('answer_1', '<p class="help-block">:message</p>') !!}
 				</div>
 
-				<div class="form-group col-xs-6 {{ $errors->has('answer_2') ? 'has-error' : '' }}">
+				<div class="form-group col-xs-6">
 					{!! Form::label('answer_2', 'B', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_2]', null, ['class' => 'form-control']) !!}
-					{!! $errors->first('answer_2', '<p class="help-block">:message</p>') !!}
 				</div>
 
-				<div class="form-group col-xs-6 {{ $errors->has('answer_3') ? 'has-error' : '' }}">
+				<div class="form-group col-xs-6">
 					{!! Form::label('answer_3', 'C', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_3]', null, ['class' => 'form-control']) !!}
-					{!! $errors->first('answer_3', '<p class="help-block">:message</p>') !!}
 				</div>
 
-				<div class="form-group col-xs-6 {{ $errors->has('answer_4') ? 'has-error' : '' }}">
+				<div class="form-group col-xs-6">
 					{!! Form::label('answer_4', 'D', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_4]', null, ['class' => 'form-control']) !!}
-					{!! $errors->first('answer_4', '<p class="help-block">:message</p>') !!}
 				</div>
 			</div>
 		</div>

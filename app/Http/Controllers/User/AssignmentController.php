@@ -125,7 +125,8 @@ class AssignmentController extends Controller
 			$data[$class] = ['deadline' => $request->deadline];
 		}
 
-		$assignment->classrooms()->sync($data, false);
+		$assignment->classrooms()
+			->sync($data, false);
 
 		\Flash::success('Tugas berhasil dibagikan.');
 
@@ -142,7 +143,8 @@ class AssignmentController extends Controller
 		]);
 
 		$assignment = Assignment::findOrFail($request->assignment_id);
-		$assignment->classrooms()->detach($request->classroom_id);
+		$assignment->classrooms()
+			->detach($request->classroom_id);
 
 		\Flash::success('Tugas berhasil batalkan.');
 

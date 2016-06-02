@@ -7,6 +7,16 @@
 				@include('user.global.sidebars._sidebar-left')
 			</div>
 			<div class="col-md-10">		
+				@if (count($errors) > 0)
+			    <div class="alert alert-danger">
+		        <ul>
+		        	@foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+	            @endforeach
+		        </ul>
+			    </div>
+				@endif
+
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
 						<h2 class="panel-title text-bold">{{ $page_title }}</h2>
