@@ -25,7 +25,8 @@ class MultipleChoiceController extends Controller
 			'questions.*.answers.answer_1' => 'required',
 			'questions.*.answers.answer_2' => 'required',
 			'questions.*.answers.answer_3' => 'required',
-			'questions.*.answers.answer_4' => 'required'
+			'questions.*.answers.answer_4' => 'required',
+			'questions.*.answers.correct_answer' => 'required'
 		]);
 
 		foreach ($request->questions as $questions) {
@@ -63,7 +64,8 @@ class MultipleChoiceController extends Controller
 			'answer_1' => 'required',
 			'answer_2' => 'required',
 			'answer_3' => 'required',
-			'answer_4' => 'required'
+			'answer_4' => 'required',
+			'correct_answer' => 'required'
 		]);
 
 		$quiz = Quiz::findOrFail($quizId);
@@ -79,7 +81,8 @@ class MultipleChoiceController extends Controller
 					'answer_1' => $request->answer_1,
 					'answer_2' => $request->answer_2,
 					'answer_3' => $request->answer_3,
-					'answer_4' => $request->answer_4
+					'answer_4' => $request->answer_4,
+					'correct_answer' => $request->correct_answer
 				]);
 		} else {
 			// TODO: Essay
@@ -94,7 +97,7 @@ class MultipleChoiceController extends Controller
 	{
 		$quiz = Quiz::findOrFail($quizId);
 
-		if($question->type === 'multiple_choice') {
+		if($quiz->type === 'multiple_choice') {
 			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
 			$file = public_path( 'uploads/quizzes/' . $question->image );
 			

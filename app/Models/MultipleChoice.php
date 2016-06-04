@@ -41,4 +41,9 @@ class MultipleChoice extends Model
 	{
 		return $this->answer->answer_4;
 	}
+
+	public function getCorrectAnswerAttribute()
+	{
+		return $this->answer->correct_answer;
+	}
 }

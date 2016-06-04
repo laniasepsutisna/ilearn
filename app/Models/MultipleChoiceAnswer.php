@@ -16,6 +16,6 @@ class MultipleChoiceAnswer extends Model
 	public $timestamps = false;
 	
 	protected $fillable = [
-		'question_id', 'answer_1', 'answer_2', 'answer_3', 'answer_4'
+		'question_id', 'answer_1', 'answer_2', 'answer_3', 'answer_4', 'correct_answer'
 	];
 }

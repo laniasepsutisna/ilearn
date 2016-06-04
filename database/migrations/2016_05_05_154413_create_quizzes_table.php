@@ -45,6 +45,7 @@ class CreateQuizzesTable extends Migration
 			$table->string('answer_2');
 			$table->string('answer_3');
 			$table->string('answer_4');
+			$table->string('correct_answer');
 			
 			$table->foreign('question_id')->references('id')->on('mc_questions')->onDelete('cascade');
 

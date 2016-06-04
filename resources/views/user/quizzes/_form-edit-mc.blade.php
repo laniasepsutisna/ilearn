@@ -18,24 +18,28 @@
 					<strong>Jawaban:</strong>
 				</div>
 				<div class="form-group col-xs-6 {{ $errors->has('answer_1') ? 'has-error' : '' }}">
+					{!! Form::radio('correct_answer', 'A') !!}
 					{!! Form::label('answer_1', 'A', ['class' => 'control-label']) !!}
 					{!! Form::text('answer_1', null, ['class' => 'form-control']) !!}
 					{!! $errors->first('answer_1', '<p class="help-block">:message</p>') !!}
 				</div>
 
 				<div class="form-group col-xs-6 {{ $errors->has('answer_2') ? 'has-error' : '' }}">
+					{!! Form::radio('correct_answer', 'B') !!}
 					{!! Form::label('answer_2', 'B', ['class' => 'control-label']) !!}
 					{!! Form::text('answer_2', null, ['class' => 'form-control']) !!}
 					{!! $errors->first('answer_2', '<p class="help-block">:message</p>') !!}
 				</div>
 
 				<div class="form-group col-xs-6 {{ $errors->has('answer_3') ? 'has-error' : '' }}">
+					{!! Form::radio('correct_answer', 'C') !!}
 					{!! Form::label('answer_3', 'C', ['class' => 'control-label']) !!}
 					{!! Form::text('answer_3', null, ['class' => 'form-control']) !!}
 					{!! $errors->first('answer_3', '<p class="help-block">:message</p>') !!}
 				</div>
 
 				<div class="form-group col-xs-6 {{ $errors->has('answer_4') ? 'has-error' : '' }}">
+					{!! Form::radio('correct_answer', 'D') !!}
 					{!! Form::label('answer_4', 'D', ['class' => 'control-label']) !!}
 					{!! Form::text('answer_4', null, ['class' => 'form-control']) !!}
 					{!! $errors->first('answer_4', '<p class="help-block">:message</p>') !!}

@@ -15,26 +15,30 @@
 				{!! Form::file('questions[1][image]', ['class' => 'form-control', 'id' => 'image']) !!}
 			</div>
 	
-			<div class="row">
+			<div class="clearfix anwers_wrapper">
 				<div class="form-group col-xs-12">
 					<strong>Jawaban:</strong>
 				</div>
 				<div class="form-group col-xs-6">
+					{!! Form::radio('questions[1][answers][correct_answer]', 'A') !!}
 					{!! Form::label('answer_1', 'A', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_1]', null, ['class' => 'form-control']) !!}
 				</div>
 
 				<div class="form-group col-xs-6">
+					{!! Form::radio('questions[1][answers][correct_answer]', 'B') !!}
 					{!! Form::label('answer_2', 'B', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_2]', null, ['class' => 'form-control']) !!}
 				</div>
 
 				<div class="form-group col-xs-6">
+					{!! Form::radio('questions[1][answers][correct_answer]', 'C') !!}
 					{!! Form::label('answer_3', 'C', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_3]', null, ['class' => 'form-control']) !!}
 				</div>
 
 				<div class="form-group col-xs-6">
+					{!! Form::radio('questions[1][answers][correct_answer]', 'D') !!}
 					{!! Form::label('answer_4', 'D', ['class' => 'control-label']) !!}
 					{!! Form::text('questions[1][answers][answer_4]', null, ['class' => 'form-control']) !!}
 				</div>
