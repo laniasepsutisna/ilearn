@@ -60,9 +60,9 @@
     });
 
     // Prevent refresh multiple choice form
-    if($('.questions-wrapper').length) {
+    if($('.questions-wrapper, .question-detail').length) {
       $(window).bind('beforeunload', function(){
-          return 'Quiz akan hilang jika anda berpindah halaman. Simpan quiz terlebih dahulu.';
+          return 'Quiz akan hilang jika anda berpindah halaman. Submit quiz terlebih dahulu.';
       });
     }
 
@@ -113,6 +113,16 @@
       });
     });
 
+    $('#mc-form-detail-submit').click(function(e){
+      e.preventDefault();
+      console.log('Submit quiz');
+      validateQuiz(function(isValid){
+        if(isValid){
+          $(window).unbind('beforeunload');
+          $('#multiplechoice-form').submit();
+        }
+      });
+    });
 
     $('.changeImage').click(function(e){
       e.preventDefault();
@@ -131,7 +141,18 @@
           break;
       }
     });
-    
+
+    var assignmentData = [];
+
+    $.ajax({
+      method: 'get',
+      url: 'http://ilearn.app/api/assignments',
+    })
+    .done(function(data) {
+      assignmentData.push(data);
+      console.log(assignmentData); 
+    });
+   
   });
 
   function cloneForm() {
@@ -210,7 +231,7 @@
     });
     // Validate all radio by name
     $.each(names, function (i, name) {
-      if ($('input[name="' + name + '"]:checked').length == 0) {
+      if ($('input[name="' + name + '"]:checked').length === 0) {
         $('input[name="' + name + '"]').parents('.anwers_wrapper')
           .css('border', '1px solid red');
           isValid = false;
@@ -220,9 +241,9 @@
       }
     });
     if(isValid) {
-      callback(true);
+      return callback(true);
     }
-    callback(false);
+    return callback(false);
   }
 
   function validate(el, callback) {    
@@ -233,6 +254,35 @@
       el.css('border', '1px solid #ccc');
       callback(true);
     }
+  }
+
+  function validateQuiz(callback) {
+    var isValid = true;
+    var questionNames = [];
+
+    $('.question-detail input[type="radio"]').each(function(){
+      var questionName = $(this).attr('name');
+      if($.inArray(questionName, questionNames) == -1) {
+        questionNames.push(questionName);
+      }
+    });
+
+    $.each(questionNames, function(i, name) {
+      if($('input[name="' + name + '"]:checked').length === 0) {
+        $('input[name="' + name + '"]').parents('.question-detail')
+          .css('border', '1px solid red');
+        isValid = false;
+      } else {
+        $('input[name="' + name + '"]').parents('.question-detail')
+          .css('border', '1px solid #fff');;
+      }
+    });
+
+    if(isValid) {
+      return callback(true);
+    }
+
+    return callback(false);
   }
 
 })(jQuery);

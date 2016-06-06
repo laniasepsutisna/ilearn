@@ -63,4 +63,34 @@ trait ClassroomAccessor
 	{
 		return $this->assignments;
 	}
+	
+	public function getAttachedQuizzesAttribute()
+	{
+		$ids = [];
+		foreach ($this->quizzes as $quiz) {
+			$ids[] = $quiz->id;
+		}
+
+		return $ids;
+	}
+
+	public function getAttachedCoursesAttribute()
+	{
+		$ids = [];
+		foreach ($this->courses as $course) {
+			$ids[] = $course->id;
+		}
+
+		return $ids;
+	}
+
+	public function getAttachedAssignmentsAttribute()
+	{
+		$ids = [];
+		foreach ($this->assignments as $assignment) {
+			$ids[] = $assignment->id;
+		}
+
+		return $ids;
+	}
 }

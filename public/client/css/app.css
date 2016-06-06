@@ -665,3 +665,11 @@ ul.wysihtml5-toolbar > li {
 	box-shadow: unset;
 	outline: none;
 }
+
+.question-detail {
+	margin-bottom: 30px;
+	float: left;
+	width: 100%;
+	padding: 5px;
+	border: 1px solid #FFF;
+}

@@ -8,22 +8,27 @@
 		<div class="panel-body">
 			<div class="row">
 				<div class="col-xs-12">
-				</div>
-				@if($quiz->type === 'multiple_choice')
-					@foreach($quiz->multiplechoices->shuffle() as $index => $multiplechoice)
-						<div class="clearfix" style="margin-bottom: 30px">
-							<div class="col-xs-12">{{ $index + 1 }}. {{ $multiplechoice->question }}</div>
-							<div>
-								<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'A') !!} A. {{ $multiplechoice->answer->answer_1 }}</div>
-								<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'C') !!} C. {{ $multiplechoice->answer->answer_3 }}</div>
-								<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'B') !!} B. {{ $multiplechoice->answer->answer_2 }}</div>
-								<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'D') !!} D. {{ $multiplechoice->answer->answer_4 }}</div>
+					@if($quiz->type === 'multiple_choice')
+					{!! Form::open(['method' => 'post', 'id' => 'multiplechoice-form']) !!}
+						@foreach($quiz->multiplechoices->shuffle() as $index => $multiplechoice)
+							<div class="question-detail">
+								<div>{{ $index + 1 }}. {{ $multiplechoice->question }}</div>
+								<div>
+									<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'A') !!} A. {{ $multiplechoice->answer->answer_1 }}</div>
+									<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'C') !!} C. {{ $multiplechoice->answer->answer_3 }}</div>
+									<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'B') !!} B. {{ $multiplechoice->answer->answer_2 }}</div>
+									<div class="col-xs-6">{!! Form::radio('answer[' . $index . ']', 'D') !!} D. {{ $multiplechoice->answer->answer_4 }}</div>
+								</div>
 							</div>
+						@endforeach
+						<div class="form-group"> 
+							{!! Form::button('Selesai', ['class' => 'btn btn-success', 'id' => 'mc-form-detail-submit']) !!}
 						</div>
-					@endforeach
-				@else
+					{!! Form::close() !!}
+					@else
 
-				@endif
+					@endif
+				</div>
 			</div>
 		</div>
 	</div>
