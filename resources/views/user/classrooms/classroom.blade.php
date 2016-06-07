@@ -6,7 +6,19 @@
 			<h1 class="panel-title text-bold">{{ $classroom->classname }}</h1>
 		</header>
 		<ul class="list-group">
-			<li class="list-group-item">{!! $classroom->description !!}</li>
+			<li class="list-group-item">
+				@if(Request::route()->getName() === 'classrooms.user.edit')
+					{!! Form::open(['route' => ['classrooms.user.update', $classroom], 'method' => 'post']) !!}
+						{!! Form::textarea('description', $classroom->description, ['class' => 'textarea form-control']) !!}
+						<div class="form-submit text-right"> 
+							<a href="{{ route('classrooms.show', $classroom) }}" class="btn btn-danger">Batal</a> 
+							{!! Form::submit('Ubah', ['class' => 'btn btn-primary']) !!}
+						</div>
+					{!! Form::close() !!}
+				@else
+					{!! $classroom->description !!}
+				@endif
+			</li>
 			<li class="list-group-item text-small"><strong>Guru:</strong> {{ $classroom->teacher_name }}</li>
 		</ul>
 		<ul class="nav nav-tabs">
@@ -45,7 +57,7 @@
 				</a>
 			</li>
 			@can('manage')
-				<li role="presentation" class="pull-right"><a href="#"><i class="fa fa-cog"></i></a></li>
+				<li role="presentation" class="pull-right"><a href="{{ route('classrooms.user.edit', $classroom) }}"><i class="fa fa-cog"></i></a></li>
 			@endcan
 		</ul>
 	</div>

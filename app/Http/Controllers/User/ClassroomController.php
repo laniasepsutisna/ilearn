@@ -30,6 +30,22 @@ class ClassroomController extends Controller
 		return abort(401);
 	}
 
+	public function update($id, Request $request)
+	{
+		$classroom = Classroom::findOrFail($id);
+
+		$this->validate($request, [
+			'description' => 'required'
+		], [
+			'required' => 'Kolom :attribute diperlukan!',
+		]);
+
+		$classroom->update($request->all());
+
+		\Flash::success('Deskripsi berhasil diubah.');
+		return redirect()->route('classrooms.show', $classroom);
+	}
+
 	public function courses($id)
 	{
 		$classroom = Classroom::findOrFail($id);

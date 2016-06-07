@@ -62,7 +62,7 @@
 			{!! Form::open(['route' => ['quizzes.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 				<div class="modal-body clearfix">
 					<div class="col-md-12">
-						{!! Form::hidden('classroom_id', $classroom->id) !!}
+						{!! Form::hidden('classrooms[]', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('quiz_id') ? 'has-error' : '' }}"> 
 						{!! Form::select('quiz_id', App\Models\Quiz::whereNotIn('id', $classroom->attachedQuizzes)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 						{!! $errors->first('quiz_id', '<p class="help-block">:message</p>') !!}
@@ -71,7 +71,7 @@
 				</div>
 				<div class="modal-footer">
 					{!! Form::button('Batal', ['class' => 'btn btn-link', 'data-dismiss' => 'modal']) !!}
-					{!! Form::button('<i class="fa fa-share-alt"></i> Bagikan Tugas', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
+					{!! Form::button('<i class="fa fa-share-alt"></i> Bagikan Quiz', ['class' => 'btn btn-primary', 'type' => 'submit']) !!}
 				</div>
 			{!! Form::close() !!}
 		</div>
@@ -88,7 +88,7 @@
 			{!! Form::open(['route' => ['assignments.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 				<div class="modal-body clearfix">
 					<div class="col-md-12">
-						{!! Form::hidden('classroom_id', $classroom->id) !!}
+						{!! Form::hidden('classrooms[]', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('assignment_id') ? 'has-error' : '' }}"> 
 						{!! Form::select('assignment_id', App\Models\Assignment::whereNotIn('id', $classroom->attachedAssignments)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 						{!! $errors->first('assignment_id', '<p class="help-block">:message</p>') !!}
@@ -118,7 +118,7 @@
 			{!! Form::open(['route' => ['courses.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 				<div class="modal-body clearfix">
 					<div class="col-md-12">
-						{!! Form::hidden('classroom_id', $classroom->id) !!}
+						{!! Form::hidden('classrooms[]', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('course_id') ? 'has-error' : '' }}"> 
 						{!! Form::select('course_id', App\Models\Course::whereNotIn('id', $classroom->attachedCourses)->get()->pluck('name', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 						{!! $errors->first('course_id', '<p class="help-block">:message</p>') !!}

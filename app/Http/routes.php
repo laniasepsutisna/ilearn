@@ -55,9 +55,13 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'home.profile']);
 	Route::get('/password', ['uses' => 'HomeController@password', 'as' => 'home.password']);
 	Route::get('/calendar', ['uses' => 'HomeController@calendar', 'as' => 'home.calendar']);
-	Route::get('/announcements', ['uses' => 'AnnouncementController@index', 'as' => 'announcements.index']);
+	Route::get('/all-announcements', ['uses' => 'AnnouncementController@index', 'as' => 'announcements.index']);
+	Route::get('/all-online', ['uses' => 'HomeController@online', 'as' => 'home.online']);
+	Route::get('/all-assignments', ['uses' => 'HomeController@assignments', 'as' => 'home.assignments']);
 
 	Route::get('/classrooms/{classrooms}', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.show']);
+	Route::get('/classrooms/{classrooms}/edit', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.user.edit']);
+	Route::post('/classrooms/{classrooms}', ['uses' => 'ClassroomController@update', 'as' => 'classrooms.user.update']);
 	Route::get('/classrooms/{classrooms}/courses', ['uses' => 'ClassroomController@courses', 'as' => 'classrooms.courses']);
 	Route::get('/classrooms/{classrooms}/assignments', ['uses' => 'ClassroomController@assignments', 'as' => 'classrooms.assignments']);
 	Route::get('/classrooms/{classrooms}/quizzes', ['uses' => 'ClassroomController@quizzes', 'as' => 'classrooms.quizzes']);
