@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\UuidModel;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Assignment extends Model
 {
@@ -50,6 +51,7 @@ class Assignment extends Model
 	public function getAttachedToAttribute()
 	{
 		$ids = [];
+
 		foreach ($this->classrooms as $classroom) {
 			$ids[] = $classroom->id;
 		}

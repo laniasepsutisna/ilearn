@@ -55,9 +55,9 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'home.profile']);
 	Route::get('/password', ['uses' => 'HomeController@password', 'as' => 'home.password']);
 	Route::get('/calendar', ['uses' => 'HomeController@calendar', 'as' => 'home.calendar']);
-	Route::get('/all-announcements', ['uses' => 'AnnouncementController@index', 'as' => 'announcements.index']);
-	Route::get('/all-online', ['uses' => 'HomeController@online', 'as' => 'home.online']);
-	Route::get('/all-assignments', ['uses' => 'HomeController@assignments', 'as' => 'home.assignments']);
+	Route::get('/all-announcements', ['uses' => 'AnnouncementController@index', 'as' => 'home.announcements']);
+	Route::get('/all-online', ['uses' => 'UserController@online', 'as' => 'home.onlines']);
+	Route::get('/all-assignments', ['uses' => 'AssignmentController@assignments', 'as' => 'home.assignments']);
 
 	Route::get('/classrooms/{classrooms}', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.show']);
 	Route::get('/classrooms/{classrooms}/edit', ['uses' => 'ClassroomController@show', 'as' => 'classrooms.user.edit']);
@@ -95,3 +95,5 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 	Route::post('/quizzes/attach', ['uses' => 'QuizController@attachTo', 'as' => 'quizzes.attach']);
 	Route::post('/quizzes/detach', ['uses' => 'QuizController@detachFrom', 'as' => 'quizzes.detach']);
 });
+
+Route::get('/api/assignments', 'API\AssignmentController@deadline');

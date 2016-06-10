@@ -18,10 +18,7 @@
         startDate: '+1d'
       });
     }
-    var date = new Date();
-      var d = date.getDate(),
-        m = date.getMonth(),
-        y = date.getFullYear();
+    
     if($('#calendar').length) {
       $('#calendar').fullCalendar({
         header: {
@@ -29,14 +26,7 @@
           center: 'title',
           right: 'next'
         },
-          events: [
-              {
-                title: 'All Day Event',
-                start: new Date(y, m, 1),
-                backgroundColor: "#f56954", //red
-                borderColor: "#f56954" //red
-              }
-          ],
+          events: '/api/assignments'
         });
     }    
     $(document.body).on('click', '.warning-delete', function(e) {

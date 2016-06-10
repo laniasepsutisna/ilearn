@@ -162,4 +162,17 @@ class AssignmentController extends Controller
 
 		return $fileName;
 	}
+
+	public function assignments()
+	{		
+		$classrooms = Auth::user()->hasRole('teacher') ? Auth::user()->teacherclassrooms : Auth::user()->classrooms;
+		$page_title = 'Semua Tugas';
+		$assignments = '';
+
+		foreach ($classrooms as $classroom) {
+			$assignments = $classroom->assignments;
+		}
+
+  	return view('user.global.assignments', compact('assignments', 'page_title'));
+	}
 }

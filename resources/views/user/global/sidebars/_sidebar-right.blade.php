@@ -20,7 +20,7 @@
 			@endforelse
 		</ul>
 		<footer class="panel-footer text-center">
-			<a href="" class="btn btn-link btn-sm">Lihat semua</a>
+			<a href="{{ route('home.onlines') }}" class="btn btn-link btn-sm">Lihat semua</a>
 		</footer>
 	</div>
 
@@ -36,7 +36,7 @@
 			@endforelse
 		</ul>
 		<footer class="panel-footer text-center">
-			<a href="" class="btn btn-link btn-sm">Lihat semua</a>
+			<a href="{{ route('home.assignments') }}" class="btn btn-link btn-sm">Lihat semua</a>
 		</footer>
 	</div>
 

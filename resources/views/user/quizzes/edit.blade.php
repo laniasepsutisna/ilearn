@@ -101,7 +101,7 @@
 						<div class="col-md-12">
 							{!! Form::hidden('quiz_id', $quiz->id) !!}
 							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 
-							{!! Form::select('classrooms[]', App\Models\Classroom::whereNotIn('id', $ids)->get()->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'multiple']) !!}
+							{!! Form::select('classrooms[]', $lms['profile']->teacherclassrooms()->whereNotIn('id', $ids)->get()->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'multiple']) !!}
 							{!! $errors->first('classrooms', '<p class="help-block">:message</p>') !!}
 							</div>
 						</div>

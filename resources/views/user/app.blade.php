@@ -43,7 +43,7 @@
 
 			<div class="navbar-primary">
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="{{ route('announcements.index') }}"><i class="fa fa-bell"></i></a></li>		
+					<li><a href="{{ route('home.announcements') }}"><i class="fa fa-bell"></i></a></li>		
 					<li class="profile-link">
 						<a href="{{ route('home.profile') }}">
 							<img class="img-circle" src="{{ $lms['profile']->picture }}"> 

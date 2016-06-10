@@ -14,16 +14,9 @@ class AppComposer
 	{
 		$data = [];
 
-		$data['profile'] = Auth::user();
-
-		if( Auth::user()->hasRole('teacher') ) {
-			$data['classrooms']  = Auth::user()->teacherclassrooms;
-		} else {
-			$data['classrooms'] = Auth::user()->classrooms;
-		}
-
+		$data['profile']       = Auth::user();
+		$data['classrooms']    = Auth::user()->hasRole('teacher') ? Auth::user()->teacherclassrooms : Auth::user()->classrooms;
 		$data['assignments']   = $this->classAssignment($data['classrooms']);
-		//$data['courses']       = Auth::user()->teachercourses;
 		$data['announcements'] = Announcement::orderBy('created_at')->limit(5)->get();
 		$data['online']        = User::onlineusers()->orderBy('created_at')->limit(5)->get();
 

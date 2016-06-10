@@ -9,24 +9,21 @@
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2 class="panel-title text-bold">Pengumuman</h2>
+					<h2 class="panel-title text-bold">{{ $page_title }}</h2>
 				</div>
 				<ul class="list-group">
-					@foreach($announcements as $announcement)
-					<li class="list-group-item">
-						<article class="post announcement">
-							<p>
-								<strong><i class="fa fa-volume-up"></i> {{ $announcement->title }}</strong>
-								<span class="status pull-right alert-{{ $announcement->status }}">{{ $announcement->urgensi }}</span>
-							</p>
-							<div>{!! $announcement->content !!}</div>
-							<div>{{ $announcement->humantime }}</div>
-						</article>
-					</li>
+					@foreach($assignments as $assignment)
+						<li class="list-group-item">
+							<article class="post assignment">
+								<p>
+									<strong><i class="fa fa-volume-up"></i> {{ $assignment['title'] }}</strong>
+								</p>
+								<div>{!! $assignment['pivot']['deadline'] !!}</div>
+							</article>
+						</li>
 					@endforeach
 				</ul>
 				<footer class="panel-footer text-right">
-					{{ $announcements->links() }}
 				</footer>
 			</div>
 		</div>		
