@@ -28,12 +28,12 @@ class DiscussionController extends Controller
 		return redirect()->back();
 	}
 
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
     	Discussion::findOrFail($id)->delete();
 
-        \Flash::success('Diskusi berhasil dihapus.');
+      \Flash::success('Diskusi berhasil dihapus.');
 
-        return redirect()->route('classrooms.show', $request->classroom_id);
+      return redirect()->back();
     }
 }

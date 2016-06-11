@@ -64,7 +64,7 @@
 					<div class="col-md-12">
 						{!! Form::hidden('classrooms[]', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('quiz_id') ? 'has-error' : '' }}"> 
-						{!! Form::select('quiz_id', App\Models\Quiz::whereNotIn('id', $classroom->attachedQuizzes)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
+						{!! Form::select('quiz_id', $lms['profile']->teacherquizzes()->whereNotIn('id', $classroom->attachedQuizzes)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 						{!! $errors->first('quiz_id', '<p class="help-block">:message</p>') !!}
 						</div>
 					</div>
@@ -90,7 +90,7 @@
 					<div class="col-md-12">
 						{!! Form::hidden('classrooms[]', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('assignment_id') ? 'has-error' : '' }}"> 
-						{!! Form::select('assignment_id', App\Models\Assignment::whereNotIn('id', $classroom->attachedAssignments)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
+						{!! Form::select('assignment_id', $lms['profile']->teacherassignments()->whereNotIn('id', $classroom->attachedAssignments)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 						{!! $errors->first('assignment_id', '<p class="help-block">:message</p>') !!}
 						</div>
 						<div class="form-group {{ $errors->has('deadline') ? 'has-error' : '' }}"> 
@@ -120,7 +120,7 @@
 					<div class="col-md-12">
 						{!! Form::hidden('classrooms[]', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('course_id') ? 'has-error' : '' }}"> 
-						{!! Form::select('course_id', App\Models\Course::whereNotIn('id', $classroom->attachedCourses)->get()->pluck('name', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
+						{!! Form::select('course_id', $lms['profile']->teachercourses()->whereNotIn('id', $classroom->attachedCourses)->get()->pluck('name', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
 						{!! $errors->first('course_id', '<p class="help-block">:message</p>') !!}
 						</div>
 					</div>

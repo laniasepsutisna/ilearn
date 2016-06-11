@@ -54,17 +54,22 @@ class User extends Authenticatable
 
 	public function teacherassignments()
 	{
-		return $this->hasMany('App\Models\Assignment');
+		return $this->hasMany('App\Models\Assignment', 'teacher_id');
 	}
 
 	public function teachercourses()
 	{
-		return $this->hasMany('App\Models\Course');
+		return $this->hasMany('App\Models\Course', 'teacher_id');
 	}
 
 	public function submissions()
 	{
 		return $this->belongsToMany('App\Models\Assignment', 'submissions');
+	}
+
+	public function teacherquizzes()
+	{
+		return $this->hasMany('App\Models\Quiz', 'teacher_id');
 	}
 
 	public function getRoleNameAttribute(){
