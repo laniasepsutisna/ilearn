@@ -5,7 +5,6 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Assignment;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -142,8 +141,8 @@ class AssignmentController extends Controller
 			'required' => 'Kolom :attribute diperlukan'
 		]);
 
-		$assignment = Assignment::findOrFail($request->assignment_id);
-		$assignment->classrooms()
+		Assignment::findOrFail($request->assignment_id)
+			->classrooms()
 			->detach($request->classroom_id);
 
 		\Flash::success('Tugas berhasil batalkan.');
@@ -153,7 +152,7 @@ class AssignmentController extends Controller
 
 	public function upload(UploadedFile $file)
 	{
-		$original = pathinfo( $file->getClientOriginalName(), PATHINFO_FILENAME );
+		$original = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 		$sanitize = preg_replace('/[^a-zA-Z0-9]+/', '-', $original);
 		$fileName = $sanitize . '.' . $file->getClientOriginalExtension();
 		$destination = public_path() . DIRECTORY_SEPARATOR . 'uploads/assignments';
@@ -164,14 +163,17 @@ class AssignmentController extends Controller
 	}
 
 	public function assignments()
-	{		
+	{
 		$classrooms = Auth::user()->hasRole('teacher') ? Auth::user()->teacherclassrooms : Auth::user()->classrooms;
 		$page_title = 'Semua Tugas';
-		$assignments = '';
+		$ids = $classrooms->map(function($class){
+			return $class->id;
+		})->toArray();
 
-		foreach ($classrooms as $classroom) {
-			$assignments = $classroom->assignments;
-		}
+		$assignments = Assignment::whereHas('classrooms', function($q) use ($ids) {
+			$q->where('deadline', '>=', date('Y-m-d'));
+			$q->whereIn('id', $ids);
+		})->paginate(10);
 
   	return view('user.global.assignments', compact('assignments', 'page_title'));
 	}

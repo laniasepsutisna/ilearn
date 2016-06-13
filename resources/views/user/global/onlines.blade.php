@@ -9,25 +9,15 @@
 			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h2 class="panel-title text-bold">Pengumuman</h2>
+					<h2 class="panel-title text-bold">Sedang Online</h2>
 				</div>
 				<ul class="list-group">
-					@foreach($announcements as $announcement)
-					<li class="list-group-item">
-						<article class="post announcement">
-							<p>
-								<strong><i class="fa fa-volume-up"></i> {{ $announcement->title }}</strong>
-								<span class="status pull-right alert-{{ $announcement->status }}">{{ $announcement->urgensi }}</span>
-							</p>
-							<div>{!! $announcement->content !!}</div>
-							<div>{{ $announcement->humantime }}</div>
-						</article>
-					</li>
+					@foreach($users as $user)
+						<li class="list-group-item">
+							<a class="btn-sm" href="{{ route('home.friend', $user->username) }}"><i class="fa fa-circle" style="color: green;"></i> {{ $user->fullname }}</a>
+						</li>
 					@endforeach
 				</ul>
-				<footer class="panel-footer text-right">
-					{{ $announcements->links() }}
-				</footer>
 			</div>
 		</div>		
 		<div class="col-sm-4 col-md-3 hidden-sm">

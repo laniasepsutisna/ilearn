@@ -59,6 +59,11 @@ trait UserMetaAccessor
         return $this->usermeta->telp_orangtua;
     }
 
+    public function getBioAttribute()
+    {
+        return $this->usermeta->bio;
+    }
+
     public function getPictureSmAttribute()
     {
         if ($this->usermeta->picture !== '') {

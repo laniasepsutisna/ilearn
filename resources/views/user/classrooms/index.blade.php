@@ -73,7 +73,7 @@
 							{!! Form::hidden('parent_id', $discuss->id) !!}
 							{!! Form::hidden('user_id', $lms['profile']->id) !!}
 							<div class="form-group {{ $errors->has('response') ? 'has-error' : '' }}">
-								{!! Form::text('content', null, ['class' => 'form-control', 'placeholder' => 'Balas...']) !!}
+								{!! Form::text('content', null, ['class' => 'form-control', 'placeholder' => 'Balas...', 'autocomplete' => 'off']) !!}
 								{!! $errors->first('content', '<p class="help-block">:message</p>') !!}
 							</div>
 							<div class="text-right">

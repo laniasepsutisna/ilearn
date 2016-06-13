@@ -9,7 +9,7 @@
 			<div class="col-md-10">
 				<div class="panel panel-default">
 					<header class="panel-heading">					
-						<a href="{{ route('courses.create') }}" class="btn btn-success">Materi Baru</a>
+						<a href="{{ route('courses.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Materi Baru</a>
 					</header>
 					<div class="panel-body">
 						@forelse($courses as $course)

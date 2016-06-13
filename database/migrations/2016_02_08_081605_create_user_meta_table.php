@@ -28,7 +28,7 @@ class CreateUserMetaTable extends Migration
 			$table->string('telp_orangtua', 13);
 			$table->string('picture', 150);
 			$table->string('cover', 150);
-			$table->timestamps();
+			$table->text('bio', 140);
 
 			$table->primary(['id']);
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

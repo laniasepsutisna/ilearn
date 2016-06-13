@@ -6,11 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Assignment;
 use App\Models\Classroom;
-use App\Models\Course;
-use App\Models\Discussion;
 use App\Models\Module;
-use App\Models\Quiz;
-use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,7 +93,7 @@ class ClassroomController extends Controller
 	public function discussionDetail($classroom_id, $discuss_id)
 	{   
 		$classroom = Classroom::findOrFail($classroom_id);
-		$discussion = Discussion::findOrFail($discuss_id);
+		$discussion = $classroom->discussions()->where('id', $discuss_id)->first();
 		$page_title = 'Diskusi - Detail';
 
 		if (Gate::allows('member-of', $classroom)){
@@ -109,8 +105,8 @@ class ClassroomController extends Controller
 
 	public function assignmentDetail($classroom_id, $assignment_id)
 	{
-		$classroom = Classroom::findOrFail($classroom_id);
-		$assignment = Assignment::findOrFail($assignment_id);
+		$classroom  = Classroom::findOrFail($classroom_id);
+		$assignment = $classroom->assignments()->where('assignment_id', $assignment_id)->first();
 		$submit     = $assignment->submissions->contains(Auth::user()->id);
 		$submitted  = $assignment->submissions()->where('user_id', Auth::user()->id)->get();
 		$page_title = $assignment->title;
@@ -132,7 +128,7 @@ class ClassroomController extends Controller
 		$viewedByMe = [];
 
 		$classroom = Classroom::findOrFail($classroom_id);
-		$course = Course::findOrFail($course_id);
+		$course = $classroom->courses()->where('course_id', $course_id)->first();
 		$page_title = $course->name;
 
 		/* Make json array manually :( */
@@ -173,7 +169,7 @@ class ClassroomController extends Controller
 	public function quizDetail($classroom_id, $quiz_id)
 	{
 		$classroom = Classroom::findOrFail($classroom_id);
-		$quiz = Quiz::findOrFail($quiz_id);        
+		$quiz = $classroom->quizzes()->where('quiz_id', $quiz_id)->first();        
 		$page_title = $quiz->title;
 
 		if (Gate::allows('member-of', $classroom)){

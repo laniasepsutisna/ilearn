@@ -28,6 +28,6 @@
 	{!! $errors->first('picture', '<p class="help-block">:message</p>') !!}
 </div>
 
-<div class="text-right"> 
-	{!! Form::submit(isset($model) ? 'Update' : 'Simpan', ['class'=>'btn btn-flat btn-success']) !!}
+<div class="form-group"> 
+	{!! Form::button('<i class="fa fa-send"></i> Simpan', ['class'=>'btn btn-flat btn-success', 'type' => 'submit']) !!}
 </div>

@@ -38,4 +38,20 @@ class HomeController extends Controller
 
 		return view('user.global.calendar', compact('page_title'));
 	}
+
+	public function online()
+	{
+		$users = User::onlineusers()->get();
+		$page_title = 'Online';
+
+		return view('user.global.onlines', compact('page_title', 'users'));
+	}
+
+	public function friend($username)
+	{
+		$user = User::where('username', $username)->first();
+		$page_title = $user->fullname;
+
+		return view('user.global.friend', compact('page_title', 'user'));
+	}
 }

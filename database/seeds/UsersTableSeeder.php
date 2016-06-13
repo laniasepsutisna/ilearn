@@ -106,26 +106,6 @@ class UsersTableSeeder extends Seeder
             $this->command->info('Pengumuman ke-' . $i);
         }
 
-        /*$role = ['staff', 'teacher', 'student'];
-
-        for ($i=0; $i < 50 ; $i++) {
-            $user = User::create([
-                'username'  => strtolower($faker->unique()->userName),
-                'firstname' => $faker->firstName,
-                'lastname' => $faker->lastName,
-                'email' => strtolower($faker->unique()->freeEmail),
-                'role' => $role[rand(0,2)],
-                'status' => 'banned',
-                'password' => bcrypt('secret')
-            ]);
-
-            $user->usermeta()->create([
-                'picture' => 'icon-user-default.png',
-                'cover' => 'cover-default.jpg'
-            ]);
-            $this->command->info('User ke-' . $i);
-        }*/
-
         $this->command->info('Finished!');
     }
 }

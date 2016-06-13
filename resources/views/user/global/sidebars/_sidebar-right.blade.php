@@ -14,7 +14,7 @@
 		</header>
 		<ul class="friends list-group">
 			@forelse($lms['online'] as $online)
-				<li class="list-group-item text-small"><a href=""><i class="fa fa-circle"></i> {{ $online->fullname }}</a></li>
+				<li class="list-group-item text-small"><a href="{{ route('home.friend', $online->username) }}"><i class="fa fa-circle" style="color: green;"></i> {{ $online->fullname }}</a></li>
 			@empty
 				<li class="list-group-item text-small">Tidak ada user online.</li>
 			@endforelse
@@ -24,13 +24,31 @@
 		</footer>
 	</div>
 
-	<div class="panel panel-default tasks">
+	<div class="panel panel-default sidebar-assignments">
 		<header class="panel-heading">
 			<h2 class="panel-title">Tugas</h2>
 		</header>
 		<ul class="list-group">
 			@forelse($lms['assignments'] as $assignment)
-				<li class="list-group-item text-small"><a href="{{ route('classrooms.assignmentdetail', [$assignment->pivot->classroom_id, $assignment->pivot->assignment_id]) }}">{{ $assignment->title }}</a></li>
+				@can('manage')
+					<li class="list-group-item text-small">
+						{{ $assignment->title }}
+						<div>
+							@foreach($assignment->classrooms as $classroom)
+								<a class="btn btn-link btn-sm" href="{{ route('classrooms.assignmentdetail', [$classroom->id, $assignment->id]) }}">
+									<i class="fa fa-eye"></i>
+									{{ $classroom->classname }}
+								</a>
+							@endforeach
+						</div>
+					</li>
+				@else
+					<li class="list-group-item text-small">
+						<a class="btn-link" href="{{ route('classrooms.assignmentdetail', [$assignment->classrooms->whereIn('id', $lms['joined_class'])->first()->id, $assignment->id]) }}">
+							<i class="fa fa-file"></i> {{ $assignment->title }}
+						</a>
+					</li>
+				@endcan
 			@empty
 				<li class="list-group-item text-small">Yay, tidak ada tugas.</li>
 			@endforelse

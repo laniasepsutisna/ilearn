@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 function set_active($routes, $output = 'active')
 {
 	if( is_array($routes) ) {
@@ -37,4 +39,9 @@ function is_detailpage()
 	}
 	
 	return false;
+}
+
+function formatDate($date)
+{
+	return Carbon::parse($date)->format('d M Y');
 }

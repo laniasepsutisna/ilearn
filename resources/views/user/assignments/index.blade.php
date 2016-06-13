@@ -9,7 +9,7 @@
 			<div class="col-md-10">
 				<div class="panel panel-default">
 					<header class="panel-heading">
-						<a href="{{ route('assignments.create') }}" class="btn btn-success">Tugas Baru</a>
+						<a href="{{ route('assignments.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Tugas Baru</a>
 					</header>
 					<div class="panel-body">
 						@forelse($assignments as $assignment)

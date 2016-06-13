@@ -37,7 +37,7 @@
 								@forelse($attached as $classroom_id => $attach)
 									<tr>
 										<td>{{ $attach['classname'] }}</td>
-										<td>{{ $attach['deadline'] }}</td>
+										<td>{{ formatDate($attach['deadline']) }}</td>
 										<td>
 											{!! Form::open(['route' => 'assignments.detach']) !!}
 												{!! Form::hidden('classroom_id', $classroom_id) !!}

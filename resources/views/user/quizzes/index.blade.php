@@ -9,7 +9,7 @@
 			<div class="col-md-10">		
 				<div class="profile-form panel panel-default">
 					<header class="panel-heading">
-						<a href="{{ route('quizzes.create') }}" class="btn btn-success">Quiz Baru</a>
+						<a href="{{ route('quizzes.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Quiz Baru</a>
 					</header>
 					<div class="panel-body">
 						@forelse($quizzes as $quiz)

@@ -157,6 +157,10 @@ body {
 	border-left: 3px solid #337ab7;
 }
 
+.sidebar-assignments .fa {
+	width: 20px;
+}
+
 /* Content & Widget */
 
 .libraries {
@@ -171,8 +175,13 @@ body {
 
 div.profile {
 	margin-top: 50px;
-	padding-top: 4rem;
+	padding-top: 7rem;
 	margin-bottom: 1rem;
+	background-size: cover;
+}
+
+div.profile.friend {
+	padding-bottom: 6rem;
 }
 
 div.profile .change-cover {

@@ -21,6 +21,6 @@
 		@endif
 </div>
 
-<div class="form-submit"> 
-	{!! Form::submit(isset($model) ? 'Update' : 'Simpan', ['class'=>'btn btn-flat btn-success']) !!}
+<div class="form-group"> 
+	{!! Form::button('<i class="fa fa-send"></i> Simpan', ['class'=>'btn btn-flat btn-success', 'type' => 'submit']) !!}
 </div>

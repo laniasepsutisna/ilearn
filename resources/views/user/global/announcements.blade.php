@@ -25,7 +25,7 @@
 					</li>
 					@endforeach
 				</ul>
-				<footer class="panel-footer text-right">
+				<footer class="text-right">
 					{{ $announcements->links() }}
 				</footer>
 			</div>

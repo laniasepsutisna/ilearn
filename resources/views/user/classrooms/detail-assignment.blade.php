@@ -4,17 +4,10 @@
 	<div class="panel panel-default">
 		<header class="panel-heading clearfix">
 			<h2 class="panel-title pull-left text-bold">{{ $assignment->title }}</h2>
-			<div class="pull-right">
-				{!! Form::open(['route' => ['assignments.detach', $classroom->id], 'class' => 'inline-form', 'method' => 'delete']) !!}
-					{!! Form::hidden('assignment_id', $assignment->id) !!}
-					{!! Form::submit('Batal', ['class' => 'btn btn-link btn-sm']) !!}
-				{!! Form::close() !!}
-			</div>
 		</header>
 		<ul class="list-group">
 			<li class="list-group-item">{!! $assignment->content !!}</li>
-
-			<li class="list-group-item"><span class="text-small"><strong>Deadline:</strong> {{ $assignment->deadline->toFormattedDateString() }}</span></li>
+			<li class="list-group-item"><span class="text-small"><strong>Deadline:</strong> {{ formatDate($assignment->pivot->deadline) }}</span></li>
 			@if($assignment->file)
 				<li class="list-group-item"><span class="attached"><i class="fa fa-paperclip"></i></span><a href="{{ route('classrooms.download', $assignment->file) }}">{{ $assignment->file }}</a></li>
 			@endif
@@ -49,7 +42,7 @@
 			</div>
 		</div>
 	@else
-		@if(! $assignment->isDeadline)
+		@if(date($assignment->pivot->deadline) >= date('Y-m-d'))
 			@if(! $submit)
 				<div class="panel panel-default">
 					<header class="panel-heading">
