@@ -140,7 +140,8 @@ class ClassroomController extends Controller
 
 		/* Student counter */
 		$student_count = collect($viewedByMe)->sum();
-		$percentage = $student_count / $course->modules->count() * 100;
+		$course_count = $course->modules->count() ? $course->modules->count() : 1;
+		$percentage = $student_count / $course_count * 100;
 		$done = $student_count == $course->modules->count() ? 'success' : 'danger';
 
 		if (Gate::allows('member-of', $classroom)){

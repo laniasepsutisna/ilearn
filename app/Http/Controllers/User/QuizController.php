@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Activity;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +30,6 @@ class QuizController extends Controller
 	{
 		$this->validate($request, [
 			'teacher_id' => 'required|exists:users,id',
-			'type' => 'required',
 			'time_limit' => 'required'
 		], [
 			'required' => 'Kolom :attribute: diperlukan'
@@ -56,7 +56,6 @@ class QuizController extends Controller
 	{
 		$this->validate($request, [
 			'teacher_id' => 'required|exists:users,id',
-			'type' => 'required',
 			'time_limit' => 'required'
 		], [
 			'required' => 'Kolom :attribute: diperlukan'
@@ -89,6 +88,16 @@ class QuizController extends Controller
 		]);
 
 		$quiz = Quiz::findOrFail($request->quiz_id);
+
+		foreach ($request->classrooms as $class) {
+			Activity::create([
+				'teacher_id' => Auth::user()->id,
+				'classroom_id' => $class,
+				'action' => 'Membagikan quiz ke ',
+				'route' => 'classrooms.quizdetail',
+				'detail' => $quiz->id
+			]);
+		}
 
 		$quiz->classrooms()->sync($request->classrooms, false);
 

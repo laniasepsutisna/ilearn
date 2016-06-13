@@ -4,9 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Activity;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class CourseController extends Controller
@@ -108,6 +110,16 @@ class CourseController extends Controller
 		]);
 
 		$course = Course::findOrFail($request->course_id);
+
+		foreach ($request->classrooms as $class) {
+			Activity::create([
+				'teacher_id' => Auth::user()->id,
+				'classroom_id' => $class,
+				'action' => 'Membagikan materi ke ',
+				'route' => 'classrooms.coursedetail',
+				'detail' => $course->id
+			]);
+		}
 
 		$course->classrooms()->sync($request->classrooms, false);
 

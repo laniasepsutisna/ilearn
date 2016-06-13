@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Assignment;
+use App\Models\Activity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -122,6 +123,14 @@ class AssignmentController extends Controller
 
 		foreach ($request->classrooms as $class) {
 			$data[$class] = ['deadline' => $request->deadline];
+
+			Activity::create([
+				'teacher_id' => Auth::user()->id,
+				'classroom_id' => $class->id,
+				'action' => 'Menambagikan tugas ke ',
+				'route' => 'classrooms.assignmentdetail',
+				'detail' => $assignment->id
+			]);
 		}
 
 		$assignment->classrooms()

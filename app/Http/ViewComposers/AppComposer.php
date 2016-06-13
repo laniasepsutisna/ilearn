@@ -2,6 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
+use App\Models\Activity;
 use App\Models\Announcement;
 use App\Models\Assignment;
 use App\Models\User;
@@ -22,6 +23,7 @@ class AppComposer
 		$data['assignments']   = $this->classAssignment($data['joined_class']);
 		$data['announcements'] = Announcement::orderBy('created_at')->limit(5)->get();
 		$data['online']        = User::onlineusers()->orderBy('created_at')->limit(5)->get();
+		$data['activities']      = Activity::whereIn('classroom_id', $data['joined_class'])->get();
 
 		$view->with('lms', $data);
 	}

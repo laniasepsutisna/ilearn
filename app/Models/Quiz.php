@@ -12,17 +12,12 @@ class Quiz extends Model
 	public $incrementing = false;
 	
 	protected $fillable = [
-		'teacher_id', 'title', 'type', 'time_limit'
+		'teacher_id', 'title', 'time_limit'
 	];
 
 	protected $hidden = [
 		'created_at', 'updated_at'
 	];
-
-	public function getHumanizeTypeAttribute()
-	{
-		return $this->type === 'multiple_choice' ? 'Pilihan Ganda' : 'Essay';
-	}
 
 	public function classrooms()
 	{
@@ -36,10 +31,9 @@ class Quiz extends Model
 
 	public function getAttachedToAttribute()
 	{
-		$ids = [];
-		foreach ($this->classrooms as $classroom) {
-			$ids[] = $classroom->id;
-		}
+		$ids = $this->classrooms->map(function($class){
+			return $class->id;
+		})->toArray();
 
 		return $ids;
 	}

@@ -1,31 +1,24 @@
 @extends('user.content')
 
 @section('subcontent')
-@foreach($lms['announcements'] as $announcement)
-	@if($announcement->status === 'danger')
-		<div class="alert alert-warning alert-dismissible" role="alert">
-			<strong>{{ $announcement->title }}</strong>
-			<div>{{ $announcement->content }}</div>
+	<h3 class="timeline">Timeline</h3>
+	@forelse($lms['activities'] as $activity)
+		<div class="panel panel-default">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<a href="{{ $activity->teacher_id == $lms['profile']->id ? route( 'home.profile') : route('home.friend', $activity->teacher->username) }}"><strong>{{ $activity->teacher_id == $lms['profile']->id ? 'Saya' : $activity->teacher->fullname }}</strong></a>
+					<p>{{ $activity->action }} 
+						@can('manage')
+							{{ $activity->classroom->classname }}
+						@else
+							<a href="{{ route($activity->route, [$activity->classroom->id, $activity->detail]) }}">{{ $activity->classroom->classname }}</a>.
+						@endcan
+					</p>
+					<small>{{ formatDate($activity->created_at) }}</small>
+				</li>
+			</ul>
 		</div>
-	@endif
-@endforeach
-
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<h2 class="panel-title text-bold">Timeline</h2>
-	</div>
-	
-	<ul class="list-group">
-		<li class="list-group-item">
-			<article class="post">
-				<p><strong><i class="fa fa-volume-up"></i> Lorem ipsum</strong></p>
-				<div>Lorem ipsum dolor sit amet</div>
-			</article>
-		</li>
-	</ul>
-	
-	<footer class="panel-footer text-right">
-		<a href="" class="btn btn-link btn-sm">Lihat Semua</a>
-	</footer>
-</div>
+	@empty
+		<h3 class="text-center no-content">Tidak ada aktifitas.</h3>
+	@endforelse
 @endsection
