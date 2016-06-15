@@ -126,7 +126,7 @@ class AssignmentController extends Controller
 
 			Activity::create([
 				'teacher_id' => Auth::user()->id,
-				'classroom_id' => $class->id,
+				'classroom_id' => $class,
 				'action' => 'Menambagikan tugas ke ',
 				'route' => 'classrooms.assignmentdetail',
 				'detail' => $assignment->id

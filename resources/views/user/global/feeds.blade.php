@@ -1,12 +1,20 @@
 @extends('user.content')
 
 @section('subcontent')
-	<h3 class="timeline">Timeline</h3>
+	<div class="panel panel-default new">
+		<header class="classroom-header panel-heading">
+			<h1 class="panel-title">Ingin mulai diskusi?</h1>
+		</header>
+		@include('user.global._tabs')
+	</div>
+
 	@forelse($lms['activities'] as $activity)
 		<div class="panel panel-default">
 			<ul class="list-group">
 				<li class="list-group-item">
-					<a href="{{ $activity->teacher_id == $lms['profile']->id ? route( 'home.profile') : route('home.friend', $activity->teacher->username) }}"><strong>{{ $activity->teacher_id == $lms['profile']->id ? 'Saya' : $activity->teacher->fullname }}</strong></a>
+					<p>
+						<a href="{{ $activity->teacher_id == $lms['profile']->id ? route( 'home.profile') : route('home.friend', $activity->teacher->username) }}"><strong>{{ $activity->teacher_id == $lms['profile']->id ? 'Saya' : $activity->teacher->fullname }}</strong></a>
+					</p>
 					<p>{{ $activity->action }} 
 						@can('manage')
 							{{ $activity->classroom->classname }}

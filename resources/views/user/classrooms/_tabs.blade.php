@@ -28,7 +28,7 @@
 			</div>
 
 			<div class="text-right"> 
-				{!! Form::submit('Bagikan', ['class'=>'btn btn-flat btn-success']) !!}
+				{!! Form::button('<i class="fa fa-send"></i> Bagikan', ['class'=>'btn btn-flat btn-primary', 'type' => 'submit']) !!}
 			</div>
 
 		{!! Form::close() !!}
