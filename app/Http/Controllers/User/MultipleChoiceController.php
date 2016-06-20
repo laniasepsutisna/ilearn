@@ -29,10 +29,14 @@ class MultipleChoiceController extends Controller
 			'questions.*.answers.correct_answer' => 'required'
 		]);
 
+		$quiz = Quiz::findOrFail($quizId);
+
 		foreach ($request->questions as $questions) {
-			$quiz = Quiz::findOrFail($quizId);
-			$question = $quiz->multiplechoices()->create($questions);
-			$question->answer()->create($questions['answers']);
+			$question = $quiz->multiplechoices()
+				->create($questions);
+
+			$question->answer()
+				->create($questions['answers']);
 
 			// TODO: Save uploaded image
 		}
@@ -46,12 +50,9 @@ class MultipleChoiceController extends Controller
 	{
 		$quiz = Quiz::findOrFail($quizId);
 		$page_title = $quiz->title;
-
-		if($quiz->type === 'multiple_choice') {
-			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
-		} else {
-			$question = []; // TODO: Essay type
-		}
+		$question = $quiz->multiplechoices()
+			->where('id', $questionId)
+			->first();
 
 		return view('user.quizzes.edit-mc', compact('quiz', 'page_title', 'question'));
 	}
@@ -69,24 +70,22 @@ class MultipleChoiceController extends Controller
 		]);
 
 		$quiz = Quiz::findOrFail($quizId);
-		if($quiz->type === 'multiple_choice') {
-			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
-			$question->update([
+		$question = $quiz->multiplechoices()
+			->where('id', $questionId)
+			->first()
+			->update([
 				'question' => $request->question,
 				'image' => $request->image
 			]);
 
-			$question->answer()
-				->update([
-					'answer_1' => $request->answer_1,
-					'answer_2' => $request->answer_2,
-					'answer_3' => $request->answer_3,
-					'answer_4' => $request->answer_4,
-					'correct_answer' => $request->correct_answer
-				]);
-		} else {
-			// TODO: Essay
-		}
+		$question->answer()
+			->update([
+				'answer_1' => $request->answer_1,
+				'answer_2' => $request->answer_2,
+				'answer_3' => $request->answer_3,
+				'answer_4' => $request->answer_4,
+				'correct_answer' => $request->correct_answer
+			]);
 
 		\Flash::success('Pertanyaan berhasil diubah.');
 
@@ -97,18 +96,17 @@ class MultipleChoiceController extends Controller
 	{
 		$quiz = Quiz::findOrFail($quizId);
 
-		if($quiz->type === 'multiple_choice') {
-			$question = $quiz->multiplechoices()->where('id', $questionId)->first();
-			$file = public_path( 'uploads/quizzes/' . $question->image );
+		$question = $quiz->multiplechoices()
+			->where('id', $questionId)
+			->first();
 			
-			if($question->image && file_exists($file)) {
-				unlink($file);
-			}
-
-			$question->delete();
-		} else {
-			// TODO: Essay
+		$file = public_path( 'uploads/quizzes/' . $question->image );
+		
+		if($question->image && file_exists($file)) {
+			unlink($file);
 		}
+
+		$question->delete();
 
 		\Flash::success('Pertanyaan berhasil dihapus.');
 

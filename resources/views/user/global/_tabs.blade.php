@@ -16,7 +16,7 @@
 			</div>
 			
 			<div class="form-group {{ $errors->has('classroom_id') ? 'has-error' : '' }}"> 
-				{!! Form::select('classroom_id', $lms['profile']->teacherclassrooms->pluck('classname', 'id'), null, ['class' => 'select2 form-control'])  !!}
+				{!! Form::select('classroom_id', $lms['classrooms']->pluck('classname', 'id'), 'Pilih Kelas...', ['class' => 'select2 form-control'])  !!}
 				{!! $errors->first('classroom_id', '<p class="help-block">:message</p>') !!}
 			</div>
 

@@ -23,7 +23,7 @@ class AppComposer
 		$data['assignments']   = $this->classAssignment($data['joined_class']);
 		$data['announcements'] = Announcement::orderBy('created_at')->limit(5)->get();
 		$data['online']        = User::onlineusers()->orderBy('created_at')->limit(5)->get();
-		$data['activities']      = Activity::whereIn('classroom_id', $data['joined_class'])->get();
+		$data['activities']    = Activity::whereIn('classroom_id', $data['joined_class'])->paginate(10);
 
 		$view->with('lms', $data);
 	}

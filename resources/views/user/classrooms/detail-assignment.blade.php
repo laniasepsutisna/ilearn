@@ -32,7 +32,7 @@
 							<p><strong>Judul: </strong>{{ $user->pivot->title }}</p>
 							<p><strong>Konten: </strong>{{ $user->pivot->content }}</p>
 							@if($user->pivot->file)
-								<p><i class="fa fa-paperclip"></i> <a href="{{ route('classrooms.download', $user->pivot->file) }}">{{ $user->pivot->file }}</a></p>
+								<p><i class="fa fa-cloud-download"></i> <a href="{{ route('classrooms.download', $user->pivot->file) }}">{{ $user->pivot->file }}</a></p>
 							@endif
 						</div>
 					</div>

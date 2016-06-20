@@ -66,6 +66,8 @@
 	<script type="text/javascript" src="{{ asset('/client/js/bootstrap3-wysihtml5.all.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/client/js/bootstrap-datepicker.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/client/js/sweetalert.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/client/js/lms-paginate.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('/client/js/lms-quiz.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('/client/js/app.js') }}"></script>
 	@yield('scripts')
 </body>

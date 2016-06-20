@@ -24,11 +24,10 @@ class CreateQuizzesTable extends Migration
       $table->primary(['id']);
     });
 
-    /* Multiple Choice */
     Schema::create('mc_questions', function(Blueprint $table){
       $table->uuid('id')->unique();
       $table->string('quiz_id');
-      $table->string('question');
+      $table->string('question', 300);
       $table->string('image', 150);
       $table->timestamps();
       
@@ -40,10 +39,10 @@ class CreateQuizzesTable extends Migration
     Schema::create('mc_answers', function(Blueprint $table){
       $table->uuid('id')->unique();
       $table->string('question_id');
-      $table->string('answer_1');
-      $table->string('answer_2');
-      $table->string('answer_3');
-      $table->string('answer_4');
+      $table->string('answer_1', 60);
+      $table->string('answer_2', 60);
+      $table->string('answer_3', 60);
+      $table->string('answer_4', 60);
       $table->string('correct_answer');
       
       $table->foreign('question_id')->references('id')->on('mc_questions')->onDelete('cascade');
@@ -60,6 +59,16 @@ class CreateQuizzesTable extends Migration
 
       $table->primary(['classroom_id', 'quiz_id']);
     });
+
+    Schema::create('quiz_user', function(Blueprint $table){
+      $table->uuid('quiz_id');
+      $table->uuid('student_id');
+      $table->integer('time');
+      $table->json('answer');
+
+      $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
+      $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+    });
   }
 
   /**
@@ -69,6 +78,7 @@ class CreateQuizzesTable extends Migration
    */
   public function down()
   {
+    Schema::drop('quiz_user');
     Schema::drop('mc_answers');
     Schema::drop('mc_questions');
     Schema::drop('classroom_quiz');

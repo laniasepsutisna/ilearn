@@ -391,6 +391,11 @@ input.datepicker {
 	font-size: .825rem;
 }
 
+.friend-profile .list-group-item strong {
+	width: 120px;
+	display: inline-block;
+}
+
 .friends .list-group-item a .fa {
 	font-size: .675rem;
 	margin-right: .5rem;
@@ -675,10 +680,59 @@ ul.wysihtml5-toolbar > li {
 	outline: none;
 }
 
+.mc-pagination {
+	position: fixed;
+	top: 50px; left: 0; bottom: 0;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.mc-pagination ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.mc-pagination ul li a {
+	padding: 8px 15px;
+	display: block;
+	border: 1px solid #DDD;
+	border-top: none;
+	border-left: none;
+	background-color: #FFF;
+}
+
+.mc-pagination ul li.active a {
+	background: #205081;
+	font-weight: 700;
+	color: #FFF;
+	pointer-events: cursor;
+}
+
 .question-detail {
 	margin-bottom: 30px;
 	float: left;
 	width: 100%;
-	padding: 5px;
+	padding: 2rem;
 	border: 1px solid #FFF;
+}
+
+.mc-wrapper {
+	float: right;
+	width: 95%;
+}
+
+.mc-order {
+	float: left;
+	width: 5%;
+	font-size: 1.5rem;
+}
+
+.mc-question {
+	font-size: 1.5rem;
+	margin: 5px 0 15px;
+}
+
+.mc-answers {
+	font-size: 1.125rem;
 }

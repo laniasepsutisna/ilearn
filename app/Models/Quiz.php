@@ -24,6 +24,11 @@ class Quiz extends Model
 		return $this->belongsToMany('App\Models\Classroom');
 	}
 
+	public function students()
+	{
+		return $this->belongsToMany('App\Models\User', 'quiz_user', 'quiz_id', 'student_id')->withPivot('time', 'answer');
+	}
+
 	public function multiplechoices()
 	{
 		return $this->hasMany('App\Models\MultipleChoice')->orderBy('created_at', 'DESC');

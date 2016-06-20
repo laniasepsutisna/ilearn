@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\Module;
+use App\Models\Quiz;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -93,7 +94,9 @@ class ClassroomController extends Controller
 	public function discussionDetail($classroom_id, $discuss_id)
 	{   
 		$classroom = Classroom::findOrFail($classroom_id);
-		$discussion = $classroom->discussions()->where('id', $discuss_id)->first();
+		$discussion = $classroom->discussions()
+			->where('id', $discuss_id)
+			->first();
 		$page_title = 'Diskusi - Detail';
 
 		if (Gate::allows('member-of', $classroom)){
@@ -106,9 +109,14 @@ class ClassroomController extends Controller
 	public function assignmentDetail($classroom_id, $assignment_id)
 	{
 		$classroom  = Classroom::findOrFail($classroom_id);
-		$assignment = $classroom->assignments()->where('assignment_id', $assignment_id)->first();
-		$submit     = $assignment->submissions->contains(Auth::user()->id);
-		$submitted  = $assignment->submissions()->where('user_id', Auth::user()->id)->get();
+		$assignment = $classroom->assignments()
+			->where('assignment_id', $assignment_id)
+			->first();
+		$submit     = $assignment->submissions
+			->contains(Auth::user()->id);
+		$submitted  = $assignment->submissions()
+			->where('user_id', Auth::user()->id)
+				->get();
 		$page_title = $assignment->title;
 
 		if (Gate::allows('member-of', $classroom)){
@@ -128,14 +136,18 @@ class ClassroomController extends Controller
 		$viewedByMe = [];
 
 		$classroom = Classroom::findOrFail($classroom_id);
-		$course = $classroom->courses()->where('course_id', $course_id)->first();
+		$course = $classroom->courses()
+			->where('course_id', $course_id)
+			->first();
 		$page_title = $course->name;
 
 		/* Make json array manually :( */
 		foreach ($course->modules as $module) {
 			$modules[] = "'" . $module->name . "'";
 			$viewcount[] = "'" . $module->users->count() . "'";
-			$viewedByMe[] = $module->users()->where('user_id', Auth::user()->id)->count();
+			$viewedByMe[] = $module->users()
+				->where('user_id', Auth::user()->id)
+				->count();
 		}
 
 		/* Student counter */
@@ -170,11 +182,18 @@ class ClassroomController extends Controller
 	public function quizDetail($classroom_id, $quiz_id)
 	{
 		$classroom = Classroom::findOrFail($classroom_id);
-		$quiz = $classroom->quizzes()->where('quiz_id', $quiz_id)->first();        
+		$quiz = $classroom->quizzes()
+			->where('quiz_id', $quiz_id)
+			->first();
+		$user = $quiz->students()
+			->where('username', Auth::user()->username)
+			->first();
+
+		$answer = json_decode($user->pivot->answer, true);
 		$page_title = $quiz->title;
 
 		if (Gate::allows('member-of', $classroom)){
-			return view('user.classrooms.detail-quiz', compact('classroom', 'quiz', 'page_title'));
+			return view('user.classrooms.detail-quiz', compact('classroom', 'quiz', 'user', 'answer', 'page_title'));
 		}
 
 		return abort(401);
@@ -200,7 +219,9 @@ class ClassroomController extends Controller
 			$data['file'] = $this->upload($request->file('file'));
 		}
 
-		Assignment::findOrFail($id)->submissions()->attach(Auth::user()->id, $data);
+		Assignment::findOrFail($id)
+			->submissions()
+			->attach(Auth::user()->id, $data);
 
 		\Flash::success('Tugas selesai!');
 
@@ -211,7 +232,9 @@ class ClassroomController extends Controller
 	{
 		$file = '';
 		$assignment = Assignment::findOrFail($id);
-		$users = $assignment->submissions()->where('user_id', $request->user_id)->get();
+		$users = $assignment->submissions()
+			->where('user_id', $request->user_id)
+			->get();
 
 		foreach ($users as $user) {
 			$file = public_path('/uploads/assignments/' . $user->pivot->file);
@@ -249,5 +272,43 @@ class ClassroomController extends Controller
 		$uploaded = $file->move($destination, $fileName);
 
 		return $fileName;
+	}
+
+	public function startQuiz(Request $request)
+	{
+		$this->validate($request, [
+			'classroom_id' => 'required|exists:classrooms,id',
+			'quiz_id' => 'required|exists:quizzes,id'
+		], [
+			'required' => 'Kolom :attribute diperlukan!',
+			'exists' => 'Kolom :attribute tidak ditemukan!'
+		]);
+
+		$quiz = Quiz::findOrFail($request->quiz_id);
+		$quiz->students()
+			->sync([
+				Auth::user()->id => ['time' => $quiz->time_limit]
+			], false);
+
+		return redirect()->route('classrooms.quizdetail', [$request->classroom_id, $quiz->id]);
+	}
+
+	public function submitQuiz(Request $request)
+	{
+		$this->validate($request, [
+			'classroom_id' => 'required|exists:classrooms,id',
+			'quiz_id' => 'required|exists:quizzes,id'
+		], [
+			'required' => 'Kolom :attribute diperlukan!',
+			'exists' => 'Kolom :attribute tidak ditemukan!'
+		]);
+
+		$quiz = Quiz::findOrFail($request->quiz_id)
+			->students()
+			->sync([
+				Auth::user()->id => ['answer' => json_encode($request->answer)]
+			], false);
+
+		return redirect()->route('classrooms.quizzes', $request->classroom_id);
 	}
 }

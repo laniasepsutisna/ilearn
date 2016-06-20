@@ -28,7 +28,8 @@
         },
           events: '/api/assignments'
         });
-    }    
+    }
+
     $(document.body).on('click', '.warning-delete', function(e) {
       e.preventDefault();
       var $form = $(this).closest('form'),
@@ -50,8 +51,8 @@
     });
 
     // Prevent refresh multiple choice form
-    if($('.questions-wrapper, .question-detail').length) {
-      $(window).bind('beforeunload', function(){
+    if($('.questions-wrapper').length) {
+      $(window).on('beforeunload', function(){
           return 'Quiz akan hilang jika anda berpindah halaman. Submit quiz terlebih dahulu.';
       });
     }
@@ -105,13 +106,42 @@
 
     $('#mc-form-detail-submit').click(function(e){
       e.preventDefault();
-      console.log('Submit quiz');
       validateQuiz(function(isValid){
         if(isValid){
           $(window).unbind('beforeunload');
           $('#multiplechoice-form').submit();
         }
       });
+    });
+
+    $('#start-quiz').click(function(e){
+      e.preventDefault();
+      validateForm(function(isValid){
+        if(isValid) {         
+          swal({
+            title: 'Kerjakan Quiz?',
+            text: 'Waktu pengerjaan akan berjalan jika anda memulai quiz sekarang',
+            type: 'info',
+            showCancelButton: true,
+            cancelButtonText: 'Batal',
+            confirmButtonColor: '#205081',
+            confirmButtonText: 'Oke, Saya Mengerti!',
+            closeOnConfirm: true
+          },
+          function() {
+            $('#start-quiz-form').submit();
+          });
+        }
+      });
+    });
+
+    /* Do QUIZ */
+    $('#lms-paginator').lmsPaginate({
+      perPage: 1,
+      prevNext: false,
+      firstLast: false,
+      containerClass: 'mc-pagination',
+      insertAfter: '#luar'
     });
 
     $('.changeImage').click(function(e){
@@ -130,19 +160,7 @@
           form.val('picture');
           break;
       }
-    });
-
-    var assignmentData = [];
-
-    $.ajax({
-      method: 'get',
-      url: 'http://ilearn.app/api/assignments',
-    })
-    .done(function(data) {
-      assignmentData.push(data);
-      console.log(assignmentData); 
-    });
-   
+    });   
   });
 
   function cloneForm() {

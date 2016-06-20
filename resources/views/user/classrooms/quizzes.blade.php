@@ -7,12 +7,16 @@
 				<h2 class="panel-title text-bold">{{ $quiz->title }}</h2>
 			</header>
 			<ul class="list-group">
-				<li class="list-group-item"><strong>Tipe: </strong> {{ $quiz->humanizeType }}</li>
-				<li class="list-group-item"><strong>Waktu: </strong> {{ $quiz->time_limit }} menit.</li>
+				<li class="list-group-item"><strong>Total</strong> {{ $quiz->multiplechoices->count() }} soal.</li>
+				<li class="list-group-item"><strong>Batas waktu</strong> {{ $quiz->time_limit }} menit.</li>
 			</ul>
 			@cannot('manage')
 			<footer class="panel-footer text-right">
-				<a href="{{ route('classrooms.quizdetail', [$classroom->id, $quiz->id]) }}" class="btn btn-primary">Kerjakan</a>
+				{!! Form::open(['route' => 'quizzes.start', 'id' => 'start-quiz-form']) !!}
+					{!! Form::hidden('classroom_id', $classroom->id) !!}
+					{!! Form::hidden('quiz_id', $quiz->id) !!}
+					{!! Form::button('<i class="fa fa-check"></i> Kerjakan</a>', ['class' => 'btn btn-primary', 'id' => 'start-quiz']) !!}
+				{!! Form::close() !!}
 			</footer>
 			@endcannot
 		</div>
