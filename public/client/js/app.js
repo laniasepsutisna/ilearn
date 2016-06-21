@@ -114,24 +114,45 @@
       });
     });
 
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      dataType: 'json'
+    });
+
     $('#start-quiz').click(function(e){
-      e.preventDefault();
-      validateForm(function(isValid){
-        if(isValid) {         
-          swal({
-            title: 'Kerjakan Quiz?',
-            text: 'Waktu pengerjaan akan berjalan jika anda memulai quiz sekarang',
-            type: 'info',
-            showCancelButton: true,
-            cancelButtonText: 'Batal',
-            confirmButtonColor: '#205081',
-            confirmButtonText: 'Oke, Saya Mengerti!',
-            closeOnConfirm: true
-          },
-          function() {
-            $('#start-quiz-form').submit();
-          });
-        }
+      var _startBtn = $(this);
+      e.preventDefault();   
+      swal({
+        title: 'Kerjakan Quiz?',
+        text: 'Waktu pengerjaan akan berjalan jika anda memulai quiz sekarang',
+        type: 'info',
+        showCancelButton: true,
+        cancelButtonText: 'Batal',
+        confirmButtonColor: '#205081',
+        confirmButtonText: 'Oke, Saya Mengerti!',
+        closeOnConfirm: true
+      },
+      function() {
+        $.ajax({
+          method: 'POST',
+          url: '/api/quizzes/start',
+          data: {
+            classroom_id: _startBtn.data('classroom_id'),
+            quiz_id: _startBtn.data('quiz_id'),
+            time: _startBtn.data('time')
+          }
+        })
+        .done(function(data) {
+          if(data.redirect) {
+            window.location.replace(data.redirect);
+          }
+          return;
+        })
+        .fail(function(err){
+          console.log('Unknown error occured.');
+        });
       });
     });
 
@@ -142,6 +163,38 @@
       firstLast: false,
       containerClass: 'mc-pagination',
       insertAfter: '#luar'
+    });
+
+    $('input[name^="answer"]').each(function(){
+      var _radio = $(this);
+      var meta = {
+        classroom_id: $('#mc-form-detail-submit').data('classroom_id'),
+        quiz_id: $('#mc-form-detail-submit').data('quiz_id')
+      }
+      _radio.on('click', function(e){
+        e.stopPropagation();
+        data = $('.answers').serialize() + '&' + $.param(meta);
+
+        $.ajax({
+          method: 'POST',
+          url: '/api/quizzes/submit',
+          data: data,
+          beforeSend: function() {
+            $('.quiz-loading').show();
+          }
+        })
+        .always(function(data) {
+          $('.quiz-loading').hide();
+        })
+        .fail(function(err ){
+          $('body').append(err.responseText);
+          $('#refresh').modal('show');
+          $('#refresh-quiz').click(function(e){
+            e.preventDefault();
+            window.location.reload();
+          });
+        });
+      });
     });
 
     $('.changeImage').click(function(e){

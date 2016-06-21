@@ -16,6 +16,7 @@ class CreateQuizzesTable extends Migration
       $table->uuid('id')->unique();
       $table->string('teacher_id');
       $table->string('title');
+      $table->integer('pass_score');
       $table->integer('time_limit');
       $table->timestamps();
 
@@ -63,11 +64,18 @@ class CreateQuizzesTable extends Migration
     Schema::create('quiz_user', function(Blueprint $table){
       $table->uuid('quiz_id');
       $table->uuid('student_id');
-      $table->integer('time');
+      $table->timestamp('time');
       $table->json('answer');
+      $table->enum('status', ['ongoing', 'done']);
+      $table->integer('unanswered');
+      $table->integer('correct');
+      $table->integer('wrong');
+      $table->integer('score');
 
       $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
       $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+
+      $table->primary(['quiz_id', 'student_id']);
     });
   }
 

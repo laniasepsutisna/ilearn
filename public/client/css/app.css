@@ -710,11 +710,13 @@ ul.wysihtml5-toolbar > li {
 }
 
 .question-detail {
-	margin-bottom: 30px;
+	margin-top: 3rem;
+	margin-bottom: 3rem;
 	float: left;
 	width: 100%;
 	padding: 2rem;
 	border: 1px solid #FFF;
+	background: #FFF;
 }
 
 .mc-wrapper {
@@ -735,4 +737,23 @@ ul.wysihtml5-toolbar > li {
 
 .mc-answers {
 	font-size: 1.125rem;
+}
+
+.quiz-loading {
+	position: absolute;
+	bottom: 0; left: 0; right: 0;
+	text-align: center;
+	background: #FFF;
+	color: #333;
+	font-size: 1.25rem;
+	padding: 1rem 0;
+	display: none;
+}
+
+.quiz-student {
+	font-size: 1.5rem;
+}
+
+.quiz-classroom {
+	font-size: 1rem;
 }

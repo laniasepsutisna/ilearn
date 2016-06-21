@@ -12,7 +12,7 @@ class Quiz extends Model
 	public $incrementing = false;
 	
 	protected $fillable = [
-		'teacher_id', 'title', 'time_limit'
+		'teacher_id', 'title', 'pass_score', 'time_limit'
 	];
 
 	protected $hidden = [
@@ -26,7 +26,8 @@ class Quiz extends Model
 
 	public function students()
 	{
-		return $this->belongsToMany('App\Models\User', 'quiz_user', 'quiz_id', 'student_id')->withPivot('time', 'answer');
+		return $this->belongsToMany('App\Models\User', 'quiz_user', 'quiz_id', 'student_id')
+			->withPivot('time', 'answer', 'status', 'unanswered', 'correct', 'wrong', 'score');
 	}
 
 	public function multiplechoices()

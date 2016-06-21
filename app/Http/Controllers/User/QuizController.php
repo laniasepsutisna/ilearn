@@ -30,6 +30,7 @@ class QuizController extends Controller
 	{
 		$this->validate($request, [
 			'teacher_id' => 'required|exists:users,id',
+			'pass_score' => 'required',
 			'time_limit' => 'required'
 		], [
 			'required' => 'Kolom :attribute: diperlukan'

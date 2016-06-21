@@ -29,7 +29,7 @@
 						<ul class="list-group module-list">
 							@forelse($quiz->multiplechoices as $no => $mc)
 								<li class="list-group-item">
-									{{ $no + 1 }}. {{ $mc->question }}
+									{{ $no + 1 }}. {{ strlen($mc->question) > 50 ? substr($mc->question, 0, 50) . '...' : $mc->question }}
 									<span class="pull-right">
 										<a href="{{ route('quizzes.mc.edit', [$quiz->id, $mc->id]) }}" class="btn-link btn-sm">Edit</a>
 										{!! Form::open(['route' => ['quizzes.mc.destroy', $quiz->id, $mc->id], 'method' => 'delete', 'class' => 'element-inline']) !!}

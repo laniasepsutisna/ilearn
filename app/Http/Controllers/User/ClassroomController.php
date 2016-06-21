@@ -185,13 +185,17 @@ class ClassroomController extends Controller
 		$quiz = $classroom->quizzes()
 			->where('quiz_id', $quiz_id)
 			->first();
+		$page_title = $quiz->title;
+
+		if(!$quiz->students->contains(Auth::user()->id)) {
+			return redirect()->route('classrooms.quizzes', $classroom->id);
+		}
+
 		$user = $quiz->students()
 			->where('username', Auth::user()->username)
 			->first();
-
 		$answer = json_decode($user->pivot->answer, true);
-		$page_title = $quiz->title;
-
+		
 		if (Gate::allows('member-of', $classroom)){
 			return view('user.classrooms.detail-quiz', compact('classroom', 'quiz', 'user', 'answer', 'page_title'));
 		}
@@ -272,43 +276,5 @@ class ClassroomController extends Controller
 		$uploaded = $file->move($destination, $fileName);
 
 		return $fileName;
-	}
-
-	public function startQuiz(Request $request)
-	{
-		$this->validate($request, [
-			'classroom_id' => 'required|exists:classrooms,id',
-			'quiz_id' => 'required|exists:quizzes,id'
-		], [
-			'required' => 'Kolom :attribute diperlukan!',
-			'exists' => 'Kolom :attribute tidak ditemukan!'
-		]);
-
-		$quiz = Quiz::findOrFail($request->quiz_id);
-		$quiz->students()
-			->sync([
-				Auth::user()->id => ['time' => $quiz->time_limit]
-			], false);
-
-		return redirect()->route('classrooms.quizdetail', [$request->classroom_id, $quiz->id]);
-	}
-
-	public function submitQuiz(Request $request)
-	{
-		$this->validate($request, [
-			'classroom_id' => 'required|exists:classrooms,id',
-			'quiz_id' => 'required|exists:quizzes,id'
-		], [
-			'required' => 'Kolom :attribute diperlukan!',
-			'exists' => 'Kolom :attribute tidak ditemukan!'
-		]);
-
-		$quiz = Quiz::findOrFail($request->quiz_id)
-			->students()
-			->sync([
-				Auth::user()->id => ['answer' => json_encode($request->answer)]
-			], false);
-
-		return redirect()->route('classrooms.quizzes', $request->classroom_id);
 	}
 }

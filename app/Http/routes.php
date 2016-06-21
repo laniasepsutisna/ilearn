@@ -79,8 +79,6 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::post('/submission/{assignments}', ['uses' => 'ClassroomController@attachSubmission', 'as' => 'submissions.store']);
 	Route::delete('/submission/{assignments}', ['uses' => 'ClassroomController@detachSubmission', 'as' => 'submissions.destroy']);
 
-	Route::post('/quizzes/start', ['uses' => 'ClassroomController@startQuiz', 'as' => 'quizzes.start']);
-	Route::post('/quizzes/submit', ['uses' => 'ClassroomController@submitQuiz', 'as' => 'quizzes.submit']);
 });
 
 Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], function () {
@@ -100,4 +98,8 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher']], 
 	Route::post('/quizzes/detach', ['uses' => 'QuizController@detachFrom', 'as' => 'quizzes.detach']);
 });
 
-Route::get('/api/assignments', 'API\AssignmentController@deadline');
+Route::group(['prefix' => '/api', 'namespace' => 'API', 'middleware' => ['auth', 'role:teacher|student']], function () {
+	Route::get('/assignments', 'AssignmentController@deadline');
+	Route::post('/quizzes/start', 'QuizController@startQuiz');
+	Route::post('/quizzes/submit', 'QuizController@submitQuiz');
+});
