@@ -65,7 +65,7 @@ class CreateQuizzesTable extends Migration
       $table->uuid('quiz_id');
       $table->uuid('student_id');
       $table->timestamp('time');
-      $table->json('answer');
+      $table->text('answer');
       $table->enum('status', ['ongoing', 'done']);
       $table->integer('unanswered');
       $table->integer('correct');

@@ -88,7 +88,6 @@ class AssignmentController extends Controller
 		$assignment->update($data);
 
 		\Flash::success('Tugas berhasil diupdate.');
-
 		return redirect()->back();
 	}
 
@@ -104,7 +103,6 @@ class AssignmentController extends Controller
 		$assignment->delete();
 
 		\Flash::success('Tugas berhasil dihapus.');
-
 		return redirect()->back();
 	}
 

@@ -54,10 +54,9 @@
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script type="text/javascript">
-		var base_url = "{{{ url('/') }}}";
-		jQuery('.modal').on('shown.bs.modal', function() {
-			jQuery(this).find('[autofocus]').focus();
-		});
+		(function($){
+			$('.modal').modal({ show: true });
+		})(jQuery);
 	</script>
 </body>
 </html>

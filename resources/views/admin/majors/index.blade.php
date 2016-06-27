@@ -29,7 +29,6 @@
 				<table id="majors-datatable" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Deskripsi</th>
 						</tr>
@@ -37,23 +36,21 @@
 					<tbody>
 						@foreach ($majors as $major)
 							<tr>
-								<td><input type="checkbox" name="id[]" value="{{ $major->id }}"></input></td>
-		                        <td>
-		                        	<div>{{ $major->name }}</div>
-		                        	<div>
-		                        		<a href="{{ route('lms-admin.majors.edit', $major->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+                <td>
+                	<div>{{ $major->name }}</div>
+                	<div>
+                		<a href="{{ route('lms-admin.majors.edit', $major->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
     									{!! Form::open(['route' => ['lms-admin.majors.destroy', $major->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $major->name]) !!}
-        								{!! Form::close() !!}
-		                        	</div>
-		                        </td>
-		                        <td>{!! $major->description !!}</td>
-		                    </tr>
-	                    @endforeach
-	                </tbody>
-	                <tfoot>
+      									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $major->name]) !!}
+      								{!! Form::close() !!}
+                	</div>
+                </td>
+                <td>{!! $major->description !!}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        	<tfoot>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Deskripsi</th>
 						</tr>

@@ -37,7 +37,6 @@
 				<table id="users-datatable" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Email</th>
 							<th>Status</th>
@@ -47,27 +46,25 @@
 					<tbody>
 						@foreach ($users as $user)
 							<tr>
-								<td><input type="checkbox" name="id[]" value="{{ $user->id }}"></input></td>
-		                        <td>
-		                        	<div>{{ $user->fullname }}</div>
-		                        	<div>
-		                        		<a href="{{ route('lms-admin.users.edit', $user->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
-		                        		@if($user->username !== 'admin' || $user->username !== $lms['profile']->username)
+                <td>
+                	<div>{{ $user->fullname }}</div>
+                	<div>
+                		<a href="{{ route('lms-admin.users.edit', $user->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+                  		@if($user->username !== 'admin' || $user->username !== $lms['profile']->username)
     									{!! Form::open(['route' => ['lms-admin.users.destroy', $user->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete']) !!}
-        								{!! Form::close() !!}
-        								@endif
-		                        	</div>
-		                        </td>
-		                        <td>{{ $user->email }}</td>
-		                        <td>{{ $user->status }}</td>
-		                        <td>{{ $user->rolename }}</td>
-		                    </tr>
-	                    @endforeach
-	                </tbody>
-	                <tfoot>
+      									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete']) !!}
+      								{!! Form::close() !!}
+      								@endif
+                	</div>
+                </td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->status }}</td>
+                <td>{{ $user->rolename }}</td>
+              </tr>
+              @endforeach
+          </tbody>
+          <tfoot>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Email</th>
 							<th>Status</th>

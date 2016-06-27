@@ -1,13 +1,8 @@
 <?php
 
-use App\Models\Classroom;
-use App\Models\Major;
-use App\Models\Subject;
 use App\Models\User;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use Ramsey\Uuid\Exception\UnsatisfiedDependencyException;
-use Ramsey\Uuid\Uuid;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,7 +13,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Faker::create();
+        $image = [
+            'picture' => 'icon-user-default.png',
+            'cover' => 'cover-default.jpg'
+        ];
 
         $admin = User::create([
             'username'  => 'admin',
@@ -29,11 +27,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
-
-        $admin->usermeta()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg'
-        ]);
+        $admin->usermeta()->create($image);
 
         $guru = User::create([
             'username'  => 'timoti',
@@ -44,11 +38,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
-
-        $guru->usermeta()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg'
-        ]);
+        $guru->usermeta()->create($image);
 
         $guru1 = User::create([
             'username'  => 'yanti',
@@ -59,11 +49,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
-
-        $guru1->usermeta()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg'
-        ]);
+        $guru1->usermeta()->create($image);
 
         $siswa = User::create([
             'username'  => 'reynold',
@@ -74,11 +60,7 @@ class UsersTableSeeder extends Seeder
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
-
-        $siswa->usermeta()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg'
-        ]);
+        $siswa->usermeta()->create($image);
 
         $siswa1 = User::create([
             'username'  => 'olin',
@@ -89,11 +71,9 @@ class UsersTableSeeder extends Seeder
             'status' => 'active',
             'password' => bcrypt('secret')
         ]);
+        $siswa1->usermeta()->create($image);
 
-        $siswa1->usermeta()->create([
-            'picture' => 'icon-user-default.png',
-            'cover' => 'cover-default.jpg'
-        ]);
+        $faker = Faker::create();
 
         for ($i=0; $i < 10; $i++) {            
             $status = ['info', 'danger'];
@@ -103,9 +83,6 @@ class UsersTableSeeder extends Seeder
                 'status' => $status[rand(0, 1)],
                 'content' => $faker->text(),
             ]);
-            $this->command->info('Pengumuman ke-' . $i);
         }
-
-        $this->command->info('Finished!');
     }
 }

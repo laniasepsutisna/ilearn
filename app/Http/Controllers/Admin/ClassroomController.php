@@ -14,12 +14,14 @@ class ClassroomController extends Controller
 	{
 		$classrooms = Classroom::orderBy('created_at', 'DESC')->paginate(7);
 		$page_title = 'Semua Kelas';
+
 		return view('admin.classrooms.index', compact('classrooms', 'page_title'));
 	}
 
 	public function create()
 	{
 		$page_title = 'Tambah Kelas';
+		
 		return view('admin.classrooms.create', compact('classrooms', 'page_title'));
 	}
 

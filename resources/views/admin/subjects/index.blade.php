@@ -29,7 +29,6 @@
 				<table id="subjects-datatable" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Kelas</th>
 							<th>Mata Pelajaran</th>
 						</tr>
@@ -37,23 +36,21 @@
 					<tbody>
 						@foreach ($subjects as $classroom)
 							<tr>
-								<td><input type="checkbox" name="id[]" value="{{ $classroom->id }}"></input></td>
-		                        <td>
-		                        	<div>{{ $classroom->name }}</div>
-		                        	<div>
-		                        		<a href="{{ route('lms-admin.subjects.edit', $classroom->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
-    									{!! Form::open(['route' => ['lms-admin.subjects.destroy', $classroom->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $classroom->name]) !!}
-        								{!! Form::close() !!}
-		                        	</div>
-		                        </td>
-		                        <td>{!! $classroom->description !!}</td>
-		                    </tr>
-	                    @endforeach
-	                </tbody>
-	                <tfoot>
+                <td>
+                	<div>{{ $classroom->name }}</div>
+                	<div>
+                		<a href="{{ route('lms-admin.subjects.edit', $classroom->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+  									{!! Form::open(['route' => ['lms-admin.subjects.destroy', $classroom->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+    									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $classroom->name]) !!}
+    								{!! Form::close() !!}
+                	</div>
+                </td>
+                <td>{!! $classroom->description !!}</td>
+              </tr>
+            @endforeach
+          </tbody>
+          <tfoot>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Deskripsi</th>
 						</tr>

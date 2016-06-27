@@ -28,7 +28,6 @@
 				<table id="announcement-datatable" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Judul</th>
 							<th>Konten</th>
 							<th>Urgensi</th>
@@ -36,32 +35,30 @@
 					</thead>
 					<tbody>
 						@foreach ($announcements as $announcement)
+							<tr>
+	              <td>
+	              	<div>
+	              		<a href="{{ route('lms-admin.announcements.edit', $announcement->id) }}">{{ $announcement->title }}</a>
+	              	</div>
+	              	<div>
+	              		<a href="{{ route('lms-admin.announcements.edit', $announcement->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+										{!! Form::open(['route' => ['lms-admin.announcements.destroy', $announcement->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+	  									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete']) !!}
+	  								{!! Form::close() !!}
+	              	</div>
+	              </td>
+	              <td>
+	              	{!! substr($announcement->content, 0, 120) !!} 
+	             		@if( strlen($announcement->content) > 120 ) 
+	             			{{ '...' }}
+	           			@endif
+	         			</td>
+	                <td>{{ $announcement->urgensi }}</td>
+	            </tr>
+            @endforeach
+	        </tbody>
+	        <tfoot>
 						<tr>
-							<td><input type="checkbox"></input></td>
-	                        <td>
-	                        	<div>
-	                        		<a href="{{ route('lms-admin.announcements.edit', $announcement->id) }}">{{ $announcement->title }}</a>
-	                        	</div>
-	                        	<div>
-	                        		<a href="{{ route('lms-admin.announcements.edit', $announcement->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
-									{!! Form::open(['route' => ['lms-admin.announcements.destroy', $announcement->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-    									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete']) !!}
-    								{!! Form::close() !!}
-	                        	</div>
-	                        </td>
-	                        <td>
-	                        	{!! substr($announcement->content, 0, 120) !!} 
-	                       		@if( strlen($announcement->content) > 120 ) 
-	                       			{{ '...' }}
-                       			@endif
-                   			</td>
-	                        <td>{{ $announcement->urgensi }}</td>
-	                    </tr>
-	                    @endforeach
-	                </tbody>
-	                <tfoot>
-						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Judul</th>
 							<th>Konten</th>
 							<th>Urgensi</th>

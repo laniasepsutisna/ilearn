@@ -15,7 +15,6 @@
 				<table id="classrooms-datatable" class="table table-bordered table-hover">
 					<thead>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Guru</th>
 							<th>Jumlah Anggota</th>
@@ -24,11 +23,10 @@
 					<tbody>
 						@foreach ($classrooms as $classroom)
 							<tr>
-								<td><input type="checkbox" name="id[]" value="{{ $classroom->id }}"></input></td>
-		                        <td>
-		                        	<div>{{ $classroom->classname }}</div>
-		                        	<div>
-		                        		<a href="{{ route('lms-admin.classrooms.edit', $classroom->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
+                <td>
+                	<div>{{ $classroom->classname }}</div>
+                	<div>
+                		<a href="{{ route('lms-admin.classrooms.edit', $classroom->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
     									{!! Form::open(['route' => ['lms-admin.classrooms.destroy', $classroom->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
         									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $classroom->classname]) !!}
         								{!! Form::close() !!}
@@ -41,7 +39,6 @@
 	                </tbody>
 	                <tfoot>
 						<tr>
-							<th><input type="checkbox"></input></th>
 							<th>Nama</th>
 							<th>Guru</th>
 							<th>Jumlah Anggota</th>

@@ -1,7 +1,17 @@
-## LMS Laravel
+# iLearn
 
-Sistem pembelajaran online yang dibuat menggunakan Framework Laravel 5.
+** CATATAN :** Aplikasi ini belum siap untuk *production* mohon dipertimbangkan jika akan digunakan.
 
-### License
+iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terdapat di software ini antara lain:
 
-The LMS is open-sourced software
+- Membagikan pengumuman ke guru atau siswa.
+- Manajemen kelas
+- Membuat, mengerjakan dan mengumpulkan tugas.
+- Membuat, membagikan dan membaca materi ke tiap kelas.
+- Membuat, membagikan dan menjawab quiz pilihan ganda.
+- Diskusi di tiap kelas.
+
+## License
+
+iLearn berlisensi GPL-3.
+
