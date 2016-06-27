@@ -1,6 +1,7 @@
+![ilearn-logo](https://github.com/alfredcrosby/ilearn/blob/master/logo.png?raw=true)
 # iLearn
 
-** CATATAN :** Aplikasi ini belum siap untuk *production* mohon dipertimbangkan jika akan digunakan.
+**CATATAN :** Aplikasi ini belum siap untuk *production* mohon dipertimbangkan jika akan digunakan.
 
 iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terdapat di software ini antara lain:
 
@@ -11,7 +12,29 @@ iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terd
 - Membuat, membagikan dan menjawab quiz pilihan ganda.
 - Diskusi di tiap kelas.
 
-## License
+## Credential
+Admin:
+```html
+username: admin
+password: secret
+```
 
-iLearn berlisensi GPL-3.
+Guru:
+```html
+username: timoti
+password: secret
+```
+
+Siswa:
+```html
+username: reynold
+password: secret
+```
+
+## Troubleshooting
+Silakan buat [issue](https://github.com/alfredcrosby/ilearn/issues) baru.
+
+## Lisensi
+
+iLearn berlisensi [GPL-3](https://github.com/alfredcrosby/ilearn/blob/master/LICENSE).
 
