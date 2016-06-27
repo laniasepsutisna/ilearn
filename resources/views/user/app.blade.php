@@ -17,11 +17,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.css">
-	<link rel="stylesheet" href="{{ asset('/client/css/bootstrap3-wysihtml5.min.css') }}">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
-	<link rel="stylesheet" href="{{ asset('/client/css/datepicker3.css') }}">
-	<link rel="stylesheet" href="{{ asset('/client/css/sweetalert.css') }}">
-	<link rel="stylesheet" href="{{ asset('/client/css/app.css') }}">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,400italic,600,600italic,700italic,800italic' rel='stylesheet' type='text/css'>
+	<link href="{{ asset('assets/css/client/build.min.css') }}" rel="stylesheet" type="text/css" />
 
 	<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -64,12 +62,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.7.1/fullcalendar.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
-	<script type="text/javascript" src="{{ asset('/client/js/bootstrap3-wysihtml5.all.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/client/js/bootstrap-datepicker.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/client/js/sweetalert.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/client/js/lms-paginate.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/client/js/lms-quiz.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('/client/js/app.js') }}"></script>
+	<script src="{{ asset('assets/js/client/build.min.js') }}" type="text/javascript"></script>
 	@yield('scripts')
 </body>
 </html>

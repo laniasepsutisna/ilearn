@@ -21,7 +21,6 @@
 				</ul>
 			</li>
 
-
 			<li class="header">MANAJEMEN KELAS</li>
 			<li class="treeview {{ set_active(['lms-admin.majors.index', 'lms-admin.majors.create', 'lms-admin.majors.edit']) }}">
 				<a href="#"><i class="fa fa-mortar-board"></i> <span>Jurusan</span> <i class="fa fa-angle-left pull-right"></i></a>

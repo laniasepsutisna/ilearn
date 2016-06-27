@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+
 body {
 	font-family: "Open Sans";
 	font-weight: normal;
@@ -72,7 +74,7 @@ img {
  */
 
 body.login-page {
-	background-image: url('../../uploads/cover.jpg');
+	background-image: url('../../../uploads/cover.jpg');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: top center;
@@ -203,3 +205,4 @@ body.login-page {
 		margin-top: 150px;
 	}
 }
+/*# sourceMappingURL=login.min.css.map */
