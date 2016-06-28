@@ -9,6 +9,7 @@
 			<ul class="list-group">
 				<li class="list-group-item"><strong>Total</strong> {{ $quiz->multiplechoices->count() }} soal.</li>
 				<li class="list-group-item"><strong>Batas waktu</strong> {{ $quiz->time_limit }} menit.</li>
+				<li class="list-group-item"><strong>Nilai minimum yang harus dicapai</strong> {{ $quiz->pass_score }}</li>
 			</ul>
 			@cannot('manage')
 				<footer class="panel-footer text-right">

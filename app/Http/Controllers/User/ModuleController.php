@@ -20,8 +20,9 @@ class ModuleController extends Controller
 		], [
 			'required' => 'Kolom :attribute diperlukan',
 		]);
-
+		
 		$data = $request->except('file');
+
 		if($request->hasFile('file')) {
 			$data['file'] = $this->upload($request->file('file'));
 		}
@@ -55,7 +56,7 @@ class ModuleController extends Controller
 		if($request->hasFile('file')) {
 			$data['file'] = $this->upload($request->file('file'));
 		}
-
+		dd($data);
 		$module = Module::findOrFail($id);
 		$module->update($data);
 

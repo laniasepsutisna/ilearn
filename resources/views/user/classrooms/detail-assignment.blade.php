@@ -23,8 +23,9 @@
 					<div class="panel panel-info panel-sm">
 						<div class="panel-heading">
 							{{ $user->fullname }}
-							{!! Form::open(['route' => ['submissions.destroy', $assignment->id], 'method' => 'delete', 'class' => 'pull-right']) !!}
+							{!! Form::open(['route' => 'submissions.destroy', 'method' => 'delete', 'class' => 'pull-right']) !!}
 								{!! Form::hidden('user_id', $user->id) !!}
+								{!! Form::hidden('assignment_id', $assignment->id) !!}
 								{!! Form::submit('Batalkan', ['class'=>'btn btn-link btn-sm warning-delete', 'data-title' => 'tugas dari ' . $user->fullname]) !!}
 							{!! Form::close() !!}
 						</div>
@@ -50,13 +51,14 @@
 					</header>
 					<ul class="list-group">
 						<li class="list-group-item">
-							{!! Form::open(['route' => ['submissions.store', $assignment->id], 'method' => 'post', 'files' => true]) !!}
+							{!! Form::open(['route' => 'submissions.store', 'method' => 'post', 'files' => true]) !!}
+								{!! Form::hidden('assignment_id', $assignment->id) !!}
 								<div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
 									{!! Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Judul...']) !!}
 									{!! $errors->first('title', '<p class="help-block">:message</p>') !!}
 								</div>
 								<div class="form-group {{ $errors->has('content') ? 'has-error' : '' }}">
-									{!! Form::textarea('content', null, ['class' => 'form-control textarea', 'placeholder' => 'Konten...', 'rows' => '3']) !!}
+									{!! Form::textarea('content', null, ['class' => 'form-control', 'placeholder' => 'Konten...', 'rows' => '5']) !!}
 									{!! $errors->first('content', '<p class="help-block">:message</p>') !!}
 								</div>
 								<div class="form-group {{ $errors->has('file') ? 'has-error' : '' }}">
@@ -79,7 +81,7 @@
 					@foreach($submitted as $answer)
 						<ul class="list-group">
 							<li class="list-group-item"><strong>Judul: </strong>{{ $answer->pivot->title }}</li>
-							<li class="list-group-item"><strong>Kontent: </strong>{{ $answer->pivot->content }}</li>
+							<li class="list-group-item"><strong>Kontent: </strong>{!! $answer->pivot->content !!}</li>
 							<li class="list-group-item"><strong>File: </strong>{{ $answer->pivot->file }}</li>
 						</ul>
 					@endforeach

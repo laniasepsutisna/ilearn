@@ -13,7 +13,7 @@
 			<ul class="list-group">
 				<li class="list-group-item">
 					<p>
-						<a href="{{ $activity->teacher_id == $lms['profile']->id ? route( 'home.profile') : route('home.friend', $activity->teacher->username) }}"><strong>{{ $activity->teacher_id == $lms['profile']->id ? 'Saya' : $activity->teacher->fullname }}</strong></a>
+						<a href="{{ $activity->teacher_id == $lms['profile']->id ? route( 'home.profile') : route('home.friend', $activity->teacher->username) }}"><strong>{{ $activity->teacher->fullname }}</strong></a>
 					</p>
 					<p>{{ $activity->action }} 
 						@can('manage')

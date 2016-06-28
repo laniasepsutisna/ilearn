@@ -4,5 +4,6 @@ Homestead.yaml
 Homestead.json
 .env
 .DS_Store
-/public/uploads/
-/public/uploads/assignments/
+
+#/public/uploads/
+#/public/uploads/assignments/

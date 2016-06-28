@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css" rel="stylesheet" />
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,800,400italic,600,600italic,700italic,800italic' rel='stylesheet' type='text/css'>
 	<link href="{{ asset('assets/css/admin/build.min.css') }}" rel="stylesheet" type="text/css" />
 
 	<!--[if lt IE 9]>

@@ -4,17 +4,19 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Models\Assignment;
 use App\Models\Activity;
+use App\Models\Assignment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class AssignmentController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$assignments = Assignment::where('teacher_id', Auth::user()->id)->orderBy('created_at', 'DESC')->paginate(7);
+		$assignments = $request->user()
+			->teacherassignments()
+			->orderBy('created_at', 'DESC')
+			->paginate(7);
 		$page_title = 'Perpustakaan - Tugas';
 
 		return view('user.assignments.index', compact('assignments','page_title'));
@@ -30,7 +32,6 @@ class AssignmentController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required|exists:users,id',
 			'title' => 'required',
 			'file' => 'max:10000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
@@ -44,16 +45,21 @@ class AssignmentController extends Controller
 			$data['file'] = $this->upload($request->file('file'));
 		}
 
-		$assignment = Assignment::create($data);
+		$assignment = $request->user()
+			->teacherassignments()
+			->create($data);
 
 		\Flash::success('Tugas berhasil ditambahkan.');
 
 		return redirect()->route('assignments.edit', $assignment);
 	}
 
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
-		$assignment = Assignment::findOrFail($id);
+		$assignment = $request->user()
+			->teacherassignments()
+			->where('id', $id)
+			->first();
 		$ids = $assignment->attachedTo;
 		$attached = $assignment->attachedClassroom;
 
@@ -65,7 +71,6 @@ class AssignmentController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required',
 			'title' => 'required',
 			'file' => 'max:10000|mimes:pdf,docx,doc,zip',
 			'content' => 'required'
@@ -73,8 +78,11 @@ class AssignmentController extends Controller
 			'required' => 'Kolom :attribute diperlukan'
 		]);
 
+		$assignment = $request->user()
+			->teacherassignments()
+			->where('id', $id)
+			->first();
 		$data = $request->except('file');
-		$assignment = Assignment::findOrFail($id);
 		$file = public_path( 'uploads/assignments/' . $assignment->file );
 
 		if($request->hasFile('file')) {
@@ -91,9 +99,12 @@ class AssignmentController extends Controller
 		return redirect()->back();
 	}
 
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
-		$assignment = Assignment::findOrFail($id);
+		$assignment = $request->user()
+			->teacherassignments()
+			->where('id', $id)
+			->first();
 		$file = public_path( 'uploads/assignments/' . $assignment->file );
 		
 		if($assignment->file && file_exists($file)) {
@@ -109,30 +120,24 @@ class AssignmentController extends Controller
 	public function attachTo(Request $request)
 	{
 		$this->validate($request, [
-			'classrooms' => 'required',
-			'assignment_id' => 'required',
+			'classroom_id' => 'required|exists:classrooms,id',
+			'assignment_id' => 'required|exists:assignments,id',
 			'deadline' => 'required',
 		], [
 			'required' => 'Kolom :attribute diperlukan'
 		]);
-
-		$data = [];
 		$assignment = Assignment::findOrFail($request->assignment_id);
 
-		foreach ($request->classrooms as $class) {
-			$data[$class] = ['deadline' => $request->deadline];
-
-			Activity::create([
-				'teacher_id' => Auth::user()->id,
-				'classroom_id' => $class,
-				'action' => 'Menambagikan tugas ke ',
-				'route' => 'classrooms.assignmentdetail',
-				'detail' => $assignment->id
-			]);
-		}
+		Activity::create([
+			'teacher_id' => $request->user()->id,
+			'classroom_id' => $request->classroom_id,
+			'action' => 'Menambagikan tugas ke ',
+			'route' => 'classrooms.assignmentdetail',
+			'detail' => $assignment->id
+		]);
 
 		$assignment->classrooms()
-			->sync($data, false);
+			->sync([$request->classroom_id => ['deadline' => $request->deadline]], false);
 
 		\Flash::success('Tugas berhasil dibagikan.');
 
@@ -169,9 +174,9 @@ class AssignmentController extends Controller
 		return $fileName;
 	}
 
-	public function assignments()
+	public function assignments(Request $request)
 	{
-		$classrooms = Auth::user()->hasRole('teacher') ? Auth::user()->teacherclassrooms : Auth::user()->classrooms;
+		$classrooms = $request->user()->hasRole('teacher') ? $request->user()->teacherclassrooms : $request->user()->classrooms;
 		$page_title = 'Semua Tugas';
 		$ids = $classrooms->map(function($class){
 			return $class->id;

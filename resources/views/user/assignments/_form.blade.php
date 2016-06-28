@@ -1,5 +1,3 @@
-{!! Form::hidden('teacher_id', $lms['profile']->id) !!}
-
 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
 	{!! Form::label('title', 'Judul Tugas', ['class' => 'control-label']) !!}
 	{!! Form::text('title', null, ['class' => 'form-control', 'id' => 'title', 'placeholder' => 'Judul']) !!}

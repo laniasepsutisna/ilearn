@@ -45,7 +45,7 @@
 					<li><a href="{{ route('home.announcements') }}"><i class="fa fa-bell"></i></a></li>		
 					<li class="profile-link">
 						<a href="{{ route('home.profile') }}">
-							<img class="img-circle" src="{{ $lms['profile']->picture }}"> 
+							<img class="img-circle" src="{{ $lms['profile']->picture_sm }}"> 
 							{{ $lms['profile']->firstname }}</a>
 						</li>		
 					<li><a href="{{ route('auth.logout') }}"><i class="fa fa-power-off"></i></a></li>

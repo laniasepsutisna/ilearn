@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$quizzes = Quiz::where('teacher_id', Auth::user()->id)->paginate(7);
+		$quizzes = $request->user()
+			->teacherquizzes()
+			->orderBy('created_at', 'DESC')
+			->paginate(7);
 		$page_title = 'Perpustakaan - Quiz';
 
 		return view('user.quizzes.index', compact('page_title', 'quizzes'));
@@ -29,14 +32,15 @@ class QuizController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required|exists:users,id',
 			'pass_score' => 'required',
 			'time_limit' => 'required'
 		], [
 			'required' => 'Kolom :attribute: diperlukan'
 		]);
 
-		$quiz = Quiz::create($request->all());
+		$quiz = $request->user()
+			->teacherquizzes()
+			->create($request->all());
 
 		\Flash::success('Quiz berhasil dibuat.');
 
@@ -56,23 +60,30 @@ class QuizController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required|exists:users,id',
+			'pass_score' => 'required',
 			'time_limit' => 'required'
 		], [
 			'required' => 'Kolom :attribute: diperlukan'
 		]);
 
-		$quiz = Quiz::findOrFail($id);
-		$quiz->update($request->all());
+		$quiz = $request->user()
+			->teacherquizzes()
+			->where('id', $id)
+			->first()
+			->update($request->all());
 
 		\Flash::success('Quiz berhasil diubah.');
 
 		return redirect()->back();
 	}
 
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
-		Quiz::findOrFail($id)->delete();
+		$request->user()
+			->teacherquizzes()
+			->where('id', $id)
+			->first()
+			->delete();
 
 		\Flash::success('Quiz berhasil dihapus.');
 
@@ -82,25 +93,23 @@ class QuizController extends Controller
 	public function attachTo(Request $request)
 	{
 		$this->validate($request, [
-			'classrooms' => 'required',
-			'quiz_id' => 'required',
+			'classroom_id' => 'required|exists:classrooms,id',
+			'quiz_id' => 'required|exists:quizzes,id',
 		], [
 			'required' => 'Kolom :attribute diperlukan'
 		]);
 
 		$quiz = Quiz::findOrFail($request->quiz_id);
 
-		foreach ($request->classrooms as $class) {
-			Activity::create([
-				'teacher_id' => Auth::user()->id,
-				'classroom_id' => $class,
-				'action' => 'Membagikan quiz ke ',
-				'route' => 'classrooms.quizdetail',
-				'detail' => $quiz->id
-			]);
-		}
+		Activity::create([
+			'teacher_id' => $request->user()->id,
+			'classroom_id' => $request->classroom_id,
+			'action' => 'Membagikan quiz ke ',
+			'route' => 'classrooms.quizdetail',
+			'detail' => $quiz->id
+		]);
 
-		$quiz->classrooms()->sync($request->classrooms, false);
+		$quiz->classrooms()->sync([$request->classroom_id], false);
 
 		\Flash::success('Quiz berhasil dibagikan.');
 

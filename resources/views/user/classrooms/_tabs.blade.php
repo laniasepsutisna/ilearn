@@ -62,9 +62,9 @@
 			{!! Form::open(['route' => ['quizzes.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 				<div class="modal-body clearfix">
 					<div class="col-md-12">
-						{!! Form::hidden('classrooms[]', $classroom->id) !!}
+						{!! Form::hidden('classroom_id', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('quiz_id') ? 'has-error' : '' }}"> 
-						{!! Form::select('quiz_id', $lms['profile']->teacherquizzes()->whereNotIn('id', $classroom->attachedQuizzes)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control'])  !!}
+						{!! Form::select('quiz_id', $lms['profile']->teacherquizzes()->whereNotIn('id', $classroom->attachedQuizzes)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'placeholder' => 'Pilih quiz...'])  !!}
 						{!! $errors->first('quiz_id', '<p class="help-block">:message</p>') !!}
 						</div>
 					</div>
@@ -88,9 +88,9 @@
 			{!! Form::open(['route' => ['assignments.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 				<div class="modal-body clearfix">
 					<div class="col-md-12">
-						{!! Form::hidden('classrooms[]', $classroom->id) !!}
+						{!! Form::hidden('classroom_id', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('assignment_id') ? 'has-error' : '' }}"> 
-						{!! Form::select('assignment_id', $lms['profile']->teacherassignments()->whereNotIn('id', $classroom->attachedAssignments)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control'])  !!}
+						{!! Form::select('assignment_id', $lms['profile']->teacherassignments()->whereNotIn('id', $classroom->attachedAssignments)->get()->pluck('title', 'id'), null, ['class' => 'select2 form-control', 'placeholder' => 'Pilih tugas...'])  !!}
 						{!! $errors->first('assignment_id', '<p class="help-block">:message</p>') !!}
 						</div>
 						<div class="form-group {{ $errors->has('deadline') ? 'has-error' : '' }}"> 
@@ -118,9 +118,9 @@
 			{!! Form::open(['route' => ['courses.attach'], 'method' => 'post', 'role' => 'form', 'class' => 'form-horizontal']) !!}
 				<div class="modal-body clearfix">
 					<div class="col-md-12">
-						{!! Form::hidden('classrooms[]', $classroom->id) !!}
+						{!! Form::hidden('classroom_id', $classroom->id) !!}
 						<div class="form-group {{ $errors->has('course_id') ? 'has-error' : '' }}"> 
-						{!! Form::select('course_id', $lms['profile']->teachercourses()->whereNotIn('id', $classroom->attachedCourses)->get()->pluck('name', 'id'), null, ['class' => 'select2 form-control'])  !!}
+						{!! Form::select('course_id', $lms['profile']->teachercourses()->whereNotIn('id', $classroom->attachedCourses)->get()->pluck('name', 'id'), null, ['class' => 'select2 form-control', 'placeholder' => 'Pilih materi...'])  !!}
 						{!! $errors->first('course_id', '<p class="help-block">:message</p>') !!}
 						</div>
 					</div>

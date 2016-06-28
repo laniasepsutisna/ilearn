@@ -73,12 +73,12 @@ class Classroom extends Model
 
 	public function courses()
 	{
-		return $this->belongsToMany('App\Models\Course')->orderBy('created_at', 'DESC');
+		return $this->belongsToMany('App\Models\Course')->withTimestamps()->orderBy('classroom_course.created_at', 'DESC');
 	}
 
 	public function quizzes()
 	{
-		return $this->belongsToMany('App\Models\Quiz')->orderBy('created_at', 'DESC');
+		return $this->belongsToMany('App\Models\Quiz')->withTimestamps()->orderBy('classroom_quiz.created_at', 'DESC');
 	}
 
 	public function addMembers($users)

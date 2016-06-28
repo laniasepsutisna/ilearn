@@ -64,7 +64,7 @@ class QuizController extends Controller
 			'unanswered' => $unanswered,
 			'correct' => $correct,
 			'wrong' => $total - $correct,
-			'score' => $correct / $total * 3
+			'score' => $correct / $total * 100
 		];
 
 		if($request->status) {

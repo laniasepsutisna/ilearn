@@ -8,14 +8,16 @@ use App\Models\Activity;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 
 class CourseController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$courses = Course::orderBy('created_at', 'DESC')->paginate(7);
+		$courses = $request->user()
+			->teachercourses()
+			->orderBy('created_at', 'DESC')
+			->paginate(7);
 		$page_title = 'Perpustakaan - Materi';
 
 		return view('user.courses.index', compact('courses', 'page_title'));
@@ -30,10 +32,9 @@ class CourseController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required|exists:users,id',
 			'name' => 'required',
 			'level' => 'required',
-			'picture' => 'required|max:1000|mimes:jpg,jpeg,png,bmp',
+			'picture' => 'required|max:10000|mimes:jpg,jpeg,png,bmp',
 			'description' => 'required'
 		], [
 			'required' => 'Kolom :attribute diperlukan',
@@ -42,15 +43,16 @@ class CourseController extends Controller
 		$data = $request->except('picture');
 		$data['picture'] = $this->upload($request->file('picture'));
 
-		$course = Course::create($data);
-
+		$course = $request->user()
+			->teachercourses()
+			->create($data);
 
 		\Flash::success('Materi berhasil ditambahkan.');
 
 		return redirect()->route('courses.edit', $course);
 	}
 
-	public function edit($id)
+	public function edit(Request $request, $id)
 	{
 		$course = Course::findOrFail($id);
 		$ids = $course->attachedTo;
@@ -63,7 +65,6 @@ class CourseController extends Controller
 	public function update(Request $request, $id)
 	{
 		$this->validate($request, [
-			'teacher_id' => 'required|exists:users,id',
 			'name' => 'required',
 			'level' => 'required',
 			'picture' => 'max:1000|mimes:jpg,jpeg,png,bmp',
@@ -73,19 +74,27 @@ class CourseController extends Controller
 		]);
 
 		$data = $request->except('picture');
-		$data['picture'] = $this->upload($request->file('picture'));
+		if($request->hasFile('picture')) {
+			$data['picture'] = $this->upload($request->file('picture'));
+		}
 
-		$course = Course::findOrFail($id);
-		$course->update($data);
+		$course = $request->user()
+			->teachercourses()
+			->where('id', $id)
+			->first()
+			->update($data);
 
 		\Flash::success('Tugas berhasil diupdate.');
 
 		return redirect()->back();
 	}
 
-	public function destroy($id)
+	public function destroy(Request $request, $id)
 	{
-		$course = Course::findOrFail($id);
+		$course = $request->user()
+			->teachercourses()
+			->where('id', $id)
+			->first();
 		$picture = public_path( 'uploads/courses/' . $course->picture );
 		$picture_sm = public_path( 'uploads/courses/300x300-' . $course->picture );
 
@@ -104,24 +113,23 @@ class CourseController extends Controller
 	public function attachTo(Request $request)
 	{		
 		$this->validate($request, [
-			'classrooms' => 'required',
+			'classroom_id' => 'required|exists:classrooms,id',
+			'course_id' => 'required|exists:courses,id'
 		], [
 			'required' => 'Kolom :attribute diperlukan'
 		]);
 
 		$course = Course::findOrFail($request->course_id);
 
-		foreach ($request->classrooms as $class) {
-			Activity::create([
-				'teacher_id' => Auth::user()->id,
-				'classroom_id' => $class,
-				'action' => 'Membagikan materi ke ',
-				'route' => 'classrooms.coursedetail',
-				'detail' => $course->id
-			]);
-		}
+		Activity::create([
+			'teacher_id' => $request->user()->id,
+			'classroom_id' => $request->classroom_id,
+			'action' => 'Membagikan materi ke ',
+			'route' => 'classrooms.coursedetail',
+			'detail' => $course->id
+		]);
 
-		$course->classrooms()->sync($request->classrooms, false);
+		$course->classrooms()->sync([$request->classroom_id], false);
 
 		\Flash::success('Materi berhasil dibagikan.');
 

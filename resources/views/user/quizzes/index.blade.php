@@ -18,8 +18,9 @@
 									<h2 class="panel-title text-bold">{{ $quiz->title }}</h2>
 								</header>
 								<ul class="list-group">
-									<li class="list-group-item"><strong>Tipe: </strong>{!! $quiz->humanizeType !!}</li>
-									<li class="list-group-item"><strong>Waktu: </strong>{!! $quiz->time_limit !!} menit.</li>
+									<li class="list-group-item"><strong>Total soal: </strong>{{ $quiz->multiplechoices->count() }} soal.</li>
+									<li class="list-group-item"><strong>Waktu: </strong>{{ $quiz->time_limit }} menit.</li>
+									<li class="list-group-item"><strong>Nilai minimal yang harus dicapai: </strong>{{ $quiz->pass_score }}.</li>
 								</ul>
 								<div class="panel-footer text-right">
 									<a href="{{ route('quizzes.edit', $quiz->id) }}" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i></a>

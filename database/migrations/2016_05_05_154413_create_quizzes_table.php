@@ -54,6 +54,7 @@ class CreateQuizzesTable extends Migration
     Schema::create('classroom_quiz', function(Blueprint $table){
       $table->uuid('classroom_id');
       $table->uuid('quiz_id');
+      $table->timestamps();
 
       $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
       $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');

@@ -203,9 +203,10 @@ class ClassroomController extends Controller
 		return abort(401);
 	}
 
-	public function attachSubmission(Request $request, $id)
+	public function attachSubmission(Request $request)
 	{
 		$this->validate($request, [
+			'assignment_id' => 'required|exists:assignments,id',
 			'title' => 'required',
 			'content' => 'required',
 			'file' => 'max:1000|mimes:doc,docx,pdf,zip'
@@ -223,28 +224,31 @@ class ClassroomController extends Controller
 			$data['file'] = $this->upload($request->file('file'));
 		}
 
-		Assignment::findOrFail($id)
+		Assignment::findOrFail($request->assignment_id)
 			->submissions()
-			->attach(Auth::user()->id, $data);
+			->attach($request->user()->id, $data);
 
 		\Flash::success('Tugas selesai!');
 
 		return redirect()->back();
 	}
 
-	public function detachSubmission(Request $request, $id)
+	public function detachSubmission(Request $request)
 	{
+		$this->validate($request, [
+			'assignment_id' => 'exists:assignments,id',
+			'user_id' => 'exists:users,id',
+		]);
+
 		$file = '';
-		$assignment = Assignment::findOrFail($id);
-		$users = $assignment->submissions()
+		$assignment = Assignment::findOrFail($request->assignment_id);
+		$user = $assignment->submissions()
 			->where('user_id', $request->user_id)
-			->get();
+			->first();
 
-		foreach ($users as $user) {
-			$file = public_path('/uploads/assignments/' . $user->pivot->file);
-		}
+		$file = public_path('uploads/assignments/' . $user->pivot->file);
 
-		if(file_exists($file) && $file) {
+		if(file_exists($file) && $user->pivot->file) {
 			unlink($file);
 		}
 

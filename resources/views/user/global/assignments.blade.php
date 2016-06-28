@@ -25,8 +25,8 @@
 						<li class="list-group-item">
 							<article class="post assignment">
 								<strong>{{ $index + 1 }}. {{ $assignment->title }}</strong>
+								<div>{!! $assignment->content !!}</div>
 								<div>
-									{!! $assignment->content !!}
 									@can('manage')
 										@foreach($assignment->classrooms as $classroom)
 											<a class="btn btn-primary btn-sm" href="{{ route('classrooms.assignmentdetail', [$classroom->id, $assignment->id]) }}">

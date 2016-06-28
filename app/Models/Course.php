@@ -17,7 +17,7 @@ class Course extends Model
 
 	public function classrooms()
 	{
-		return $this->belongsToMany('App\Models\Classroom');
+		return $this->belongsToMany('App\Models\Classroom')->withTimestamps();
 	}
 
 	public function modules()

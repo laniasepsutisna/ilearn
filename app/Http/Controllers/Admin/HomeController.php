@@ -27,7 +27,7 @@ class HomeController extends Controller
 
 	public function profile()
 	{
-		$user = User::findOrFail(Auth::user()->id);
+		$user = Auth::user();
 		$page_title = 'Profile';
 
 		return view('admin.home.profile', compact('user', 'page_title'));

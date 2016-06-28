@@ -18,7 +18,6 @@
         startDate: '+1d'
       });
     }
-    
     if($('#calendar').length) {
       $('#calendar').fullCalendar({
         header: {
@@ -106,6 +105,7 @@
 
     $('#mc-form-detail-submit').click(function(e){
       e.preventDefault();
+
       validateQuiz(function(isValid){
         if(isValid){
           $(window).unbind('beforeunload');
@@ -150,7 +150,7 @@
           }
           return;
         })
-        .fail(function(err){
+        .fail(function(){
           console.log('Unknown error occured.');
         });
       });

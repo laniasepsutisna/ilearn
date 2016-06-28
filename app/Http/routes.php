@@ -76,8 +76,8 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/classrooms/download/{filename}', ['uses' => 'ClassroomController@download', 'as' => 'classrooms.download']);
 
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);
-	Route::post('/submission/{assignments}', ['uses' => 'ClassroomController@attachSubmission', 'as' => 'submissions.store']);
-	Route::delete('/submission/{assignments}', ['uses' => 'ClassroomController@detachSubmission', 'as' => 'submissions.destroy']);
+	Route::post('/submission', ['uses' => 'ClassroomController@attachSubmission', 'as' => 'submissions.store']);
+	Route::delete('/submission', ['uses' => 'ClassroomController@detachSubmission', 'as' => 'submissions.destroy']);
 
 });
 

@@ -127,9 +127,9 @@
 					<div class="modal-body clearfix">
 						<div class="col-md-12">
 							{!! Form::hidden('course_id', $course->id) !!}
-							<div class="form-group {{ $errors->has('classrooms') ? 'has-error' : '' }}"> 
-							{!! Form::select('classrooms[]', $lms['profile']->teacherclassrooms()->whereNotIn('id', $ids)->get()->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'multiple'])  !!}
-							{!! $errors->first('classrooms', '<p class="help-block">:message</p>') !!}
+							<div class="form-group {{ $errors->has('classroom_id') ? 'has-error' : '' }}"> 
+							{!! Form::select('classroom_id', $lms['profile']->teacherclassrooms()->whereNotIn('id', $ids)->get()->pluck('classname', 'id'), null, ['class' => 'select2 form-control', 'placeholder' => 'Pilih kelas...'])  !!}
+							{!! $errors->first('classroom_id', '<p class="help-block">:message</p>') !!}
 							</div>
 						</div>
 					</div>
