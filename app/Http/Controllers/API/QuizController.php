@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Quiz;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,7 @@ class QuizController extends Controller
 	{
 		$this->validate($request, [
 			'classroom_id' => 'required|exists:classrooms,id',
-			'quiz_id' => 'required|exists:quizzes,id',
-			'time' => 'required'
+			'quiz_id' => 'required|exists:quizzes,id'
 		], [
 			'required' => 'Kolom :attribute diperlukan!',
 			'exists' => 'Kolom :attribute tidak ditemukan!'
@@ -23,11 +23,12 @@ class QuizController extends Controller
 
 		$quiz = Quiz::findOrFail($request->quiz_id);
 		$isStarted = $quiz->students->contains(Auth::user()->id);
+		$deadline = Carbon::now()->addMinutes($quiz->time_limit);
 
 		if(!$isStarted) {
 			$quiz->students()
 				->sync([
-					Auth::user()->id => ['time' => $request->time]
+					Auth::user()->id => ['time' => $deadline]
 				], false);
 		}
 
@@ -40,7 +41,8 @@ class QuizController extends Controller
 	{
 		$this->validate($request, [
 			'classroom_id' => 'required|exists:classrooms,id',
-			'quiz_id' => 'required|exists:quizzes,id'
+			'quiz_id' => 'required|exists:quizzes,id',
+			'answers' => 'required'
 		], [
 			'required' => 'Kolom :attribute diperlukan!',
 			'exists' => 'Kolom :attribute tidak ditemukan!'
@@ -75,7 +77,8 @@ class QuizController extends Controller
 			->sync([Auth::user()->id =>  $data], false);
 
 		return response()->json([
-			'redirect' => route('classrooms.quizzes', $request->classroom_id)
+			'redirect' => route('classrooms.quizzes', $request->classroom_id),
+			'unanswered' => $unanswered
 		]);
 	}
 }

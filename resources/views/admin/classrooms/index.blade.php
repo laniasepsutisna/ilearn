@@ -28,13 +28,13 @@
                 	<div>
                 		<a href="{{ route('lms-admin.classrooms.edit', $classroom->id) }}" class="btn btn-flat btn-link btn-xs">Edit</a>
     									{!! Form::open(['route' => ['lms-admin.classrooms.destroy', $classroom->id], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
-        									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $classroom->classname]) !!}
-        								{!! Form::close() !!}
-		                        	</div>
-		                        </td>
-		                        <td>{{ $classroom->teachername }}</td>
-		                        <td>{{ $classroom->students()->count() }} siswa.</td>
-		                    </tr>
+      									{!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs warning-delete', 'data-title' => $classroom->classname]) !!}
+      								{!! Form::close() !!}
+	                        	</div>
+	                        </td>
+	                        <td>{{ $classroom->teachername }}</td>
+	                        <td>{{ $classroom->students()->count() }} siswa.</td>
+	                    </tr>
 	                    @endforeach
 	                </tbody>
 	                <tfoot>

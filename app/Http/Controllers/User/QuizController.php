@@ -132,5 +132,4 @@ class QuizController extends Controller
 
 		return redirect()->back();
 	}
-
 }

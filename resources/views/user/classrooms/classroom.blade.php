@@ -23,38 +23,19 @@
 		</ul>
 		<ul class="nav nav-tabs">
 			<li role="presentation" class="{{ set_active('classrooms.show') }}">
-				<a href="{{ route('classrooms.show', $classroom) }}">
-					Diskusi
-				</a>
+				<a href="{{ route('classrooms.show', $classroom) }}">Diskusi</a>
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.courses') }}">
-				<a href="{{ route('classrooms.courses', $classroom) }}">
-					Materi				
-					@if($classroom->countCourses > 0)
-						<span class="badge">{{ $classroom->countCourses }}</span>
-					@endif
-				</a>
+				<a href="{{ route('classrooms.courses', $classroom) }}">Materi</a>
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.assignments') }}">
-				<a href="{{ route('classrooms.assignments', $classroom) }}">
-					Tugas
-					@if($classroom->countAvailableAssignments > 0)
-						<span class="badge">{{ $classroom->countAvailableAssignments }}</span>
-					@endif
-				</a>
+				<a href="{{ route('classrooms.assignments', $classroom) }}">Tugas</a>
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.quizzes') }}">
-				<a href="{{ route('classrooms.quizzes', $classroom) }}">
-					Quiz
-					@if($classroom->countQuiz > 0)
-						<span class="badge">{{ $classroom->countQuiz }}</span>
-					@endif
-				</a>
+				<a href="{{ route('classrooms.quizzes', $classroom) }}">Quiz</a>
 			</li>
 			<li role="presentation" class="{{ set_active('classrooms.members') }}">
-				<a href="{{ route('classrooms.members', $classroom) }}">
-					Member
-				</a>
+				<a href="{{ route('classrooms.members', $classroom) }}">Member</a>
 			</li>
 			@can('manage')
 				<li role="presentation" class="pull-right"><a href="{{ route('classrooms.user.edit', $classroom) }}"><i class="fa fa-cog"></i></a></li>

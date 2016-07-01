@@ -26,10 +26,10 @@
 				</li>
 			</ul>
 		</div>
-		<div class="text-right"> 
-			{{ $lms['activities']->links() }}
-		</div>
 	@empty
 		<h3 class="text-center no-content">Tidak ada aktifitas.</h3>
-	@endforelse
+	@endforelse	
+	<div class="text-right"> 
+		{{ $lms['activities']->links() }}
+	</div>
 @endsection

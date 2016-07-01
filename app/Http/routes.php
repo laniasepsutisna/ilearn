@@ -47,7 +47,7 @@ Route::group(['prefix' => '/lms-admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
 	Route::resource('/classrooms', 'ClassroomController', ['except' => 'show']);
 	Route::post('/classrooms/addmembers', ['uses' => 'ClassroomController@addMembers', 'as' => 'lms-admin.classrooms.addmembers']);
-	Route::delete('/classrooms/removemember/{users}', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
+	Route::delete('/classrooms/removemember', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
 });
 
 Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|student']], function () {
@@ -73,6 +73,7 @@ Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|stud
 	Route::get('/classrooms/{classrooms}/courses/{courses}', ['uses' => 'ClassroomController@courseDetail', 'as' => 'classrooms.coursedetail']);
 	Route::get('/classrooms/{classrooms}/modules/{modules}', ['uses' => 'ClassroomController@moduleDetail', 'as' => 'classrooms.moduledetail']);
 	Route::get('/classrooms/{classrooms}/quizzes/{quizzes}', ['uses' => 'ClassroomController@quizDetail', 'as' => 'classrooms.quizdetail']);
+	Route::get('/classrooms/{classrooms}/quizzes/{quizzes}/score', ['uses' => 'ClassroomController@score', 'as' => 'classrooms.score']);
 	Route::get('/classrooms/download/{filename}', ['uses' => 'ClassroomController@download', 'as' => 'classrooms.download']);
 
 	Route::resource('/discuss', 'DiscussionController', ['only' => ['store', 'destroy']]);

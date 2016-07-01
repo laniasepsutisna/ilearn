@@ -34,17 +34,20 @@ elixir(function(mix) {
 
 	// Javascript
 	mix.scripts([
-	'shared/bootstrap-datepicker.js',
-	'shared/bootstrap3-wysihtml5.all.min.js',
-	'shared/sweetalert.min.js',
-	'admin/adminlte.app.min.js',
-	'admin/app.js'
-	], 'public/assets/js/admin/build.min.js')
+		'shared/bootstrap-datepicker.js',
+		'shared/bootstrap3-wysihtml5.all.min.js',
+		'shared/sweetalert.min.js',
+		'admin/adminlte.app.min.js',
+		'admin/app.js'
+		], 'public/assets/js/admin/build.min.js')
 	.scripts([
-	'shared/bootstrap-datepicker.js',
-	'shared/bootstrap3-wysihtml5.all.min.js',
-	'shared/sweetalert.min.js',
-	'client/lms-paginate.js',
-	'client/app.js'
+		'shared/bootstrap-datepicker.js',
+		'shared/bootstrap3-wysihtml5.all.min.js',
+		'shared/sweetalert.min.js',
+		'client/moment.js',
+		'client/countdown.js',
+		'client/lms-paginate.js',
+		'client/app.js',
+		'client/quiz.js'
 	], 'public/assets/js/client/build.min.js');
 });

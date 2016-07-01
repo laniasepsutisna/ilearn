@@ -9,7 +9,6 @@
     </div>
     <div class="box-body">
         {!! Form::open(['route' => ['lms-admin.classrooms.addmembers'],'role' => 'form', 'class' => 'form-horizontal']) !!}
-            {!! Form::hidden('role', 'student') !!}
             {!! Form::hidden('classroom_id', $classroom->id) !!}
             <div class="form-group {{ $errors->has('students') ? 'has-error' : '' }}">
                 <div class="col-md-12">
@@ -45,8 +44,9 @@
                 <tr>
                     <td>{{ $user->fullname }}</td>
                     <td>                        
-                        {!! Form::open(['route' => ['lms-admin.classrooms.removemember', $user], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+                        {!! Form::open(['route' => ['lms-admin.classrooms.removemember'], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
                             {!! Form::hidden('classroom_id', $classroom->id) !!}
+                            {!! Form::hidden('user_id', $user->id) !!}
                             {!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs']) !!}
                         {!! Form::close() !!}
                     </td>

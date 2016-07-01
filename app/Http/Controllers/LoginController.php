@@ -48,7 +48,12 @@ class LoginController extends Controller
 			return $this->sendLockoutResponse($request);
 		}
 
-		if (Auth::attempt([ $this->loginUsername() => $request->username, 'password' => $request->password, 'status' => 'active'], $request->remember)) {
+		if (Auth::attempt([
+			$this->loginUsername() => $request->username,
+			'password' => $request->password,
+			'status' => 'active'
+			], $request->remember)
+		) {
 
 			$this->clearLoginAttempts($request);
 

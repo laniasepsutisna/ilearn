@@ -680,7 +680,7 @@ ul.wysihtml5-toolbar > li {
 
 .mc-pagination {
 	position: fixed;
-	top: 50px; left: 0; bottom: 0;
+	top: 50px; right: 0; bottom: 0;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -696,7 +696,7 @@ ul.wysihtml5-toolbar > li {
 	display: block;
 	border: 1px solid #DDD;
 	border-top: none;
-	border-left: none;
+	border-right: none;
 	background-color: #FFF;
 }
 
@@ -754,4 +754,12 @@ ul.wysihtml5-toolbar > li {
 
 .quiz-classroom {
 	font-size: 1rem;
+}
+
+.alert {
+	border-radius: 2px;
+}
+
+#err-422 {
+	display: none;
 }

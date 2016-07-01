@@ -35,10 +35,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-3">
-                                <button id="loginButton" class="btn btn-primary">                                
-                                    <span class="sign-in"><i class="fa fa-btn fa-sign-in"></i></span>
-                                    Login
-                                </button>
+                                {!! Form::button('<i class="fa fa-btn fa-sign-in"></i> Login', ['class' => 'btn btn-primary', 'id' => 'loginButton', 'type' => 'submit']) !!}
                                 <a class="btn btn-link btn-sm" href="{{ route('email.request') }}">Lupa Password?</a>
                             </div>
                         </div>

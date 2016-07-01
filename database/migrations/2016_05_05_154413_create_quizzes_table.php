@@ -73,8 +73,8 @@ class CreateQuizzesTable extends Migration
       $table->integer('wrong');
       $table->integer('score');
 
-      $table->foreign('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
-      $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
+      $table->foreign('quiz_id')->references('id')->on('quizzes');
+      $table->foreign('student_id')->references('id')->on('users');
 
       $table->primary(['quiz_id', 'student_id']);
     });

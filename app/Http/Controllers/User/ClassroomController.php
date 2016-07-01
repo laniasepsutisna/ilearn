@@ -8,6 +8,7 @@ use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\Module;
 use App\Models\Quiz;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -70,10 +71,11 @@ class ClassroomController extends Controller
 	public function quizzes($id)
 	{
 		$classroom = Classroom::findOrFail($id);
+		$quizzes = $classroom->paginateQuizzes;
 		$page_title = 'Quiz - Kelas ' . $classroom->classname;
-
+		
 		if (Gate::allows('member-of', $classroom)){
-			return view('user.classrooms.quizzes', compact('classroom', 'page_title'));
+			return view('user.classrooms.quizzes', compact('classroom', 'page_title', 'quizzes'));
 		}
 
 		return abort(401);
@@ -192,15 +194,34 @@ class ClassroomController extends Controller
 		}
 
 		$user = $quiz->students()
-			->where('username', Auth::user()->username)
+			->where('id', Auth::user()->id)
 			->first();
 		$answer = json_decode($user->pivot->answer, true);
+
+		$deadline = Carbon::parse($user->pivot->time);
+		$deadline->timezone = 'Asia/Makassar';
+
+		if($user->pivot->status === 'done') {
+			return view('user.classrooms.quiz-end', compact('classroom', 'page_title'));
+		}
 		
-		if (Gate::allows('member-of', $classroom)){
+		if (Gate::allows('member-of', $classroom) || $deadline->lt(Carbon::now('Asia/Makassar'))){
 			return view('user.classrooms.detail-quiz', compact('classroom', 'quiz', 'user', 'answer', 'page_title'));
 		}
 
 		return abort(401);
+	}
+
+	public function score($classroom_id, $quiz_id)
+	{
+		$quiz = Classroom::findOrFail($classroom_id)
+			->quizzes()
+			->where('id', $quiz_id)
+			->first();
+		$users = $quiz->students;
+		$page_title = 'Nilai';
+
+		return view('user.classrooms.quiz-score', compact('quiz', 'page_title', 'users'));
 	}
 
 	public function attachSubmission(Request $request)

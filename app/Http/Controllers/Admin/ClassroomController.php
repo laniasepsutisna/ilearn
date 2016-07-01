@@ -99,10 +99,10 @@ class ClassroomController extends Controller
 		return redirect()->back();
 	}
 
-	public function removeMember(Request $request, $id) {
-
+	public function removeMember(Request $request) 
+	{
 		$classroom = Classroom::findOrFail($request->classroom_id);
-		$classroom->students()->detach($id);
+		$classroom->students()->detach($request->user_id);
 
 		\Flash::success('User berhasil dihapus dari kelas.');
 		return redirect()->back();

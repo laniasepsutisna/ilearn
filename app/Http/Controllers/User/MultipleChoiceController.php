@@ -72,12 +72,13 @@ class MultipleChoiceController extends Controller
 		$quiz = Quiz::findOrFail($quizId);
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)
-			->first()
-			->update([
-				'question' => $request->question,
-				'image' => $request->image
-			]);
+			->first();
 
+		$question->update([
+			'question' => $request->question,
+			'image' => $request->image
+		]);
+		
 		$question->answer()
 			->update([
 				'answer_1' => $request->answer_1,
