@@ -33,11 +33,12 @@
 			{{ Session::get('flash_notification.message') }}
 		</div>
 	@endif
-	
 	<nav class="navbar navbar-fixed-top navbar-default ilearn-main-nav">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="{{ route('home.index') }}"><strong>WH</strong> LMS</a>
+				<a class="navbar-brand hidden-xs" href="{{ route('home.index') }}"><strong>WH</strong> LMS</a>
+				<button class="panel-button" id="open-left-panel"><i class="fa fa-bars"></i></button>
+				<button class="panel-button" id="close-left-panel"><i class="fa fa-close"></i></button>
 			</div>
 
 			<div class="navbar-primary">
@@ -55,7 +56,9 @@
 	</nav>
 
 	@yield('content')
-
+	
+	@include('user.global.sidebars._panel')
+	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>

@@ -27,8 +27,8 @@
         
         if( $('.datepicker').length ) {
 	        $('.datepicker').datepicker({
-	            format: 'dd/mm/yyyy',
-	            startDate: '01/01/1940'
+	            format: 'yyyy-mm-dd',
+	            startDate: '1950-01-01'
 	        });
 	    }
     });

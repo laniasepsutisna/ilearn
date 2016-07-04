@@ -1,5 +1,5 @@
 <aside class="sidebar right-sidebar">
-	<div class="thumbnail profile-panel">
+	<div class="thumbnail profile-panel hidden-xs hidden-sm">
 		<img src="{{ $lms['profile']->cover_sm }}">
 		<div class="caption">
 			<a href="{{ route('home.profile') }}" class="profile-pict"><img class="img-circle" src="{{ $lms['profile']->picture_md }}"></a>

@@ -41,6 +41,7 @@ Route::group(['prefix' => '/lms-admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::get('/profile',['uses' => 'HomeController@profile', 'as' => 'lms-admin.profile']);
 	
 	Route::resource('/users', 'UserController', ['except' => 'show']);
+	Route::patch('users/{users}/usermeta', ['uses' => 'UserController@updateMeta', 'as' => 'lms-admin.users.updatemeta']);
 	Route::resource('/majors', 'MajorController', ['except' => 'show']);
 	Route::resource('/subjects', 'SubjectController', ['except' => 'show']);
 	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);

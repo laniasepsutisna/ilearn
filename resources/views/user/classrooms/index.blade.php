@@ -30,7 +30,7 @@
 
 						<h4 class="media-heading">{{ $discuss->user->fullname }}</h4>
 						<p><small>{{ $discuss->human_time }}</small></p>
-						<p>{{ $discuss->content }}</p>
+						<p class="text-small">{{ $discuss->content }}</p>
 					</div>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 				@endif
 				@foreach($discuss->paginate_comments as $comment)
 					<li class="list-group-item">
-						<ul class="media-list">
+						<ul class="media-list comment">
 
 								<li class="media text-small">
 									<div class="media-left">
@@ -64,7 +64,7 @@
 				<div class="media text-small">
 					<div class="media-left">
 						<a href="">
-							<img src="{{ $lms['profile']->picture_sm }}">
+							<img class="media-object" src="{{ $lms['profile']->picture_sm }}">
 						</a>
 					</div>
 					<div class="media-body">
@@ -75,9 +75,6 @@
 							<div class="form-group {{ $errors->has('response') ? 'has-error' : '' }}">
 								{!! Form::text('content', null, ['class' => 'form-control', 'placeholder' => 'Balas...', 'autocomplete' => 'off']) !!}
 								{!! $errors->first('content', '<p class="help-block">:message</p>') !!}
-							</div>
-							<div class="text-right">
-								{!! Form::submit('Balas', ['class'=>'btn btn-flat btn-primary']) !!}
 							</div>
 						{!! Form::close() !!}
 					</div>

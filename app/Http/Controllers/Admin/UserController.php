@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\User;
 use Auth;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -84,7 +85,6 @@ class UserController extends Controller
 			'cover' => 'cover-default.jpg'
 		]);
 
-
 		\Flash::success('User tersimpan.');
 		return redirect()->route('lms-admin.users.edit', [$user->id]);
 	}
@@ -107,10 +107,6 @@ class UserController extends Controller
 			'firstname' => 'required',
 			'lastname' => 'required',
 			'email' => 'required|email|unique:users,email,' . $user->id,
-			'nis' => 'unique:user_metas,nis,' . $user->usermeta->id,
-			'nisn' => 'unique:user_metas,nisn,' . $user->usermeta->id,
-			'telp' => 'unique:user_metas,telp,' . $user->usermeta->id,
-			'telp_orangtua' => 'unique:user_metas,telp_orangtua,' . $user->usermeta->id,
 		], [
 			'required' => 'Kolom :attribute diperlukan!',
 			'exists' => 'Kolom :attribute tidak ditemukan!',
@@ -119,15 +115,19 @@ class UserController extends Controller
 		
 		$user->update($request->all());
 
-		$data = $request->except(
-			['username', 'firstname', 'lastname', 'role', 'email', 'status', 'bio', 'major_id', '_method', '_token']
-		);
+		\Flash::success('User diperbaharui.');
+		return redirect()->back();
+	}
 
-		if($request->has('major_id')) {
-			$data['major_id'] = $request->major_id;
+	public function updateMeta(Request $request, $id)
+	{
+		$user = User::findOrFail($id);
+
+		if(!$user->hasRole('student')) {
+			$request->except(['nis', 'nisn', 'orangtua', 'wali', 'telp_orangtua']);
 		}
 
-		$user->usermeta()->update($data);
+		$user->usermeta->update($request->all());
 
 		\Flash::success('User diperbaharui.');
 		return redirect()->back();

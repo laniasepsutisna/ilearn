@@ -18,7 +18,7 @@ class AppComposer
 		$data['profile']       = Auth::user();
 		$data['classrooms']    = Classroom::where('id', $joined_class)->get();
 		$data['assignments']   = $this->classAssignment($joined_class);
-		$data['online']        = User::onlineusers()->orderBy('created_at')->limit(5)->get();
+		$data['online']        = User::onlineusers()->limit(8)->get();
 
 		$view->with('lms', $data);
 	}

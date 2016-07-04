@@ -29,7 +29,7 @@ class MultipleChoiceController extends Controller
 			'questions.*.answers.correct_answer' => 'required'
 		]);
 
-		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
+		$quiz = Quiz::with('multiplechoices')->findOrFail($quizId);
 
 		foreach ($request->questions as $questions) {
 			$question = $quiz->multiplechoices()
@@ -46,7 +46,7 @@ class MultipleChoiceController extends Controller
 
 	public function edit($quizId, $questionId)
 	{
-		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
+		$quiz = Quiz::with('multiplechoices')->findOrFail($quizId);
 		$page_title = $quiz->title;
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)
@@ -67,7 +67,7 @@ class MultipleChoiceController extends Controller
 			'correct_answer' => 'required'
 		]);
 
-		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
+		$quiz = Quiz::with('multiplechoices')->findOrFail($quizId);
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)
 			->first();
@@ -93,7 +93,7 @@ class MultipleChoiceController extends Controller
 
 	public function destroy($quizId, $questionId)
 	{
-		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
+		$quiz = Quiz::with('multiplechoices')->findOrFail($quizId);
 
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)

@@ -14,11 +14,7 @@ class Activity extends Model
 	protected $fillable = [
 		'teacher_id', 'classroom_id', 'action', 'route', 'detail'
 	];
-
-	protected $hidden = [
-		'created_at', 'updated_at'
-	];
-
+	
 	public function teacher()
 	{
 		return $this->belongsTo('App\Models\User');

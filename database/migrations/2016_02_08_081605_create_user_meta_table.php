@@ -15,7 +15,6 @@ class CreateUserMetaTable extends Migration
 		Schema::create('user_metas', function (Blueprint $table) {
 			$table->uuid('id')->unique();
 			$table->uuid('user_id')->unique();
-			$table->uuid('major_id')->nullable();
 			$table->string('nis', 60)->unique()->nullable();
 			$table->string('nisn', 60)->unique()->nullable();
 			$table->string('agama', 15);

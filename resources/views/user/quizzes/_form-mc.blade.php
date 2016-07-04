@@ -10,10 +10,12 @@
 				{!! Form::textarea('questions[1][question]', null, ['class' => 'form-control', 'id' => 'question', 'placeholder' => 'Pertanyaan...', 'rows' => '5']) !!}
 			</div>
 
+			{{-- Add later
 			<div class="form-group">
 				{!! Form::label('image', 'Gambar', ['class' => 'control-label']) !!}
 				{!! Form::file('questions[1][image]', ['class' => 'form-control', 'id' => 'image']) !!}
 			</div>
+			--}}
 	
 			<div class="clearfix anwers_wrapper">
 				<div class="form-group col-xs-12">

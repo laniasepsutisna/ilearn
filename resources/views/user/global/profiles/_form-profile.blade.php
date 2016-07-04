@@ -41,7 +41,7 @@
 <div class="form-group {{ $errors->has('tanggallahir') ? 'has-error' : '' }}">
 	{!! Form::label('tanggallahir', 'Tanggal Lahir', ['class' => 'col-md-3 control-label']) !!}
 	<div class="col-md-6">
-		{!! Form::text('tanggallahir', null, ['class'=> 'form-control datepicker', 'id' => 'tanggallahir', 'placeholder' => 'tanggal/bulan/tahun']) !!}
+		{!! Form::text('tanggallahir', null, ['class'=> 'form-control datepicker-bod', 'id' => 'tanggallahir', 'placeholder' => 'tanggal/bulan/tahun']) !!}
 		{!! $errors->first('tanggallahir', '<p class="help-block">:message</p>') !!}
 	</div>
 </div>

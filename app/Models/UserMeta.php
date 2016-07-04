@@ -14,10 +14,10 @@ class UserMeta extends Model
 	public $timestamps = false;
 
 	protected $fillable = [
-		'user_id', 'major_id', 'nis', 'nisn', 'agama', 'tempatlahir', 'tanggallahir', 'orangtua', 'wali', 'alamat', 'telp', 'telp_orangtua', 'picture', 'cover', 'bio'
+		'user_id', 'nis', 'nisn', 'agama', 'tempatlahir', 'tanggallahir', 'orangtua', 'wali', 'alamat', 'telp', 'telp_orangtua', 'picture', 'cover', 'bio'
 	];
 
 	protected $hidden = [
-		'id', 'user_id', 'major_id'
+		'id', 'user_id'
 	];
 }

@@ -44,6 +44,7 @@ elixir(function(mix) {
 		'shared/bootstrap-datepicker.js',
 		'shared/bootstrap3-wysihtml5.all.min.js',
 		'shared/sweetalert.min.js',
+		'client/velocity.js',
 		'client/moment.js',
 		'client/countdown.js',
 		'client/lms-paginate.js',

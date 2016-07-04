@@ -109,13 +109,7 @@ class LoginController extends Controller
 
 		$user->update($request->all());
 
-		$user->usermeta()->update([
-			'tempatlahir' => $request->tempatlahir,
-			'tanggallahir' => $request->tanggallahir,
-			'alamat' => $request->alamat,
-			'bio' => $request->bio,
-			'telp' => $request->telp
-		]);
+		$user->usermeta->update($request->all());
 
 		\Flash::success('Profil berhasil diperbaharui.');
 		return redirect()->back();
@@ -156,7 +150,7 @@ class LoginController extends Controller
 
 		if($request->hasFile('image')){
 			$data[$request->field] = $this->saveImage($request->file('image'), $cover);
-			$user->usermeta()->update($data);
+			$user->usermeta->update($data);
 		}
 
 		return redirect()->back();		

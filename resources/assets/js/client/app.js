@@ -18,6 +18,14 @@
         startDate: '+1d'
       });
     }
+
+    if($('.datepicker-bod').length) {
+      $('.datepicker-bod').datepicker({
+        format: 'yyyy-mm-dd',
+        startDate: '1950-01-01'
+      });
+    }
+
     if($('#calendar').length) {
       $('#calendar').fullCalendar({
         header: {
@@ -66,6 +74,24 @@
           break;
       }
     });   
+  });
+
+  $('#open-left-panel').click(function(e) {
+    e.preventDefault();
+    $('#open-left-panel').velocity('fadeOut', { duration: 0 });
+    $('#left-panel-overlay').velocity('fadeIn');
+
+    $('.panel-left').velocity({ translateX: ['0%', '-100%'] });
+    $('#close-left-panel').velocity('fadeIn', { duration: 0 });
+  });
+
+  $('#close-left-panel, #left-panel-overlay').click(function(e) {
+    e.preventDefault();
+    $('#close-left-panel').velocity('reverse', { duration: 0 });
+    $('#left-panel-overlay').velocity('fadeOut');
+
+    $('.panel-left').velocity('reverse');
+    $('#open-left-panel').velocity('fadeIn', { duration: 0 });
   });
 
 })(jQuery);
