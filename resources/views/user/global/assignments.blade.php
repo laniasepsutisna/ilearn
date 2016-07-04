@@ -36,7 +36,7 @@
 											</a>
 										@endforeach
 									@else
-										<a class="btn btn-primary" href="{{ route('classrooms.assignmentdetail', [$assignment->classrooms->whereIn('id', $lms['joined_class'])->first()->id, $assignment->id]) }}">
+										<a class="btn btn-primary" href="{{ route('classrooms.assignmentdetail', [$assignment->classrooms->whereIn('id', $lms['profile']->joinedClassrooms)->first()->id, $assignment->id]) }}">
 											<i class="fa fa-send"></i>
 											Kerjakan
 										</a>

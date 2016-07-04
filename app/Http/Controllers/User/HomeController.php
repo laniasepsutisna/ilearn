@@ -4,14 +4,17 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Models\Activity;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
 	public function index()
 	{
-		return view('user.global.feeds');
+		$activities = Activity::whereIn('classroom_id', Auth::user()->joinedClassrooms)->paginate(10);
+		return view('user.global.feeds', compact('activities'));
 	}
 
 	public function profile()

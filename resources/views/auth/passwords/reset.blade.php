@@ -1,9 +1,5 @@
 @extends('front')
 
-@section('page_title')
-    Login
-@endsection
-
 @section('content')
 <div class="overlay"></div>
 <div class="container" style="margin-top: 150px;">

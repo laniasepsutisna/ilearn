@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Role;
 use App\Models\User;
+use Auth;
 
 class UserController extends Controller
 {
@@ -119,19 +119,15 @@ class UserController extends Controller
 		
 		$user->update($request->all());
 
-		$user->usermeta()->update([            
-			'nis' => $request->nis,
-			'nisn' => $request->nisn,
-			'major_id' => $request->jurusan,
-			'agama' => $request->agama,
-			'tempatlahir' => $request->tempatlahir,
-			'tanggallahir' => $request->tanggallahir,
-			'alamat' => $request->alamat,
-			'telp' => $request->telp,
-			'orangtua' => $request->orangtua,
-			'wali' => $request->wali,
-			'telp_orangtua' => $request->telp_orangtua,
-		]);
+		$data = $request->except(
+			['username', 'firstname', 'lastname', 'role', 'email', 'status', 'bio', 'major_id', '_method', '_token']
+		);
+
+		if($request->has('major_id')) {
+			$data['major_id'] = $request->major_id;
+		}
+
+		$user->usermeta()->update($data);
 
 		\Flash::success('User diperbaharui.');
 		return redirect()->back();

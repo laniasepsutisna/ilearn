@@ -32,7 +32,6 @@ Route::group(['middleware' => ['auth', 'role:teacher|student']], function () {
 	Route::put('/auth/image', ['uses' => 'LoginController@changeImage', 'as' => 'auth.image']);
 });
 
-Route::get('/password/email', ['uses' => 'Auth\PasswordController@getEmail', 'as' => 'email.request']);
 Route::post('/password/email', ['uses' => 'Auth\PasswordController@postEmail', 'as' => 'email.store']);
 Route::get('/password/reset/{token}', ['uses' => 'Auth\PasswordController@getReset', 'as' => 'reset.request']);
 Route::post('/password/reset', ['uses' => 'Auth\PasswordController@postReset', 'as' => 'reset.store']);

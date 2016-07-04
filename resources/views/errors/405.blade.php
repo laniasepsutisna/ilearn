@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>SQL Error {{ $e[1] }}.</title>
+        <title>HTTP method tidak diijinkan.</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -29,13 +29,14 @@
             .content {
                 text-align: center;
                 display: inline-block;
+                color: #205081;
             }
 
             .title {
                 font-size: 72px;
                 margin-bottom: 40px;
             }
-
+            
             a {
                 text-decoration: none;
                 color: #205081;
@@ -45,9 +46,10 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">SQL ERROR {{ $e[1] }}.</div>
-                    <h1>Terjadi kesalahan query database.</h1>
-                    <a href="{{ url('/') }}"><strong>Kembali ke halaman depan.</strong></a>
+                <div class="title">405.</div>
+                <div>
+                    <h1>Metode HTTP tidak diijinkan!</h1>
+                    <a href="{{ url('/') }}"><strong>Saya ingin kembali kerumah.</strong></a>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Models\Assignment;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class AssignmentController extends Controller
 {

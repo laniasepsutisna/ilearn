@@ -17,5 +17,5 @@
 </div>
 
 <div class="form-group"> 
-	{!! Form::button('<i class="fa fa-send"></i> Simpan', ['class'=>'btn btn-flat btn-success', 'type' => 'submit']) !!}
+	{!! Form::button('<i class="fa fa-send"></i> Simpan', ['class'=>'btn btn-flat btn-success', 'type' => 'submit', 'id' => 'quizSubmit']) !!}
 </div>

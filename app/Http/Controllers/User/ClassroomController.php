@@ -8,11 +8,11 @@ use App\Models\Assignment;
 use App\Models\Classroom;
 use App\Models\Module;
 use App\Models\Quiz;
+use Auth;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Http\UploadedFile;
 
 class ClassroomController extends Controller
 {
@@ -46,7 +46,7 @@ class ClassroomController extends Controller
 
 	public function courses($id)
 	{
-		$classroom = Classroom::findOrFail($id);
+		$classroom = Classroom::with('courses')->findOrFail($id);
 		$page_title = 'Materi - Kelas ' . $classroom->classname;
 
 		if (Gate::allows('member-of', $classroom)){
@@ -58,7 +58,7 @@ class ClassroomController extends Controller
 
 	public function assignments($id)
 	{
-		$classroom = Classroom::findOrFail($id);
+		$classroom = Classroom::with('assignments')->findOrFail($id);
 		$page_title = 'Tugas - Kelas ' . $classroom->classname;
 
 		if (Gate::allows('member-of', $classroom)){
@@ -70,7 +70,7 @@ class ClassroomController extends Controller
 
 	public function quizzes($id)
 	{
-		$classroom = Classroom::findOrFail($id);
+		$classroom = Classroom::with('quizzes')->findOrFail($id);
 		$quizzes = $classroom->paginateQuizzes;
 		$page_title = 'Quiz - Kelas ' . $classroom->classname;
 		
@@ -83,7 +83,7 @@ class ClassroomController extends Controller
 
 	public function members($id)
 	{
-		$classroom = Classroom::findOrFail($id);
+		$classroom = Classroom::with('users')->findOrFail($id);
 		$page_title = 'Anggota - Kelas ' . $classroom->classname;
 
 		if (Gate::allows('member-of', $classroom)){
@@ -95,7 +95,7 @@ class ClassroomController extends Controller
 
 	public function discussionDetail($classroom_id, $discuss_id)
 	{   
-		$classroom = Classroom::findOrFail($classroom_id);
+		$classroom = Classroom::with('discussions')->findOrFail($classroom_id);
 		$discussion = $classroom->discussions()
 			->where('id', $discuss_id)
 			->first();
@@ -110,7 +110,7 @@ class ClassroomController extends Controller
 
 	public function assignmentDetail($classroom_id, $assignment_id)
 	{
-		$classroom  = Classroom::findOrFail($classroom_id);
+		$classroom  = Classroom::with('assignments')->findOrFail($classroom_id);
 		$assignment = $classroom->assignments()
 			->where('assignment_id', $assignment_id)
 			->first();
@@ -137,7 +137,7 @@ class ClassroomController extends Controller
 		/* Temp array */
 		$viewedByMe = [];
 
-		$classroom = Classroom::findOrFail($classroom_id);
+		$classroom = Classroom::with('courses')->findOrFail($classroom_id);
 		$course = $classroom->courses()
 			->where('course_id', $course_id)
 			->first();
@@ -167,7 +167,7 @@ class ClassroomController extends Controller
 
 	public function moduleDetail($classroom_id, $module_id)
 	{
-		$classroom = Classroom::findOrFail($classroom_id);
+		$classroom = Classroom::with('courses')->findOrFail($classroom_id);
 		$module = Module::findOrFail($module_id);        
 		$page_title = $module->name;
 
@@ -183,7 +183,7 @@ class ClassroomController extends Controller
 
 	public function quizDetail($classroom_id, $quiz_id)
 	{
-		$classroom = Classroom::findOrFail($classroom_id);
+		$classroom = Classroom::with('quizzes')->findOrFail($classroom_id);
 		$quiz = $classroom->quizzes()
 			->where('quiz_id', $quiz_id)
 			->first();
@@ -214,7 +214,7 @@ class ClassroomController extends Controller
 
 	public function score($classroom_id, $quiz_id)
 	{
-		$quiz = Classroom::findOrFail($classroom_id)
+		$quiz = Classroom::with('quizzes')->findOrFail($classroom_id)
 			->quizzes()
 			->where('id', $quiz_id)
 			->first();

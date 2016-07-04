@@ -6,11 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LoginTest extends TestCase
 {
-  /**
-   * A Login test.
-   *
-   * @return void
-   */
   public function testLoginAdmin()
   {
     $this->visit('/')
@@ -20,11 +15,16 @@ class LoginTest extends TestCase
     	->seePageIs('/lms-admin');
   }
 
-  /**
-   * A Login test.
-   *
-   * @return void
-   */
+  public function testErrorLogin()
+  {
+    $this->visit('/')
+      ->type('random', 'username')
+      ->type('random', 'password')
+      ->press('loginButton')
+      ->seePageIs('/')
+      ->see('Username dan password tidak cocok atau akun sedang di banned.');
+  }
+
   public function testLoginTeacher()
   {
     $this->visit('/')
@@ -34,11 +34,6 @@ class LoginTest extends TestCase
     	->seePageIs('/home');
   }
 
-  /**
-   * A Login test.
-   *
-   * @return void
-   */
   public function testLoginStudent()
   {
     $this->visit('/')

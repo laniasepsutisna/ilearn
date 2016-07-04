@@ -108,6 +108,17 @@ class User extends Authenticatable
 		return false;
 	}
 
+	public function getJoinedClassroomsAttribute()
+	{
+		$classroomIds = [];
+		$classrooms = $this->hasRole('teacher') ? $this->teacherclassrooms : $this->classrooms;
+		$classroomIds = $classrooms->map(function($class){
+			return $class->id;
+		})->toArray();
+
+		return $classroomIds;
+	}
+
 	public function scopeOnlineusers($query)
 	{
 		return $query->where(function($q) {

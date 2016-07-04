@@ -7,7 +7,7 @@ use App\Http\Requests;
 use App\Models\Activity;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Auth;
 
 class QuizController extends Controller
 {

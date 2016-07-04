@@ -155,7 +155,7 @@
           $('.quiz-loading').hide();
           $('#unansweredQuestion').html(data.unanswered);
         })
-        .fail(function(err ){
+        .fail(function(err) {
           $('body').append(err.responseText);
           $('#refresh').modal('show');
           $('#refresh-quiz').click(function(e){

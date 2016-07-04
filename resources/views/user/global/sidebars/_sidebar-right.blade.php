@@ -4,7 +4,7 @@
 		<div class="caption">
 			<a href="{{ route('home.profile') }}" class="profile-pict"><img class="img-circle" src="{{ $lms['profile']->picture_md }}"></a>
 			<h2 class="fullname">{{ $lms['profile']->fullname }}</h2>
-			<p class="biography text-small">{{ $lms['profile']->email }}</p>
+			<p class="biography text-small text-italic"><em>"{{ $lms['profile']->bio ? $lms['profile']->bio : 'Bagaimana kabarmu?' }}"</em></p>
 		</div>
 	</div>
 
@@ -44,7 +44,7 @@
 					</li>
 				@else
 					<li class="list-group-item text-small">
-						<a class="btn-link" href="{{ route('classrooms.assignmentdetail', [$assignment->classrooms->whereIn('id', $lms['joined_class'])->first()->id, $assignment->id]) }}">
+						<a class="btn-link" href="{{ route('classrooms.assignmentdetail', [$assignment->classrooms->whereIn('id', $lms['profile']->joinedClassrooms)->first()->id, $assignment->id]) }}">
 							<i class="fa fa-file"></i> {{ $assignment->title }}
 						</a>
 					</li>

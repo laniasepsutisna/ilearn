@@ -7,28 +7,18 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class AnnouncementTest extends TestCase
 {
-  /**
-   * A announcement test example.
-   *
-   * @return void
-   */
   public function testAnnouncement()
   {
   	$user = User::where('username', 'admin')->first();
 
     $this->actingAs($user)
     	->visit('/lms-admin/announcements')
-    	->see('Tabel Pengumuman');
+    	->see('Pengumuman');
   }
 
-  /**
-   * A insert announcement test example.
-   *
-   * @return void
-   */
   public function testInsertAnnouncement()
   {
-  	$user = User::where('username', 'admin')->first();
+    $user = User::where('username', 'admin')->first();
 
     $this->actingAs($user)
     	->visit('/lms-admin/announcements/create')
@@ -37,5 +27,30 @@ class AnnouncementTest extends TestCase
     	->select('danger', 'status')
     	->type('Announcement Content', 'content')
     	->press('Save');
+  }
+
+  public function testEditAnnouncement()
+  {
+    $user = User::where('username', 'admin')->first();
+
+    $this->actingAs($user)    
+      ->visit('/lms-admin/announcements')
+      ->click('Edit')
+      ->see('Edit Pengumuman')
+      ->type('Pengumuman Edit Baru', 'title')
+      ->select('danger', 'status')
+      ->type('Deskripsi Pengumuman Edit Baru', 'content')
+      ->press('Update');
+  }
+
+  public function testRemoveAnnouncement()
+  {
+    $user = User::where('username', 'admin')->first();
+
+    $this->actingAs($user)
+      ->visit('/lms-admin/announcements')
+      ->see('Pengumuman')
+      ->press('Hapus')
+      ->seePageIs('lms-admin/announcements');
   }
 }

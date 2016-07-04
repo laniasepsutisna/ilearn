@@ -29,7 +29,7 @@ class MultipleChoiceController extends Controller
 			'questions.*.answers.correct_answer' => 'required'
 		]);
 
-		$quiz = Quiz::findOrFail($quizId);
+		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
 
 		foreach ($request->questions as $questions) {
 			$question = $quiz->multiplechoices()
@@ -37,8 +37,6 @@ class MultipleChoiceController extends Controller
 
 			$question->answer()
 				->create($questions['answers']);
-
-			// TODO: Save uploaded image
 		}
 
 		\Flash::success('Quiz berhasil disimpan.');
@@ -48,7 +46,7 @@ class MultipleChoiceController extends Controller
 
 	public function edit($quizId, $questionId)
 	{
-		$quiz = Quiz::findOrFail($quizId);
+		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
 		$page_title = $quiz->title;
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)
@@ -69,7 +67,7 @@ class MultipleChoiceController extends Controller
 			'correct_answer' => 'required'
 		]);
 
-		$quiz = Quiz::findOrFail($quizId);
+		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)
 			->first();
@@ -95,17 +93,11 @@ class MultipleChoiceController extends Controller
 
 	public function destroy($quizId, $questionId)
 	{
-		$quiz = Quiz::findOrFail($quizId);
+		$quiz = Quiz::with('mc_questions')->findOrFail($quizId);
 
 		$question = $quiz->multiplechoices()
 			->where('id', $questionId)
 			->first();
-			
-		$file = public_path( 'uploads/quizzes/' . $question->image );
-		
-		if($question->image && file_exists($file)) {
-			unlink($file);
-		}
 
 		$question->delete();
 

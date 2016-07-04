@@ -203,3 +203,13 @@ body.login-page {
 		margin-top: 150px;
 	}
 }
+
+.announcement {
+	border-bottom: 1px solid #eee;
+	padding-bottom: 1rem;
+	margin-bottom: 1.5rem;
+}
+
+.announcement:last-child {
+	border-bottom: none;
+}

@@ -3,14 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Auth;
+use App\Models\Announcement;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Http\UploadedFile;
 use Intervention\Image\Facades\Image;
 use Ramsey\Uuid\Uuid;
-use App\Models\User;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -29,8 +29,9 @@ class LoginController extends Controller
 		}
 
 		$page_title = 'Login';
+		$announcements = Announcement::where('status', 'info')->limit(3)->get();
 		
-		return view('auth.login', compact('page_title'));
+		return view('auth.login', compact('page_title', 'announcements'));
 	}
 
 	public function login(Request $request)
@@ -112,6 +113,7 @@ class LoginController extends Controller
 			'tempatlahir' => $request->tempatlahir,
 			'tanggallahir' => $request->tanggallahir,
 			'alamat' => $request->alamat,
+			'bio' => $request->bio,
 			'telp' => $request->telp
 		]);
 
@@ -157,8 +159,7 @@ class LoginController extends Controller
 			$user->usermeta()->update($data);
 		}
 
-		return redirect()->back();
-		
+		return redirect()->back();		
 	}
 
 	public function saveImage(UploadedFile $image, $cover = false)

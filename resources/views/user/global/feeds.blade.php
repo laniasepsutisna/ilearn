@@ -7,8 +7,7 @@
 		</header>
 		@include('user.global._tabs')
 	</div>
-
-	@forelse($lms['activities'] as $activity)
+	@forelse($activities as $activity)
 		<div class="panel panel-default">
 			<ul class="list-group">
 				<li class="list-group-item">
@@ -30,6 +29,6 @@
 		<h3 class="text-center no-content">Tidak ada aktifitas.</h3>
 	@endforelse	
 	<div class="text-right"> 
-		{{ $lms['activities']->links() }}
+		{{ $activities->links() }}
 	</div>
 @endsection

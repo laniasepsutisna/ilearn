@@ -40,6 +40,14 @@
         </div>
     </div>
 
+    <div class="form-group {{ $errors->has('bio') ? 'has-error' : '' }}">
+        {!! Form::label('bio', 'Biografi', array('class' => 'col-md-3 control-label')) !!}
+        <div class="col-md-9">
+            {!! Form::textarea('bio', null, ['class' => 'form-control', 'placeholder' => 'Biografi...', 'id' => 'bio']) !!}
+            {!! $errors->first('bio', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
 @if(isset($user) && $user->role == 'student')
     <h3>Data Siswa</h3>
 
@@ -83,11 +91,11 @@
         </div>
     </div>
 
-    <div class="form-group {{ $errors->has('jurusan') ? 'has-error' : '' }}">
-        {!! Form::label('jurusan', 'Jurusan', ['class' => 'col-md-3 control-label']) !!}
+    <div class="form-group {{ $errors->has('major') ? 'has-error' : '' }}">
+        {!! Form::label('major', 'Jurusan', ['class' => 'col-md-3 control-label']) !!}
         <div class="col-md-6">
-            {!! Form::select('jurusan', App\Models\Major::pluck('name', 'id'), null, ['class'=>'form-control select2', 'id' => 'jurusan', 'placeholder' => 'Pilih Jurusan...'] ) !!}
-            {!! $errors->first('jurusan', '<p class="help-block">:message</p>') !!}
+            {!! Form::select('major_id', App\Models\Major::pluck('name', 'id'), null, ['class'=>'form-control select2', 'id' => 'major', 'placeholder' => 'Pilih Jurusan...'] ) !!}
+            {!! $errors->first('major', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -102,7 +110,7 @@
     <div class="form-group {{ $errors->has('alamat') ? 'has-error' : '' }}">
         {!! Form::label('alamat', 'Alamat', array('class' => 'col-md-3 control-label')) !!}
         <div class="col-md-9">
-            {!! Form::textarea('alamat', null, ['class' => 'form-control textarea', 'placeholder' => 'Alamat user...', 'id' => 'alamat']) !!}
+            {!! Form::textarea('alamat', null, ['class' => 'form-control', 'placeholder' => 'Alamat user...', 'id' => 'alamat']) !!}
             {!! $errors->first('alamat', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
