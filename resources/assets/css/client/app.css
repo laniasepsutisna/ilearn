@@ -20,7 +20,6 @@ body {
 
 .btn {
 	border-radius: 1px;
-	border: none;
 	font-size: 12px;
 }
 
@@ -153,6 +152,7 @@ body {
 .lms-sidebar-menu ul li a {
 	padding: 5px 15px;
 	margin: 10px 0;
+	font-size: 12px;
 }
 
 .classrooms ul li.active a,
@@ -295,6 +295,15 @@ input.datepicker {
 }
 
 /* Announcements */
+.announcement,
+.assignment.post {
+	font-size: 12px;
+}
+
+.assignment.post > div {
+	margin-bottom: 1rem;
+}
+
 .announcement .status {
 	padding: 0 4px;
 }
@@ -931,4 +940,51 @@ ul.wysihtml5-toolbar > li {
 
 .feeds {
 	font-size: 13px;
+}
+
+.feeds.tab-content {
+	border: none;
+}
+
+.feeds.tab-content .tab-pane {
+	padding: 0;	
+}
+
+.feeds-tab-nav {
+	border-bottom: none;
+	margin: 3rem 0;
+}
+
+.feeds-tab-nav > li > a {
+	background-color: none;
+	font-size: 13px;
+}
+
+.feeds-tab-nav > li.active > a,
+.feeds-tab-nav > li.active > a:focus,
+.feeds-tab-nav > li.active > a:hover {
+	background: none;
+	font-weight: 700;
+	border: none;
+	border-bottom: 3px solid #205080;
+}
+
+.toggle.android {
+	border-radius: 0px;
+}
+
+.toggle.android .toggle-handle {
+	border-radius: 0px;
+}
+
+.toogleStatus .btn.btn-success {
+	border-color: #398439;
+}
+
+.toogleStatus .btn.btn-default {
+	border-color: #adadad;
+}
+
+.classroom-wrapper .list-group-item {
+	font-size: 12px;
 }

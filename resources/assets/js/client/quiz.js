@@ -220,7 +220,7 @@
         }, 3000);        
       } else {
         $('#refresh').modal('show');
-        $('#refresh-quiz').click(function(e){
+        $('#refresh-page').click(function(e){
           e.preventDefault();
           window.location.reload();
         });

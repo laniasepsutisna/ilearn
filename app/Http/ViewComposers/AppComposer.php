@@ -16,7 +16,7 @@ class AppComposer
 		$data = [];
 
 		$data['profile']       = Auth::user();
-		$data['classrooms']    = Classroom::where('id', $joined_class)->get();
+		$data['classrooms']    = Classroom::find($joined_class);
 		$data['assignments']   = $this->classAssignment($joined_class);
 		$data['online']        = User::onlineusers()->limit(8)->get();
 

@@ -126,12 +126,13 @@ class AssignmentController extends Controller
 		], [
 			'required' => 'Kolom :attribute diperlukan'
 		]);
+
 		$assignment = Assignment::findOrFail($request->assignment_id);
 
 		Activity::create([
 			'teacher_id' => $request->user()->id,
 			'classroom_id' => $request->classroom_id,
-			'action' => 'Menambagikan tugas ke ',
+			'action' => 'Membagikan tugas ke ',
 			'route' => 'classrooms.assignmentdetail',
 			'detail' => $assignment->id
 		]);

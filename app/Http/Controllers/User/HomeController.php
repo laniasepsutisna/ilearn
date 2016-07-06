@@ -5,16 +5,20 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Models\Activity;
+use App\Models\Discussion;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Auth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
 	public function index()
 	{
-		$activities = Activity::whereIn('classroom_id', Auth::user()->joinedClassrooms)->paginate(10);
-		return view('user.global.feeds', compact('activities'));
+		$classroomIds = Auth::user()->joinedClassrooms;
+		$activities = Activity::whereIn('classroom_id', $classroomIds)->orderBy('created_at', 'DESC')->paginate(10);
+		$discussions = Discussion::where('parent_id', '')->whereIn('classroom_id', $classroomIds)->orderBy('created_at', 'DESC')->paginate(10);
+
+		return view('user.global.feeds', compact('activities', 'discussions'));
 	}
 
 	public function profile()

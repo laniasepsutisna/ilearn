@@ -47,7 +47,7 @@ Route::group(['prefix' => '/lms-admin', 'namespace' => 'Admin', 'middleware' => 
 	Route::resource('/announcements', 'AnnouncementController', ['except' => 'show']);
 	Route::resource('/classrooms', 'ClassroomController', ['except' => 'show']);
 	Route::post('/classrooms/addmembers', ['uses' => 'ClassroomController@addMembers', 'as' => 'lms-admin.classrooms.addmembers']);
-	Route::delete('/classrooms/removemember', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
+	Route::post('/classrooms/removemember', ['uses' => 'ClassroomController@removeMember', 'as' => 'lms-admin.classrooms.removemember']);
 });
 
 Route::group(['namespace' => 'User', 'middleware' => ['auth', 'role:teacher|student']], function () {
@@ -103,4 +103,5 @@ Route::group(['prefix' => '/api', 'namespace' => 'API', 'middleware' => ['auth',
 	Route::get('/assignments', 'AssignmentController@deadline');
 	Route::post('/quizzes/start', 'QuizController@startQuiz');
 	Route::post('/quizzes/submit', 'QuizController@submitQuiz');
+	Route::post('/users/status', 'UserController@toggleStatus');
 });

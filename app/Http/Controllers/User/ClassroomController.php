@@ -83,7 +83,7 @@ class ClassroomController extends Controller
 
 	public function members($id)
 	{
-		$classroom = Classroom::with('users')->findOrFail($id);
+		$classroom = Classroom::with('students')->findOrFail($id);
 		$page_title = 'Anggota - Kelas ' . $classroom->classname;
 
 		if (Gate::allows('member-of', $classroom)){

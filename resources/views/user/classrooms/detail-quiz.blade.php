@@ -56,20 +56,4 @@
     </div>
   </div>
   <div class="quiz-loading"><i class="fa fa-circle-o-notch fa-spin"></i> Loading...</div>
-
-  <div class="modal fade" tabindex="-1" role="dialog" id="refresh">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Oops!!</h4>
-        </div>
-        <div class="modal-body">
-          <p>Terjadi kesalahan. Coba refresh halaman.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="refresh-quiz">Refresh</button>
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection

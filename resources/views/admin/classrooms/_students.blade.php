@@ -44,7 +44,7 @@
                 <tr>
                     <td>{{ $user->fullname }}</td>
                     <td>                        
-                        {!! Form::open(['route' => ['lms-admin.classrooms.removemember'], 'method' => 'delete', 'class' => 'form-delete-inline']) !!}
+                        {!! Form::open(['route' => ['lms-admin.classrooms.removemember'], 'method' => 'post', 'class' => 'form-delete-inline']) !!}
                             {!! Form::hidden('classroom_id', $classroom->id) !!}
                             {!! Form::hidden('user_id', $user->id) !!}
                             {!! Form::submit('Hapus', ['class'=>'btn btn-flat btn-link btn-link-danger btn-xs']) !!}

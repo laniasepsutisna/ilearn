@@ -94,4 +94,34 @@
     $('#open-left-panel').velocity('fadeIn', { duration: 0 });
   });
 
+  $('.studentStatus').change(function(e) {
+    var _toggleBtn = $(this);
+    $.ajax({
+      method: 'POST',
+      url: '/api/users/status',
+      data: {
+        user_id: _toggleBtn.val()
+      },
+      beforeSend: function() {
+        _toggleBtn.parent()
+          .toggleClass('disabled');
+
+        _toggleBtn.attr('disabled', true);
+      }
+    })
+    .always(function(data) {
+      _toggleBtn.parent()
+        .toggleClass('disabled');
+          
+      _toggleBtn.removeAttr('disabled');
+    })
+    .fail(function(err) {
+      $('#refresh').modal('show');
+      $('#refresh-page').click(function(e){
+        e.preventDefault();
+        window.location.reload();
+      });
+    });
+  });
+
 })(jQuery);

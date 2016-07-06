@@ -59,6 +59,22 @@
 	
 	@include('user.global.sidebars._panel')
 	
+  <div class="modal fade" tabindex="-1" role="dialog" id="refresh">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Oops!!</h4>
+        </div>
+        <div class="modal-body">
+          <p>Terjadi kesalahan. Coba refresh halaman.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="refresh-page">Refresh</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.0.1/Chart.bundle.js"></script>

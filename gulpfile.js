@@ -27,6 +27,7 @@ elixir(function(mix) {
 	  'shared/bootstrap3-wysihtml5.min.css',
 	  'shared/datepicker3.css',
 	  'shared/sweetalert.css',
+	  'client/bootstrap-toggle.min.css',
 	  'client/app.css'
 	], 'public/assets/css/client/build.min.css'
 	)
@@ -45,6 +46,7 @@ elixir(function(mix) {
 		'shared/bootstrap3-wysihtml5.all.min.js',
 		'shared/sweetalert.min.js',
 		'client/velocity.js',
+		'client/bootstrap-toggle.min.js',
 		'client/moment.js',
 		'client/countdown.js',
 		'client/lms-paginate.js',
