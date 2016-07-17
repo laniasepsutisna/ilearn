@@ -29,7 +29,8 @@ iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terd
 ![ilearn-ss-teacher-dashboard](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-2.png)
 ![ilearn-ss-classroom](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-3.png)
 ![ilearn-ss-share-course](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-4.png)
-![ilearn-ss-mobile](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-5.png)
+![ilearn-ss-mobile-user](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-5.png)
+![ilearn-ss-mobile-admin](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-6.png)
 
 ## Credential
 Admin:
