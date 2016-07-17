@@ -56,5 +56,5 @@ Silakan buat [issue](https://github.com/alfredcrosby/ilearn/issues) baru.
 
 ## License
 
-iLearn berlisensi [GPL-3](https://github.com/alfredcrosby/ilearn/blob/master/LICENSE).
+iLearn berlisensi [WTFPL](http://www.wtfpl.net/).
 
