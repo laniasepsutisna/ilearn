@@ -1,7 +1,7 @@
 ![ilearn-logo](https://github.com/alfredcrosby/ilearn/blob/master/logo.png?raw=true)
 # iLearn
 
-**CATATAN :** Aplikasi ini belum siap untuk *production* mohon dipertimbangkan jika akan digunakan.
+**CATATAN :** Aplikasi ini belum pernah diuji, mohon dipertimbangkan jika akan digunakan di *production*.
 
 iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terdapat di software ini antara lain:
 
@@ -25,15 +25,10 @@ iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terd
 7. Selesai
 
 ## Screenshot
-1. Halaman admin.
 ![ilearn-ss-admin](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-1.png)
-2. Halaman guru.
 ![ilearn-ss-teacher-dashboard](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-2.png)
-3. Halaman kelas.
 ![ilearn-ss-classroom](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-3.png)
-4. Halaman share materi.
 ![ilearn-ss-share-course](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-4.png)
-5. Halaman home mobile.
 ![ilearn-ss-mobile](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-5.png)
 
 ## Credential
