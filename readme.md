@@ -12,6 +12,30 @@ iLearn merupakan sistem pembelajaran online menggunakan Laravel. Fitur yang terd
 - Membuat, membagikan dan menjawab quiz pilihan ganda.
 - Diskusi di tiap kelas.
 
+## Instalation
+1. Clone repository ini dengan menjalankan perintah pada terminal 
+```git clone https://github.com/alfrcr/ilearn.git```
+2. Masuk ke folder ilearn dengan perintah `cd ilearn`
+3. Jalankan composer
+```composer install``
+4. Copy dan paste file `.env.example` lalu ubah menjadi `.env`
+5. Atur sesuaikan konfigurasi database anda.
+6. Jalankan migrasi untuk membuat table
+```php artisan migrate --seed```
+7. Selesai
+
+## Screenshot
+1. Halaman admin.
+![ilearn-ss-admin](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-1.png)
+2. Halaman guru.
+![ilearn-ss-teacher-dashboard](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-2.png)
+3. Halaman kelas.
+![ilearn-ss-classroom](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-3.png)
+4. Halaman share materi.
+![ilearn-ss-share-course](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-4.png)
+5. Halaman home mobile.
+![ilearn-ss-mobile](https://raw.githubusercontent.com/alfrcr/ilearn/master/ss-5.png)
+
 ## Credential
 Admin:
 ```html
